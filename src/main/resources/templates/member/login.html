@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bxslider@4.2.17/dist/jquery.bxslider.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Kiwi+Maru&family=Pacifico&family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+    rel="stylesheet">
+  <script src="js/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bxslider@4.2.17/dist/jquery.bxslider.min.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/main.js"></script>
+  <title>町内会システム | SIGN IN</title>
+</head>
+
+<body>
+  <!-- エラーメッセージ用画像 -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol id="check-circle-fill" viewBox="0 0 16 16">
+      <path
+        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+    </symbol>
+    <symbol id="info-fill" viewBox="0 0 16 16">
+      <path
+        d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+    </symbol>
+    <symbol id="exclamation-triangle-fill" viewBox="0 0 16 16">
+      <path
+        d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+    </symbol>
+  </svg>
+
+  <!-- ヘッダー -->
+  <header id="login_header">
+    <div class="container-fluid">
+      <h1 class="my-auto"><a href="home.html"><img src="images/townSystem-logo.png" alt="町内会システム"></a></h1>
+    </div>
+    <a href="admin/adminLogin.html">
+      <button id="admin_login_btn" class="btn btn-secondary px-2 py-2">管理者ログイン</button>
+    </a>
+  </header>
+
+  <!-- メイン画面 -->
+  <main>
+    <div class="login-main">
+      <div class="container" id="signin-con">
+        <div class="row">
+          <div class="col-lg signin-view">
+            <h1 class="text-center">SIGN IN</h1>
+            <form action="" method="post">
+              <!-- エラーがある場合、以下のメッセージを表示 -->
+              <div class="row">
+                <div class="alert alert-danger col-9 offset-1 d-flex align-items-center mb-0 error" role="alert">
+                  <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:">
+                    <use xlink:href="#exclamation-triangle-fill" />
+                  </svg>
+                  <div>
+                    エラーメッセージを表示
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <!-- 大画面フォーム -->
+                <div class="d-none d-lg-flex">
+                  <div class="col-lg-2 offset-1 mt-5">
+                    <label for="email" class="col-form-label">Email</label>
+                  </div>
+                  <div class="col-lg-7 mt-5">
+                    <input type="email" id="email" name="email" class="form-control">
+                  </div>
+                </div>
+                <!-- タブレット・スマホフォーム -->
+                <div class="d-lg-none">
+                  <div class="col-8 offset-2 mt-5">
+                    <input type="email" id="email" name="email" class="form-control" placeholder="Email">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <!-- 大画面フォーム -->
+                <div class="d-none d-lg-flex">
+                  <div class="col-lg-2 offset-1 mt-5">
+                    <label for="password" class="col-form-label">Password</label>
+                  </div>
+                  <div class="col-lg-7 mt-5">
+                    <input type="password" id="password" name="password" class="form-control">
+                  </div>
+                </div>
+                <!-- タブレット・スマホフォーム -->
+                <div class="d-lg-none">
+                  <div class="col-8 offset-2 mt-5">
+                    <input type="password" id="password" name="password" class="form-control" placeholder="Password">
+                  </div>
+                </div>
+              </div>
+              <div class="signin-btn mt-5">
+                <input type="submit" value="SIGN IN" class="btn btn-secondary px-5 py-2">
+              </div>
+            </form>
+          </div>
+
+          <div class="col-lg signup-view">
+            <h1 class="text-center">WELCOME!</h1>
+            <div class="signin-btn mt-4">
+              <p class="text-center">新規登録はこちら</p>
+              <button id="changeSignUp" class="btn btn-light px-5 py-2">SIGN UP</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </main>
+  <!-- フッター -->
+  <footer>
+    <div class="container-fluid">
+      <p>&copy; Town Circle 2024</p>
+    </div>
+  </footer>
+</body>
+
+</html>

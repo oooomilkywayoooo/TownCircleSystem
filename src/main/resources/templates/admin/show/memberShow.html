@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+  <link rel="stylesheet" href="../../css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bxslider@4.2.17/dist/jquery.bxslider.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Kiwi+Maru&family=Pacifico&family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+    rel="stylesheet">
+  <script src="../../js/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bxslider@4.2.17/dist/jquery.bxslider.min.js"></script>
+  <script src="../../js/bootstrap.bundle.min.js"></script>
+  <script src="../../js/main.js"></script>
+  <title>町内会システム | 会員詳細</title>
+</head>
+
+<body>
+
+  <!-- ヘッダー -->
+  <header id="login_header">
+    <div class="container-fluid">
+      <h1 class="my-auto"><a href="../adminHome.html">町内会管理画面</a></h1>
+    </div>
+    <!-- ログイン画面に戻り、ログアウトしましたのメッセージを表示 -->
+    <a href="../adminLogout.html">
+      <button id="admin_login_btn" class="btn btn-secondary px-2 py-2">ログアウト</button>
+    </a>
+  </header>
+
+  <!-- メイン -->
+  <main>
+    <div class="container">
+      <h1 class="my-3">会員詳細</h1>
+      <table class="table">
+        <tbody>
+          <tr>
+            <th class="align-middle" scope="row" rowspan="2" width="20%">会員名</th>
+            <td><small>サンプルタロウ</small></td>
+            
+          </tr>
+          <tr><td>サンプル太郎</td></tr>
+          <tr>
+            <th scope="row">グループ名</th>
+            <td>1班</td>
+          </tr>
+          <tr>
+            <th scope="row">住所</th>
+            <td>岡山県岡山市・・・・</td>
+          </tr>
+          <tr>
+            <th scope="row">電話番号</th>
+            <td>09012345678</td>
+          </tr>
+          <tr>
+            <th scope="row">Email</th>
+            <td>taro@sample.com</td>
+          </tr>
+          <tr>
+            <th scope="row">家族人数</th>
+            <td>4人</td>
+          </tr>
+        </tbody>
+      </table>
+      <a href="../memberGroupEdit.html" class="btn btn-primary px-2 py-2 mb-2">グループ変更</a>
+      <a href="/delete" class="btn btn-danger px-2 py-2 mb-2">削除</a>
+      <button type="button" onclick="history.back()" class="btn btn-secondary px-2 py-2 mb-2">戻る</button>
+    </div>
+  </main>
+
+  <!-- フッター -->
+  <footer>
+    <div class="container-fluid">
+      <p>&copy; Town Circle 2024</p>
+    </div>
+  </footer>
+</body>
+</body>
+
+</html>

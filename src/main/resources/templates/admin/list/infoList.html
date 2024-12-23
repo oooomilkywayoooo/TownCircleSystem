@@ -1,0 +1,59 @@
+<div class="row">
+  <div class="col-3">
+    <h2 class="mb-3">お知らせ一覧</h2>
+  </div>
+  <div class="col">
+    <a href="infoAdd.html" class="btn btn-success">新規追加</a>
+  </div>
+</div>
+<table class="table table-light table-striped">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">お知らせ内容</th>
+      <th scope="col">登録日</th>
+      <th scope="col" colspan="2"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>イベントのお知らせ</td>
+      <td>2024/10/10</td>
+      <td class="t-btn"><a href="infoEdit.html" class="btn btn-outline-warning">編集</a></td>
+      <td class="t-btn"><button type="button" class="btn btn-outline-secondary">削除</button></td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>XXを変更</td>
+      <td>2024/11/01</td>
+      <td class="t-btn"><a href="infoEdit.html" class="btn btn-outline-warning">編集</a></td>
+      <td class="t-btn"><button type="button" class="btn btn-outline-secondary">削除</button></td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>蓮くんを追加</td>
+      <td>2024/11/01</td>
+      <td class="t-btn"><a href="infoEdit.html" class="btn btn-outline-warning">編集</a></td>
+      <td class="t-btn"><button type="button" class="btn btn-outline-secondary">削除</button></td>
+    </tr>
+  </tbody>
+</table>
+<!-- ページネーション -->
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>

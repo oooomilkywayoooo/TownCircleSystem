@@ -1,0 +1,626 @@
+@charset "UFT-8";
+
+* {
+  box-sizing: border-box;
+  /*余白や線を幅や高さに含める*/
+}
+
+html {
+  height: 100%;
+  
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Kiwi Maru", serif;
+  font-weight: 400;
+  font-style: normal;
+  min-height: 100vh;
+  position: relative;
+  margin-bottom: 20px;
+  background-color: #dddfd3;
+}
+
+header {
+  width: 100%;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  background-color: #F9F6EA;
+}
+
+header .container-fluid {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header ul {
+  display: flex;
+}
+
+header a,
+li {
+  color: #98C2B1;
+}
+
+header li {
+  margin-left: 40px;
+}
+
+#user-btn {
+  background-color: #F9F6EA;
+  color: #98C2B1;
+}
+
+main {
+  height: 100%;
+  padding-bottom: 30px;
+}
+
+main .container-fluid {
+  width: 100%;
+  height: 100%;
+
+}
+
+.sidebar {
+  height: 590px;
+  margin: 30px 0 30px 20px;
+  border-radius: 20px;
+  background-color: #90C6B1;
+}
+
+.main-view {
+  margin: 30px 0 30px 20px;
+  width: 70%;
+  min-height: 500px;
+  border-radius: 20px;
+  background-color: #fff;
+}
+
+.icon {
+  width: 25px;
+  height: 20px;
+  padding-right: 10px;
+}
+
+.bordicon {
+  width: 45px;
+  height: 30px;
+  padding-right: 10px;
+}
+
+.sidebar button {
+  width: 70%;
+  height: 40px;
+  display: block;
+  margin: 30px auto;
+
+}
+
+.sidebar a {
+  color: #76B2CD;
+}
+
+.sidebar .current {
+  background-color: #76B1D0;
+}
+
+.sidebar .current a {
+  color: #fff;
+}
+
+.main-view h2 {
+  margin: 20px;
+  padding-top: 30px;
+}
+
+.home-main {
+  margin: 0 auto;
+}
+
+.main-view h3 {
+  margin-left: 20px;
+}
+
+.bord-main {
+  margin: 0 auto;
+}
+
+.bord {
+  width: 32%;
+  border: 1px solid #000;
+  border-radius: 10px;
+  margin: 2px 2px;
+}
+
+.bord .already {
+  color: red;
+}
+
+.bordimg {
+  margin-top: 20px;
+  width: 100%;
+  height: 250px;
+}
+
+#prevbord {
+  width: 200px;
+  height: 50px;
+  margin-top: 30px;
+  padding: 10px;
+  color: #76B2CD;
+}
+
+.scroll {
+  height: 400px;
+  overflow: auto;
+}
+
+#chat-textarea {
+  width: 70%;
+  position: fixed;
+  bottom: 70px;
+}
+
+.form-control::placeholder {
+  color: #cccccc;
+}
+
+.file-view>ul>li {
+  list-style: square;
+  color: #000;
+}
+
+#file-icon {
+  width: 25px;
+  height: 25px;
+
+}
+
+.question-view>ul>li {
+  list-style-type: circle;
+  color: #000;
+}
+
+#new_question {
+  list-style-type: none;
+  background: url(../images/newIcon.png) no-repeat left center;
+  background-size: 25px;
+  padding-left: 35px;
+}
+
+.contact-btn {
+  width: 200px;
+}
+
+.pass-head {
+  margin-top: 70px;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 25px;
+  display: flex;
+
+  text-align: center;
+  background-color: #F9F6EA;
+}
+
+footer .container-fluid {
+  align-items: center;
+}
+
+footer p {
+  color: #98C2B1;
+}
+
+/* スライダーの設定 */
+.bx-wrapper {
+  max-width: 100%;
+  margin: 50px auto;
+}
+
+/* スライダーの設定 ここまで */
+
+/* サインイン・サインアップ画面 */
+.signin-view {
+  width: 100%;
+  height: 500px;
+  margin-top: 30px;
+  background-color: #76B1D0;
+  border-top-left-radius: 20px;
+  border-end-start-radius: 20px;
+}
+
+.sign_in {
+  width: 100%;
+  height: auto;
+  margin-top: 30px;
+  background-color: #98C2B1;
+  border-top-left-radius: 20px;
+  border-end-start-radius: 20px;
+}
+
+.signup-view {
+  width: 100%;
+  height: 500px;
+  margin-top: 30px;
+  background-color: #98C2B1;
+  border-top-right-radius: 20px;
+  border-end-end-radius: 20px;
+}
+
+.sign_up {
+  width: 100%;
+  height: auto;
+  margin-top: 30px;
+  background-color: #76B1D0;
+  border-top-right-radius: 20px;
+  border-end-end-radius: 20px;
+}
+
+form {
+  height: auto;
+}
+
+/* スライドアニメーション */
+/* サインイン画面 → サインアップ画面 */
+
+.signup-view.slide-out {
+  animation: rightSlideOut 1s forwards;
+  /* 1秒でスライドアウト */
+}
+
+.signup-view.slide-out {
+  animation: rightSlideOut 1s forwards;
+  /* 1秒でスライドアウト */
+}
+
+.signin-view.slide-out {
+  animation: leftSlideOut 1s forwards;
+  /* 1秒でスライドアウト */
+}
+
+.sign_in.slide-in {
+  animation: leftSlideIn 1s forwards;
+  /* 1秒でスライドイン */
+}
+
+.sign_up.slide-in {
+  animation: rightSlideIn 1s forwards;
+  /* 1秒でスライドイン */
+}
+
+/* サインアップ画面 → サインイン画面 */
+.sign_in.slide-out {
+  animation: leftSlideOut 1s forwards;
+  /* 1秒でスライドイン */
+}
+
+.sign_up.slide-out {
+  animation: rightSlideOut 1s forwards;
+  /* 1秒でスライドイン */
+}
+
+.signup-view.slide-in {
+  animation: rightSlideIn 1s forwards;
+  /* 1秒でスライドアウト */
+}
+
+.signin-view.slide-in {
+  animation: leftSlideIn 1s forwards;
+  /* 1秒でスライドアウト */
+}
+
+/* アニメーション定義 */
+@keyframes rightSlideOut {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes leftSlideOut {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes leftSlideIn {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes rightSlideIn {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.bye {
+  height: 500px;
+  margin-top: 30px;
+  background-image: url("../images/logoutBg.jpg");
+  background-size: cover;
+  background-position: bottom;
+  border-top-left-radius: 20px;
+  border-end-start-radius: 20px;
+}
+
+.bye>h1 {
+  margin-top: 150px;
+}
+
+.bye>h1,
+.bye>p {
+  color: #F9F6EA;
+}
+
+.come {
+  height: 500px;
+  margin-top: 30px;
+  background-color: #F9F6EA;
+  border-top-right-radius: 20px;
+  border-end-end-radius: 20px;
+}
+
+.come>h1 {
+  color: dimgray;
+  margin-top: 150px;
+}
+
+.signin-view>h1 {
+  margin-top: 70px;
+}
+
+.sign_in>h1 {
+  margin-top: 200px;
+}
+
+.sign_up>h1 {
+  margin-top: 30px;
+}
+
+.signup-view>h1 {
+  margin-top: 150px;
+}
+
+@media screen and (max-width: 992px) {
+
+  .signin-view,
+  .sign_in,
+  .bye {
+    border-top-right-radius: 20px;
+    border-end-end-radius: 20px;
+  }
+
+  .signup-view,
+  .sign_up,
+  .come {
+    border-top-left-radius: 20px;
+    border-end-start-radius: 20px;
+  }
+
+  .sign_in > h1 {
+    margin-top: 50px;
+  }
+
+  #sidemenu {
+    display: block;
+  }
+
+  .main-view {
+    margin: 0 auto;
+    width: 90%;
+  }
+
+  #prevbord {
+    margin-bottom: 30px;
+  }
+
+  #chat-textarea {
+    width: 90%;
+  }
+
+  .pass-head {
+    margin-top: 50px;
+  }
+
+}
+
+.signin-btn,
+.signup-btn {
+  text-align: center;
+}
+
+.two-char {
+  font-size: 14px;
+}
+
+.error {
+  padding: 8px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.error > svg {
+  width: 15px;
+  height: 15px;
+}
+
+#admin_login_btn {
+  width: 150px;
+  margin-right: 10px;
+}
+/* サインイン・サインアップ画面 ここまで*/
+
+/* ハンバーガーメニュー */
+.nav_toggle {
+  display: block;
+  position: relative;
+  width: 1.75rem;
+  height: 1.5rem;
+}
+
+.nav_toggle:hover {
+  cursor: pointer;
+}
+.nav_toggle i {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: #333;
+  position: absolute;
+  transition: transform .5s, opacity .5s;
+}
+.nav_toggle i:nth-child(1) {
+  top: 0;
+}
+.nav_toggle i:nth-child(2) {
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+.nav_toggle i:nth-child(3) {
+  bottom: 0;
+}
+.nav_toggle.show i:nth-child(1) {
+  transform: translateY(10px) rotate(-45deg);
+}
+.nav_toggle.show i:nth-child(2) {
+  opacity: 0;
+}
+.nav_toggle.show i:nth-child(3) {
+  transform: translateY(-12px) rotate(45deg);
+}
+.nav.show {
+  background-color: rgba(54, 52, 52,0.5);
+}
+
+.nav {
+  position: fixed;
+  top: 80px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 1rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .5s, visibility .5s;
+  z-index: 1;
+}
+.nav.show {
+  opacity: 1;
+  visibility: visible;
+}
+.nav_menu_li > a {
+  color: #F9F6EA;
+}
+
+/* 管理者ページデザイン */
+#admin_login_main {
+  display: flex;                 /* Flexboxを使用 */
+  flex-direction: column;        /* 垂直方向に要素を並べる */
+  justify-content: center;       /* 垂直方向に中央揃え */
+  align-items: center;           /* 水平方向に中央揃え */
+  min-height: 100vh;             /* 画面全体の高さを確保 */
+}
+
+.admin{
+  width: 70%;
+}
+.admin_login_view{
+  width: 100%;
+  background-color: #F9F6EA;
+}
+
+.t-btn {
+  width: 100px;
+  text-align: center;
+}
+
+/* 管理者ホームのタブ切り替えデザイン */
+/* タブ全体を囲むコンテナの設定 */
+.tab-switch {
+  display: flex; /* タブを横並びに */
+  flex-wrap: wrap; /* 幅に応じて折り返し */
+  max-width: 100%; /* コンテナの最大幅を指定 */
+  margin: auto;/* コンテナの中央寄せ */
+  justify-content: center;/* タブの中央寄せ */
+  gap: 0 5px;/* タブ間の余白 */
+}
+
+/* 各タブボタンの設定 */
+.tab-switch > label {
+  flex: 1 1 auto; /* タブが均等に幅をとるが、幅を超えると折り返す */
+  min-width: 70px; /* 各タブの最小幅を指定 */
+  order: -1; /* 上部に表示する */
+  position: relative; /* 絶対位置指定用の基準 */
+  padding: .7em 1em; /* 上下左右の内側余白 */
+  background-color: #f2f3f4; /* 背景色 */
+  color: #999; /* 文字色 */
+  text-align: center; /* 文字を中央揃え */
+  cursor: pointer; /* ポインターを指アイコンに変更 */
+}
+
+/* タブボタンのホバーおよび選択状態のスタイル */
+.tab-switch > label:hover,
+.tab-switch label:has(:checked) {
+  background-color: #757F96; /* ホバー/選択時の背景色 */
+  color: #fff; /* ホバー/選択時の文字色 */
+}
+
+/* ラジオボタン自体は非表示 */
+.tab-switch input {
+  display: none; /* 見た目に表示されないようにする */
+}
+
+/* タブコンテンツのスタイル */
+.tab-switch > div {
+  display: none; /* 初期状態では非表示 */
+  width: 100%; /* コンテンツ幅を全体に */
+  padding: 1.5em 1em; /* 内側余白 */
+}
+
+/* 選択されたタブのコンテンツを表示 */
+.tab-switch label:has(:checked) + div {
+  display: block; /* 選択されたタブに対応するコンテンツを表示 */
+}
