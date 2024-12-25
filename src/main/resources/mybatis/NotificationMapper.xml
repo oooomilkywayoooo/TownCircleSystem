@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.app.dao.AdminDao">
-	
+<mapper namespace="com.example.app.dao.NotificationDao">
+	<select id="selectAll" resultType="com.example.app.domain.Notification">
+		SELECT * FROM notifications WHERE delete_flg = 0
+	</select>
+	<select id="selectById" parameterType="int" resultType="com.example.app.domain.Notification">
+		SELECT * FROM notifications WHERE delete_flg = 0 AND id = #{id}
+	</select>
+	<insert id="insert"
+		parameterType="com.example.app.domain.Notification">
+		INSERT INTO notifications (content, delete_flg, created, updated)
+		VALUES (#{content}, #{deleteFlg}, NOW(), NOW())
+	</insert>
+	<update id="update"
+		parameterType="com.example.app.domain.Notification">
+		UPDATE notifications
+		SET content = #{content}, delete_flg = #{deleteFlg},
+		updated = NOW()
+		WHERE id = #{id}
+	</update>
+	<update id="delete" parameterType="com.example.app.domain.Notification">
+		UPDATE materials
+		SET delete_flg = #{deleteFlg}, updated = NOW()
+		WHERE id = #{id}
+	</update>
 </mapper>

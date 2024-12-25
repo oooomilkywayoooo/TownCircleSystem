@@ -40,8 +40,6 @@ public class LoginController {
 		// パスワードが正しくない
 		if (!adminService.isCorrectIdAndPassword(admin.getLoginId(), admin.getLoginPass())) {
 			errors.rejectValue("loginId", ADMIN_LOGIN_ERROR);
-			// デバッグ
-			System.out.println("入力ID:" + admin.getLoginId() + " 入力パスワード:" + admin.getLoginPass());
 			return "admin/adminLogin";
 		}
 

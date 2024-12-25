@@ -33,11 +33,6 @@ $(document).ready(function() {
 	});
 
 	// 管理画面ホームのインクルード
-	// お知らせ一覧インクルード
-	$.get('/admin/list/infoList.html', function(info) {
-		$('#infoList').append(info);
-	});
-
 	// 回覧板一覧インクルード
 	$.get('/admin/list/boardList.html', function(board) {
 		$('#boardList').append(board);

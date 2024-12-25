@@ -1,9 +1,12 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="html_info">
 <div class="row">
   <div class="col-3">
     <h2 class="mb-3">お知らせ一覧</h2>
   </div>
   <div class="col">
-    <a href="infoAdd.html" class="btn btn-success">新規追加</a>
+    <a th:href="@{/admin/infoRegister}" class="btn btn-success">新規追加</a>
   </div>
 </div>
 <table class="table table-light table-striped">
@@ -16,26 +19,12 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>イベントのお知らせ</td>
-      <td>2024/10/10</td>
-      <td class="t-btn"><a href="infoEdit.html" class="btn btn-outline-warning">編集</a></td>
-      <td class="t-btn"><button type="button" class="btn btn-outline-secondary">削除</button></td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>XXを変更</td>
-      <td>2024/11/01</td>
-      <td class="t-btn"><a href="infoEdit.html" class="btn btn-outline-warning">編集</a></td>
-      <td class="t-btn"><button type="button" class="btn btn-outline-secondary">削除</button></td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>蓮くんを追加</td>
-      <td>2024/11/01</td>
-      <td class="t-btn"><a href="infoEdit.html" class="btn btn-outline-warning">編集</a></td>
-      <td class="t-btn"><button type="button" class="btn btn-outline-secondary">削除</button></td>
+    <tr th:each="info : ${infoList}">
+      <th scope="row">[[${info.id}]]</th>
+      <td>[[${info.content}]]</td>
+      <td>[[${#dates.format(info.created, 'yyyy/MM/dd')}]]</td>
+      <td class="t-btn"><a th:href="@{/admin/infoEdit/{id}(id=${info.id})}" class="btn btn-outline-warning">編集</a></td>
+      <td class="t-btn"><a th:href="@{/admin/infoDelete/{id}(id=${info.id})}" class="btn btn-outline-secondary">削除</a></td>
     </tr>
   </tbody>
 </table>
@@ -57,3 +46,4 @@
     </li>
   </ul>
 </nav>
+</th:block>
