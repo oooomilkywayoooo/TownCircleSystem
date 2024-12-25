@@ -1,106 +1,133 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
-<head>
-  <th:block th:replace="~{metaCommon :: metaCommon}"></th:block>
-  <title>町内会システム | 管理者SIGN IN</title>
+<head th:insert="~{/common/metaCommon :: common_head}">
+<title>町内会システム | 管理者SIGN IN</title>
 </head>
 
 <body>
-  <!-- エラーメッセージ用画像 -->
-  <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+	<!-- エラーメッセージ用画像 -->
+	<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
     <symbol id="check-circle-fill" viewBox="0 0 16 16">
       <path
-        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+			d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
     </symbol>
     <symbol id="info-fill" viewBox="0 0 16 16">
       <path
-        d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+			d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
     </symbol>
     <symbol id="exclamation-triangle-fill" viewBox="0 0 16 16">
       <path
-        d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+			d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
     </symbol>
   </svg>
 
-  <!-- ヘッダー -->
-  <header id="login_header">
-    <div class="container-fluid">
-      <h1 class="my-auto"><a href="adminHome.html">町内会管理画面</a></h1>
-    </div>
-    <a href="../login.html">
-      <button id="admin_login_btn" class="btn btn-success px-2 py-2">会員ログイン</button>
-    </a>
-  </header>
+	<!-- ヘッダー -->
+	<header id="login_header">
+		<div class="container-fluid">
+			<h1 class="my-auto">
+				<a th:href="@{/admin/home}">町内会管理画面</a>
+			</h1>
+		</div>
+		<a th:href="@{/login}">
+			<button id="admin_login_btn" class="btn btn-success px-2 py-2">会員ログイン</button>
+		</a>
+	</header>
 
-  <!-- メイン -->
-  <main id="admin_login_main">
-    <div class="container admin">
-      <div class="row">
-        <div class="col admin_login_view">
-          <h2 class="text-center mt-3">管理者ログイン</h2>
-          <form action="" method="post">
-            <!-- エラーがある場合、以下のメッセージを表示 -->
-            <div class="row">
-              <div class="alert alert-danger col-9 offset-1 d-flex align-items-center mb-0 error" role="alert">
-                <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:">
-                  <use xlink:href="#exclamation-triangle-fill" />
-                </svg>
-                <div>
-                  エラーメッセージを表示
-                </div>
-              </div>
-            </div>
+	<!-- メイン -->
+	<main id="admin_login_main">
+		<div class="container admin">
+			<div class="row">
+				<div class="col admin_login_view">
+					<h2 class="text-center mt-3">管理者ログイン</h2>
+					<!-- ログアウト時のメッセージを表示 -->
+					<div th:if="${statusMessage}" class="alert alert-success"
+						role="alert">[[${statusMessage}]]</div>
+					<form action="" method="post" th:object="${admin}">
+						<!-- エラーがある場合、以下のメッセージを表示 -->
+						<div th:if="${#fields.hasAnyErrors()}" class="row">
+							<div th:each="error : ${#fields.allErrors()}"
+								class="alert alert-danger col-9 offset-1 d-flex align-items-center mb-0 error"
+								role="alert">
+								<svg class="bi flex-shrink-0 me-2" role="img"
+									aria-label="Danger:">
+    								<use xlink:href="#exclamation-triangle-fill" />
+ 								</svg>
+								<div>
+									<th:block th:text="${error}"></th:block>
+								</div>
+							</div>
+						</div>
 
-            <div class="row">
-              <!-- 大画面フォーム -->
-              <div class="d-none d-lg-flex">
-                <div class="col-lg-2 offset-1 mt-5">
-                  <label for="adminLoginId" class="col-form-label">管理者ログインID</label>
-                </div>
-                <div class="col-lg-7 mt-5">
-                  <input type="adminLoginId" id="adminLoginId" name="adminLoginId" class="form-control">
-                </div>
-              </div>
-              <!-- タブレット・スマホフォーム -->
-              <div class="d-lg-none">
-                <div class="col-8 offset-2 mt-5">
-                  <input type="adminLoginId" id="adminLoginId" name="adminLoginId" class="form-control"
-                    placeholder="管理者ログインID">
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <!-- 大画面フォーム -->
-              <div class="d-none d-lg-flex">
-                <div class="col-lg-2 offset-1 mt-5">
-                  <label for="adminPass" class="col-form-label">パスワード</label>
-                </div>
-                <div class="col-lg-7 mt-5">
-                  <input type="adminPass" id="adminPass" name="adminPass" class="form-control">
-                </div>
-              </div>
-              <!-- タブレット・スマホフォーム -->
-              <div class="d-lg-none">
-                <div class="col-8 offset-2 mt-5">
-                  <input type="adminPass" id="adminPass" name="adminPass" class="form-control" placeholder="パスワード">
-                </div>
-              </div>
-            </div>
-            <div class="signin-btn mt-5 mb-3">
-              <input type="submit" value="ログイン" class="btn btn-secondary px-5 py-2">
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </main>
+						<div class="row">
+							<!-- 大画面フォーム -->
+							<div class="d-none d-lg-flex">
+								<div class="col-lg-2 offset-1 mt-5">
+									<label for="loginId" class="col-form-label">管理者ログインID</label>
+								</div>
+								<div class="col-lg-7 mt-5">
+									<input type="text" th:field="*{loginId}" class="form-control large-screen">
+								</div>
+							</div>
+							<!-- タブレット・スマホフォーム -->
+							<div class="d-lg-none">
+								<div class="col-8 offset-2 mt-5">
+									<input type="text" th:field="*{loginId}"
+										class="form-control tablet" placeholder="管理者ログインID">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<!-- 大画面フォーム -->
+							<div class="d-none d-lg-flex">
+								<div class="col-lg-2 offset-1 mt-5">
+									<label for="loginPass" class="col-form-label">パスワード</label>
+								</div>
+								<div class="col-lg-7 mt-5">
+									<input type="password" th:field="*{loginPass}"
+										class="form-control large-screen">
+								</div>
+							</div>
+							<!-- タブレット・スマホフォーム -->
+							<div class="d-lg-none">
+								<div class="col-8 offset-2 mt-5">
+									<input type="password" th:field="*{loginPass}"
+										class="form-control tablet" placeholder="パスワード">
+								</div>
+							</div>
+						</div>
+						<div class="signin-btn mt-5 mb-3">
+							<input type="submit" value="ログイン"
+								class="btn btn-secondary px-5 py-2">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</main>
 
-  <!-- フッター -->
-  <footer>
-    <div class="container-fluid">
-      <p>&copy; Town Circle 2024</p>
-    </div>
-  </footer>
+	<!-- フッター -->
+	<footer>
+		<div class="container-fluid">
+			<p>&copy; Town Circle 2024</p>
+		</div>
+	</footer>
 </body>
-
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    // .tabletクラスを持つすべての要素を取得
+    const mobileInputs = document.querySelectorAll('.tablet');
+ 	// .large-screenクラスを持つすべての要素を取得
+    const largeInputs = document.querySelectorAll('.large-screen');
+    // 大画面の場合、各要素を無効化
+    if (window.innerWidth >= 992) {
+        mobileInputs.forEach(input => {
+            input.disabled = true; // 無効化
+        });
+    }else {
+    	largeInputs.forEach(input => {
+            input.disabled = true; // 無効化
+        });
+    }
+});
+</script>
 </html>

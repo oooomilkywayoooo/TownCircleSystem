@@ -40,6 +40,8 @@ public class LoginController {
 		// パスワードが正しくない
 		if (!adminService.isCorrectIdAndPassword(admin.getLoginId(), admin.getLoginPass())) {
 			errors.rejectValue("loginId", ADMIN_LOGIN_ERROR);
+			// デバッグ
+			System.out.println("入力ID:" + admin.getLoginId() + " 入力パスワード:" + admin.getLoginPass());
 			return "admin/adminLogin";
 		}
 
@@ -50,7 +52,7 @@ public class LoginController {
 		return "redirect:/admin/home";
 	}
 	
-	@GetMapping("admin/logout")
+	@GetMapping("/admin/logout")
 	public String adminLogout(HttpSession session) {
 		// セッションを破棄し、ログインページへ遷移
 		session.invalidate();
