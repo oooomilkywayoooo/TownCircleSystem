@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.example.app.domain.CircularBoard;
 import com.example.app.domain.Notification;
 import com.example.app.service.CircularBoardService;
 import com.example.app.service.NotificationService;
@@ -23,15 +25,13 @@ public class AdminController {
 	private static final int NUM_PER_PAGE = 5;
 	// 削除フラグ
 	private static final int DELETE_FLG = 1;
-	
+    
 	@Autowired
 	NotificationService notificationService;
 	@Autowired
 	CircularBoardService circularBoardService;
 	
-	///////////////
-	///お知らせ機能//
-	///////////////
+	
 	/**
 	 * 　ホーム画面/一覧機能
 	 * @param page		一覧の表示ページ
@@ -52,7 +52,9 @@ public class AdminController {
 		model.addAttribute("statusMessage", getStatusMessage(status));
 		return "admin/adminHome";
 	}
-	
+	///////////////
+	///お知らせ機能//
+	///////////////
 	@GetMapping("/infoRegister")
 	public String notificationAddGet(Model model) {
 		model.addAttribute("notification", new Notification());
@@ -65,6 +67,7 @@ public class AdminController {
 		if(errors.hasErrors()) {
 			return "admin/infoAdd";
 		}
+		
 		notificationService.addNotification(notification);
 		return "redirect:/admin/home?status=add";
 	}
@@ -95,7 +98,36 @@ public class AdminController {
 		notificationService.deleteNotification(notification);
 		return "redirect:/admin/home?status=delete";
 	}
-
+	
+	///////////////
+	///回覧板機能////
+	///////////////
+	@GetMapping("/boardRegister")
+	public String boardAddGet(Model model) {
+		model.addAttribute("circularBoard", new CircularBoard());
+		return "admin/boardAdd";
+	}
+	
+	@PostMapping("/boardRegister")
+	public String boardAddPost(@Valid CircularBoard circularBoard, 
+			Errors errors, Model model) throws Exception {
+		if(errors.hasErrors()) {
+			return "admin/boardAdd";
+		}
+		// バリデーション
+		MultipartFile upfile = circularBoard.getUpfile();
+		if (!upfile.isEmpty()) {
+		// 画像か否か判定する
+		String type = upfile.getContentType();
+		if (!type.startsWith("image/")) {
+		// 画像ではない場合、エラーメッセージを表示
+		errors.rejectValue("upfile", "error.not_image_file");
+		}
+		}
+		circularBoardService.addCircularBoard(circularBoard);
+		return "redirect:/admin/home?status=add";
+	}
+	
 	/**
 	 * ステータスメッセージ生成メソッド
 	 * @param status　登録・追加・削除ステータス

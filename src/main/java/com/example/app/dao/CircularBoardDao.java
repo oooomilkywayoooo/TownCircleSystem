@@ -10,6 +10,7 @@ import com.example.app.domain.CircularBoard;
 public interface CircularBoardDao extends GenericDao<CircularBoard> {
 	public List<CircularBoard> selectAll() throws Exception;
 	public CircularBoard selectById(Integer id) throws Exception;
+	public CircularBoard selectByLatestData() throws Exception;
 	public void insert(CircularBoard circularBoard) throws Exception;
 	public void delete(CircularBoard circularBoard) throws Exception;
 }
