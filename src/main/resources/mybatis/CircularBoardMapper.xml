@@ -10,8 +10,8 @@
 	</select>
 	<insert id="insert"
 		parameterType="com.example.app.domain.CircularBoard">
-		INSERT INTO circular_boards (name, file_path, delete_flg, created)
-		VALUES (#{name}, #{filePath}, #{deleteFlg}, NOW()
+		INSERT INTO circular_boards (name, file_path, created)
+		VALUES (#{name}, #{filePath}, NOW()
 	</insert>
 	<update id="delete"
 		parameterType="com.example.app.domain.CircularBoard">

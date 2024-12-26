@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.app.domain.Notification;
+import com.example.app.service.CircularBoardService;
 import com.example.app.service.NotificationService;
 
 import jakarta.validation.Valid;
@@ -25,6 +26,8 @@ public class AdminController {
 	
 	@Autowired
 	NotificationService notificationService;
+	@Autowired
+	CircularBoardService circularBoardService;
 	
 	///////////////
 	///お知らせ機能//
@@ -42,8 +45,10 @@ public class AdminController {
 			@RequestParam(name="status", required=false) String status, 
 			Model model) throws Exception{
 		model.addAttribute("infoList", notificationService.getListByPage(page, NUM_PER_PAGE));
+		model.addAttribute("boardList", circularBoardService.getListByPage(page, NUM_PER_PAGE));
 		model.addAttribute("page", page);
 		model.addAttribute("totalPages", notificationService.getTotalPages(NUM_PER_PAGE));
+		model.addAttribute("totalPages", circularBoardService.getTotalPages(NUM_PER_PAGE));
 		model.addAttribute("statusMessage", getStatusMessage(status));
 		return "admin/adminHome";
 	}
