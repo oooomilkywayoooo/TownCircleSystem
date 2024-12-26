@@ -1,5 +1,7 @@
 package com.example.app.dao;
 
-public interface ConnectionFileDao {
+import com.example.app.domain.ConnectionFile;
+
+public interface ConnectionFileDao extends GenericDao<ConnectionFile> {
 
 }

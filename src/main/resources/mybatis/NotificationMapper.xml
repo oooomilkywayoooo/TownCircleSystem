@@ -10,19 +10,28 @@
 	</select>
 	<insert id="insert"
 		parameterType="com.example.app.domain.Notification">
-		INSERT INTO notifications (content, delete_flg, created, updated)
-		VALUES (#{content}, #{deleteFlg}, NOW(), NOW())
+		INSERT INTO notifications (content, created, updated)
+		VALUES (#{content}, NOW(), NOW())
 	</insert>
 	<update id="update"
 		parameterType="com.example.app.domain.Notification">
 		UPDATE notifications
-		SET content = #{content}, delete_flg = #{deleteFlg},
-		updated = NOW()
+		SET content = #{content}, updated = NOW()
 		WHERE id = #{id}
 	</update>
 	<update id="delete" parameterType="com.example.app.domain.Notification">
-		UPDATE materials
+		UPDATE notifications
 		SET delete_flg = #{deleteFlg}, updated = NOW()
 		WHERE id = #{id}
 	</update>
+	<!-- ページ分割機能用 -->
+	<select id="count" resultType="long">
+		SELECT COUNT(*) FROM notifications WHERE delete_flg = 0
+	</select>
+	<select id="selectLimited" resultType="com.example.app.domain.Notification">
+		SELECT * FROM notifications 
+		WHERE delete_flg = 0
+		ORDER BY created DESC
+		LIMIT #{offset}, #{num}
+	</select>
 </mapper>

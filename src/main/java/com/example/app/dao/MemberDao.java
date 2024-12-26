@@ -1,5 +1,7 @@
 package com.example.app.dao;
 
-public interface MemberDao {
+import com.example.app.domain.Member;
+
+public interface MemberDao extends GenericDao<Member> {
 
 }

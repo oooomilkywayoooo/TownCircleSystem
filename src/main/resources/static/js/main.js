@@ -1,5 +1,9 @@
 // jQuery
 $(document).ready(function() {
+	// 削除ボタンが押された時にアラート出現
+	$('.delete').click(function(){
+		confirm('削除してよろしいですか？');
+	});
 	// ヘッダーインクルード
 	$.get('/common/afterLoginHeader.html', function(header) {
 		$('#header').prepend(header);

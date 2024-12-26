@@ -1,5 +1,7 @@
 package com.example.app.dao;
 
-public interface ChatMessageDao {
+import com.example.app.domain.ChatMessage;
+
+public interface ChatMessageDao extends GenericDao<ChatMessage> {
 
 }

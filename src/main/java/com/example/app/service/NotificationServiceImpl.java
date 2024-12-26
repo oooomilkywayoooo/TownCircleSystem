@@ -5,15 +5,24 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.app.dao.GenericDao;
 import com.example.app.dao.NotificationDao;
 import com.example.app.domain.Notification;
 
 @Service
-public class FunctionServiceImpl implements FunctionService {
-	
-	// お知らせ情報の操作
+public class NotificationServiceImpl extends GenericService<Notification> implements NotificationService {
 	@Autowired
 	NotificationDao notificationDao;
+	
+	public NotificationServiceImpl(NotificationDao notificationDao) {
+		this.notificationDao = notificationDao;
+	}
+	
+	@Override
+	protected GenericDao<Notification> getDao() {
+		return notificationDao;
+	}
+
 	@Override
 	public List<Notification> getNotificationList() throws Exception {
 		return notificationDao.selectAll();
@@ -41,5 +50,4 @@ public class FunctionServiceImpl implements FunctionService {
 		notificationDao.delete(notification);
 		
 	}
-
 }

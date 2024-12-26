@@ -7,15 +7,7 @@
 
 <body>
   <!-- ヘッダー -->
-  <header id="login_header">
-    <div class="container-fluid">
-      <h1 class="my-auto"><a th:href="@{/admin/home}">町内会管理画面</a></h1>
-    </div>
-    <!-- ログイン画面に戻り、ログアウトしましたのメッセージを表示 -->
-    <a th:href="@{/admin/logout}">
-      <button id="admin_login_btn" class="btn btn-secondary px-2 py-2">ログアウト</button>
-    </a>
-  </header>
+  <header th:insert="~{/common/adminCommon :: common_header}"></header>
 
   <!-- メイン -->
   <main>
@@ -98,11 +90,7 @@
   </main>
 
   <!-- フッター -->
-  <footer>
-    <div class="container-fluid">
-      <p>&copy; Town Circle 2024</p>
-    </div>
-  </footer>
+  <footer th:insert="~{/common/adminCommon :: common_footer}"></footer>
 </body>
 
 </html>
