@@ -1,96 +1,104 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head th:insert="~{/common/metaCommon :: common_head}">
-  <title>町内会システム | 管理者ホーム</title>
+<title>町内会システム | 管理者ホーム</title>
 </head>
-  
+
 
 <body>
-  <!-- ヘッダー -->
-  <header th:insert="~{/common/adminCommon :: common_header}"></header>
+	<!-- ヘッダー -->
+	<header th:insert="~{/common/adminCommon :: common_header}"></header>
 
-  <!-- メイン -->
-  <main>
-    <div class="container">
-      <div class="tab-switch my-3">
-        <label>
-          <input type="radio" name="TAB" checked>
-          お知らせ一覧
-        </label>
-        <div id="infoList" class="tab-content">
-          <th:block th:insert="~{/admin/list/infoList :: html_info}"></th:block>
-        </div>
+	<!-- メイン -->
+	<main>
+		<div class="container">
+			<div class="tab-switch my-3">
+				<label> <input type="radio" name="TAB" id="home" 
+				th:checked="${tab == null || tab.equals('infoList')}" 
+				onchange="window.location.href='/admin/home?tab=infoList'"> 
+				お知らせ一覧
+				</label>
+				<div id="infoList" class="tab-content">
+					<th:block th:insert="~{/admin/list/infoList :: html_info}"></th:block>
+				</div>
 
+				<label> <input type="radio" name="TAB" 
+				th:checked="${!(tab == null) && tab.equals('boardList')}" 
+				onchange="window.location.href='/admin/home?tab=boardList'"> 
+				回覧板一覧
+				</label>
+				<div id="boardList" class="tab-content">
+					<th:block th:insert="~{/admin/list/boardList :: html_board}"></th:block>
+				</div>
 
-        <label>
-          <input type="radio" name="TAB">
-          回覧板一覧
-        </label>
-        <div id="boardList" class="tab-content">
-          <th:block th:insert="~{/admin/list/boardList :: html_board}"></th:block>
-        </div>
+				<label> <input type="radio" name="TAB" 
+				th:checked="${!(tab == null) && tab.equals('groupList')}" 
+				onchange="window.location.href='/admin/home?tab=groupList'"> 
+				グループ一覧
+				</label>
+				<div id="groupList" class="tab-content">
+					<th:block th:insert="~{/admin/list/groupList :: html_group}"></th:block>
+				</div>
 
-        <label>
-          <input type="radio" name="TAB">
-          グループ一覧
-        </label>
-        <div id="groupList" class="tab-content">
-          <!-- グループ一覧をインクルード -->
-        </div>
+				<label> <input type="radio" name="TAB" 
+				th:checked="${!(tab == null) && tab.equals('memberList')}" 
+				onchange="window.location.href='/admin/home?tab=memberList'"> 
+				会員一覧
+				</label>
+				<div id="memberList" class="tab-content">
+					<th:block th:insert="~{/admin/list/memberList :: html_member}"></th:block>
+				</div>
 
-        <label>
-          <input type="radio" name="TAB">
-          会員一覧
-        </label>
-        <div id="memberList" class="tab-content">
-          <!-- 会員一覧をインクルード -->
-        </div>
+				<label> <input type="radio" name="TAB" 
+				th:checked="${!(tab == null) && tab.equals('scheduleList')}" 
+				onchange="window.location.href='/admin/home?tab=scheduleList'">
+				スケジュール一覧
+				</label>
+				<div id="scheduleList" class="tab-content">
+					<th:block th:insert="~{/admin/list/scheduleList :: html_schedule}"></th:block>
+				</div>
 
-        <label>
-          <input type="radio" name="TAB">
-          スケジュール一覧
-        </label>
-        <div id="scheduleList" class="tab-content">
-          <!-- スケジュール一覧をインクルード -->
-        </div>
+				<label> <input type="radio" name="TAB" 
+				th:checked="${!(tab == null) && tab.equals('chatList')}" 
+				onchange="window.location.href='/admin/home?tab=chatList'">
+				チャット一覧
+				</label>
+				<div id="chatList" class="tab-content">
+					<th:block th:insert="~{/admin/list/chatList :: html_chat}"></th:block>
+				</div>
 
-        <label>
-          <input type="radio" name="TAB">
-          チャット一覧
-        </label>
-        <div id="chatList" class="tab-content">
-          <!-- チャット一覧をインクルード -->
-        </div>
+				<label> <input type="radio" name="TAB" 
+				th:checked="${!(tab == null) && tab.equals('questionList')}" 
+				onchange="window.location.href='/admin/home?tab=questionList'">
+				アンケート一覧
+				</label>
+				<div id="questionList" class="tab-content">
+					<th:block th:insert="~{/admin/list/questionList :: html_question}"></th:block>
+				</div>
 
-        <label>
-          <input type="radio" name="TAB">
-          アンケート一覧
-        </label>
-        <div id="questionList" class="tab-content">
-          <!-- アンケート一覧をインクルード -->
-        </div>
+				<label> <input type="radio" name="TAB" 
+				th:checked="${!(tab == null) && tab.equals('fileList')}" 
+				onchange="window.location.href='/admin/home?tab=fileList'">
+				資料一覧
+				</label>
+				<div id="fileList" class="tab-content">
+					<th:block th:insert="~{/admin/list/fileList :: html_file}"></th:block>
+				</div>
 
-        <label>
-          <input type="radio" name="TAB">
-          資料一覧
-        </label>
-        <div id="fileList" class="tab-content">
-        <!-- 資料一覧をインクルード -->
-        </div>
+				<label> <input type="radio" name="TAB" 
+				th:checked="${!(tab == null) && tab.equals('opinionList')}" 
+				onchange="window.location.href='/admin/home?tab=opinionList'">
+				ご意見一覧
+				</label>
+				<div id="opinionList" class="tab-content">
+					<th:block th:insert="~{/admin/list/opinionList :: html_opinion}"></th:block>
+				</div>
+			</div>
+		</div>
+	</main>
 
-        <label>
-          <input type="radio" name="TAB">
-          ご意見一覧
-        </label>
-        <div id="opinionList" class="tab-content">
-          <!-- ご意見一覧をインクルード -->
-        </div>
-      </div>
-    </div>
-  </main>
-
-  <!-- フッター -->
-  <footer th:insert="~{/common/adminCommon :: common_footer}"></footer>
+	<!-- フッター -->
+	<footer th:insert="~{/common/adminCommon :: common_footer}"></footer>
 </body>
 
 </html>

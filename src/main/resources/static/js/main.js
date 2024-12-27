@@ -1,7 +1,9 @@
+
 // jQuery
 $(document).ready(function() {
+
 	// 削除ボタンが押された時にアラート出現
-	$('.delete').click(function(){
+	$('.delete').click(function() {
 		confirm('削除してよろしいですか？');
 	});
 	// ヘッダーインクルード
@@ -34,47 +36,6 @@ $(document).ready(function() {
 		if (prevbord === location.href) {
 			$('.sidebar > a > button').eq(1).addClass('current');
 		}
-	});
-
-	// 管理画面ホームのインクルード
-	// 回覧板一覧インクルード
-	$.get('/admin/list/boardList.html', function(board) {
-		$('#boardList').append(board);
-	});
-
-	// グループ一覧インクルード
-	$.get('/admin/list/groupList.html', function(group) {
-		$('#groupList').append(group);
-	});
-
-	// 会員一覧インクルード
-	$.get('/admin/list/memberList.html', function(member) {
-		$('#memberList').append(member);
-	});
-
-	// スケジュール一覧インクルード
-	$.get('/admin/list/scheduleList.html', function(schedule) {
-		$('#scheduleList').append(schedule);
-	});
-
-	// チャット一覧インクルード
-	$.get('/admin/list/chatList.html', function(chat) {
-		$('#chatList').append(chat);
-	});
-
-	// アンケート一覧インクルード
-	$.get('/admin/list/questionList.html', function(question) {
-		$('#questionList').append(question);
-	});
-
-	// 資料一覧インクルード
-	$.get('/admin/list/fileList.html', function(file) {
-		$('#fileList').append(file);
-	});
-
-	// ご意見一覧インクルード
-	$.get('/admin/list/opinionList.html', function(opinion) {
-		$('#opinionList').append(opinion);
 	});
 
 	// ハンバーガーメニュー

@@ -1,77 +1,42 @@
 <!DOCTYPE html>
-<html lang="ja">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
-  <link rel="stylesheet" href="../../css/bootstrap.min.css">
-  <link rel="stylesheet" href="../../css/style.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bxslider@4.2.17/dist/jquery.bxslider.min.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Kiwi+Maru&family=Pacifico&family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
-    rel="stylesheet">
-  <script src="../../js/jquery-3.7.1.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bxslider@4.2.17/dist/jquery.bxslider.min.js"></script>
-  <script src="../../js/bootstrap.bundle.min.js"></script>
-  <script src="../../js/main.js"></script>
-  <title>町内会システム | グループ詳細</title>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{/common/metaCommon :: common_head}">
+<title>町内会システム | グループ詳細</title>
 </head>
 
 <body>
+	<!-- ヘッダー -->
+	<header th:insert="~{/common/adminCommon :: common_header}"></header>
 
-  <!-- ヘッダー -->
-  <header id="login_header">
-    <div class="container-fluid">
-      <h1 class="my-auto"><a href="../adminHome.html">町内会管理画面</a></h1>
-    </div>
-    <!-- ログイン画面に戻り、ログアウトしましたのメッセージを表示 -->
-    <a href="../adminLogout.html">
-      <button id="admin_login_btn" class="btn btn-secondary px-2 py-2">ログアウト</button>
-    </a>
-  </header>
+	<!-- メイン -->
+	<main>
+		<div class="container">
+			<h1 class="my-3">グループ詳細</h1>
+			<h2>[[${group.name}]]</h2>
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">会員名</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="member : ${memberBygroupList}">
+						<th scope="row">[[${member.id}]]</th>
+						<td>[[${member.name}]]</td>
+					</tr>
+				</tbody>
+			</table>
+			<!-- ボタンプッシュでグループの削除フラグが切り替わる -->
+			<a th:if="${#lists.isEmpty(memberBygroupList)}" 
+			th:href="@{/admin/groupFlgEdit/{id}(id=${group.id})}" class="btn btn-primary px-2 py-2 mb-2">フラグ変更</a>
+			<button type="button" onclick="history.back()"
+				class="btn btn-secondary px-2 py-2 mb-2">戻る</button>
+		</div>
+	</main>
 
-  <!-- メイン -->
-  <main>
-    <div class="container">
-      <h1 class="my-3">グループ詳細</h1>
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">会員名</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>サンプル一郎</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>サンプル太郎</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>山田サン太</td>
-          </tr>
-        </tbody>
-      </table>
-      <!-- ボタンプッシュでグループの削除フラグが切り替わる -->
-      <a href="GroupFlgEdit" class="btn btn-primary px-2 py-2 mb-2">フラグ変更</a>
-      <button type="button" onclick="history.back()" class="btn btn-secondary px-2 py-2 mb-2">戻る</button>
-    </div>
-  </main>
-
-  <!-- フッター -->
-  <footer>
-    <div class="container-fluid">
-      <p>&copy; Town Circle 2024</p>
-    </div>
-  </footer>
-</body>
+	<!-- フッター -->
+	<footer th:insert="~{/common/adminCommon :: common_footer}"></footer>
 </body>
 
 </html>

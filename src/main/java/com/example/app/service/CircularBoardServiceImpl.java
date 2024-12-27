@@ -57,7 +57,7 @@ public class CircularBoardServiceImpl extends GenericService<CircularBoard> impl
 		CircularBoard latestBoard = getLatestData();
 		if (!(latestBoard == null)) {
 			String latestDate = df.format(latestBoard.getCreated());
-			String latestCountStr = latestBoard.getName().substring(latestBoard.getName().length() - 2);
+			String latestCountStr = latestBoard.getName().substring(10,12);
 			// 最新のアップロード回数を取得
 			if (latestCountStr.startsWith("0")) {
 				count = Integer.parseInt(latestCountStr.substring(latestCountStr.length() - 1));
@@ -76,7 +76,7 @@ public class CircularBoardServiceImpl extends GenericService<CircularBoard> impl
 		}else {
 			countStr = Integer.toString(count);
 		}
-		String imgName = commonImgName + countStr;
+		String imgName = commonImgName + countStr + ".jpg";
 		System.out.println(imgName); // デバッグ
 		// 画像名とパスをセット
 		circularBoard.setName(imgName);

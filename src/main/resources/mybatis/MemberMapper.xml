@@ -1,6 +1,96 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.app.dao.AdminDao">
-	
+<mapper namespace="com.example.app.dao.MemberDao">
+	<resultMap id="joinedResult" type="com.example.app.domain.Member">
+		<id property="id" column="id" />
+		<result property="name" column="name"/>
+		<result property="nameKana" column="name_kana"/>
+		<result property="address" column="address"/>
+		<result property="tel" column="tel"/>
+		<result property="email" column="email"/>
+		<result property="familyNumber" column="family_number"/>
+		<result property="password" column="password"/>
+		<result property="deleteFlg" column="delete_flg"/>
+		<result property="created" column="created"/>
+		<result property="updated" column="updated"/>
+		<association property="group" javaType="com.example.app.domain.Group">
+			<id property="id" column="group_id" />
+			<result property="name" column="groupName"/>
+		</association>
+	</resultMap>
+	<select id="selectAll"
+		resultMap="joinedResult">
+		SELECT
+		members.id, members.name, members.name_kana, members.address,
+		members.tel, members.email, members.family_number, members.password,
+		members.delete_flg, members.created, members.updated,
+		`groups`.name AS groupName
+		FROM members
+		JOIN `groups`
+		ON members.group_id = `groups`.id
+		WHERE members.delete_flg = 0
+	</select>
+	<select id="selectById" parameterType="int"
+		resultMap="joinedResult">
+		SELECT
+		members.id, members.name, members.name_kana, members.address,
+		members.tel, members.email, members.group_id, members.family_number, members.password,
+		members.delete_flg, members.created, members.updated,
+		`groups`.name AS groupName
+		FROM members
+		JOIN `groups`
+		ON members.group_id = `groups`.id
+		WHERE members.id = #{id}
+	</select>
+	<select id="selectByGroupId" parameterType="int"
+		resultMap="joinedResult">
+		SELECT
+		members.id, members.name, members.name_kana, members.address,
+		members.tel, members.email, members.family_number, members.password,
+		members.delete_flg, members.created, members.updated,
+		`groups`.name AS groupName
+		FROM members
+		JOIN `groups`
+		ON members.group_id = `groups`.id
+		WHERE members.group_id = #{id} AND members.delete_flg = 0
+	</select>
+	<insert id="insert"
+		parameterType="com.example.app.domain.Member">
+		INSERT INTO members (name, name_kana, address, tel, email, group_id, 
+												family_number, password, created, updated)
+		VALUES (#{name}, #{nameKana}, #{address}, #{tel}, #{email}, #{group.id}, 
+						#{familyNumber}, #{password}, NOW(), NOW())
+	</insert>
+	<update id="update"
+		parameterType="com.example.app.domain.Member">
+		UPDATE members 
+		SET name = #{name}, name_kana = #{nameKana}, address = #{address},
+			tel = #{tel}, group_id = #{group.id}, family_number = #{familyNumber},
+			password = #{password}, updated = NOW()
+		WHERE id = #{id}
+	</update>
+	<update id="delete"
+		parameterType="com.example.app.domain.Member">
+		UPDATE members 
+		SET delete_flg = #{deleteFlg}
+		WHERE id = #{id}
+	</update>
+	<!-- ページ分割機能用 -->
+	<select id="count" resultType="long">
+		SELECT COUNT(*) FROM members WHERE delete_flg = 0
+	</select>
+	<select id="selectLimited" resultMap="joinedResult">
+		SELECT
+		members.id, members.name, members.name_kana, members.address,
+		members.tel, members.email, members.family_number, members.password,
+		members.delete_flg, members.created, members.updated,
+		`groups`.name AS groupName
+		FROM members
+		JOIN `groups`
+		ON members.group_id = `groups`.id
+		WHERE members.delete_flg = 0
+		ORDER BY groupName ASC, members.id ASC
+		LIMIT #{offset}, #{num}
+	</select>
 </mapper>

@@ -51,6 +51,6 @@ public class ApplicationConfig implements WebMvcConfigurer {
 	// uploadsフォルダをリソースとして利用可能にする
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/uploads/**").addResourceLocations("file:/usr/local/uploads/");
+		registry.addResourceHandler("/uploads/boards/**").addResourceLocations("file:/Users/user/Desktop/workspace/TownCircleSystem/uploads/boards/");
 	}
 }
