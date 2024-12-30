@@ -11,11 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.app.domain.ChatMessage;
 import com.example.app.domain.CircularBoard;
 import com.example.app.domain.Group;
 import com.example.app.domain.Member;
 import com.example.app.domain.Notification;
 import com.example.app.domain.Schedule;
+import com.example.app.service.ChatMessageService;
 import com.example.app.service.CircularBoardService;
 import com.example.app.service.GroupService;
 import com.example.app.service.MemberService;
@@ -42,6 +44,8 @@ public class AdminController {
 	MemberService memberService;
 	@Autowired
 	ScheduleService scheduleService;
+	@Autowired
+	ChatMessageService chatMessageService; 
 
 	/**
 	 * 　ホーム画面/一覧機能
@@ -61,6 +65,7 @@ public class AdminController {
 		model.addAttribute("groupList", groupService.getListByPage(page, NUM_PER_PAGE));
 		model.addAttribute("memberList", memberService.getListByPage(page, NUM_PER_PAGE));
 		model.addAttribute("scheduleList", scheduleService.getListByPage(page, NUM_PER_PAGE));
+		model.addAttribute("chatList", chatMessageService.getListByPage(page, NUM_PER_PAGE));
 		model.addAttribute("page", page);
 		// ページネーションの分岐
 		if (tab == null || tab.equals("infoList")) {
@@ -73,6 +78,8 @@ public class AdminController {
 			model.addAttribute("totalPages", memberService.getTotalPages(NUM_PER_PAGE));
 		} else if (tab.equals("scheduleList")) {
 			model.addAttribute("totalPages", scheduleService.getTotalPages(NUM_PER_PAGE));
+		} else if (tab.equals("chatList")) {
+			model.addAttribute("totalPages", chatMessageService.getTotalPages(NUM_PER_PAGE));
 		}
 
 		model.addAttribute("statusMessage", getStatusMessage(status));
@@ -293,6 +300,17 @@ public class AdminController {
 		schedule.setDeleteFlg(DELETE_FLG);
 		scheduleService.deleteSchedule(schedule);
 		return "redirect:/admin/home?tab=scheduleList&status=delete";
+	}
+	
+	///////////////
+	///チャット機能//
+	///////////////
+	@GetMapping("/chatDelete/{id}")
+	public String chatDelete(@PathVariable Integer id, Model model) throws Exception {
+		ChatMessage chat = chatMessageService.getChatMessageById(id);
+		chat.setDeleteFlg(DELETE_FLG);
+		chatMessageService.deleteChatMessage(chat);
+		return "redirect:/admin/home?tab=chatList&status=delete";
 	}
 	
 	/**

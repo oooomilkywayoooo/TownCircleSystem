@@ -19,29 +19,13 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<th scope="row">1</th>
-				<td>XX日のイベントは参加でお願いします。</td>
-				<td>サンプル一郎</td>
-				<td>2024/10/10 09時20分10秒</td>
-				<td class="t-btn"><button type="button"
-						class="btn btn-outline-secondary">削除</button></td>
-			</tr>
-			<tr>
-				<th scope="row">2</th>
-				<td>了解しました。</td>
-				<td>サンプル次郎</td>
-				<td>2024/10/11 09時30分10秒</td>
-				<td class="t-btn"><button type="button"
-						class="btn btn-outline-secondary">削除</button></td>
-			</tr>
-			<tr>
-				<th scope="row">3</th>
-				<td>よろしくお願いします。</td>
-				<td>サンプル一郎</td>
-				<td>2024/11/01 12時31分10秒</td>
-				<td class="t-btn"><button type="button"
-						class="btn btn-outline-secondary">削除</button></td>
+			<tr th:each="chat : ${chatList}">
+				<th scope="row">[[${chat.id}]]</th>
+				<td>[[${chat.message}]]</td>
+				<td>[[${chat.member.name}]]</td>
+				<td>[[${#dates.format(chat.created, 'yyyy/MM/dd HH時mm分ss秒')}]]</td>
+				<td class="t-btn"><a th:href="@{/admin/chatDelete/{id}(id=${chat.id})}" type="button"
+						class="btn btn-outline-secondary delete">削除</a></td>
 			</tr>
 		</tbody>
 	</table>

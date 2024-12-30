@@ -1,6 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.app.dao.AdminDao">
-	
+<mapper namespace="com.example.app.dao.ChatMessageDao">
+	<resultMap id="joinedResult" type="com.example.app.domain.ChatMessage">
+		<id property="id" column="id" />
+		<result property="message" column="message"/>
+		<result property="deleteFlg" column="delete_flg"/>
+		<result property="created" column="created"/>
+		<association property="member" javaType="com.example.app.domain.Member">
+			<id property="id" column="member_id" />
+			<result property="name" column="memberName"/>
+		</association>
+	</resultMap>
+	<select id="selectAll"
+		resultMap="joinedResult">
+		SELECT
+		chat_messages.id, chat_messages.message, chat_messages.created,
+		members.name AS memberName
+		FROM chat_Messages
+		JOIN members
+		ON chat_messages.member_id = members.id
+		WHERE chat_messages.delete_flg = 0
+	</select>
+	<select id="selectById" parameterType="int"
+		resultMap="joinedResult">
+		SELECT
+		chat_messages.id, chat_messages.message, chat_messages.created,
+		members.name AS memberName
+		FROM chat_Messages
+		JOIN members
+		ON chat_messages.member_id = members.id
+		WHERE chat_messages.id = #{id}
+	</select>
+	<insert id="insert"
+		parameterType="com.example.app.domain.ChatMessage">
+		INSERT INTO members (message, member_id, created)
+		VALUES (#{message}, #{member.id}, NOW())
+	</insert>
+	<update id="delete"
+		parameterType="com.example.app.domain.ChatMessage">
+		UPDATE chat_messages 
+		SET delete_flg = #{deleteFlg}
+		WHERE id = #{id}
+	</update>
+	<!-- ページ分割機能用 -->
+	<select id="count" resultType="long">
+		SELECT COUNT(*) FROM chat_messages WHERE delete_flg = 0
+	</select>
+	<select id="selectLimited" resultMap="joinedResult">
+		SELECT
+		chat_messages.id, chat_messages.message, chat_messages.created,
+		members.name AS memberName
+		FROM chat_Messages
+		JOIN members
+		ON chat_messages.member_id = members.id
+		WHERE chat_messages.delete_flg = 0
+		ORDER BY created DESC
+		LIMIT #{offset}, #{num}
+	</select>
 </mapper>
