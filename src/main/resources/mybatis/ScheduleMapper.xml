@@ -1,6 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.app.dao.AdminDao">
-	
+<mapper namespace="com.example.app.dao.ScheduleDao">
+	<select id="selectAll" resultType="com.example.app.domain.Schedule">
+		SELECT * FROM schedules WHERE delete_flg = 0
+	</select>
+	<select id="selectById" parameterType="int" resultType="com.example.app.domain.Schedule">
+		SELECT * FROM schedules WHERE delete_flg = 0 AND id = #{id}
+	</select>
+	<insert id="insert"
+		parameterType="com.example.app.domain.Schedule">
+		INSERT INTO schedules (content, event_at, created, updated)
+		VALUES (#{content}, #{eventAt}, NOW(), NOW())
+	</insert>
+	<update id="update"
+		parameterType="com.example.app.domain.Schedule">
+		UPDATE schedules
+		SET content = #{content}, event_at = #{eventAt}, updated = NOW()
+		WHERE id = #{id}
+	</update>
+	<update id="delete" parameterType="com.example.app.domain.Schedule">
+		UPDATE schedules
+		SET delete_flg = #{deleteFlg}, updated = NOW()
+		WHERE id = #{id}
+	</update>
+	<!-- ページ分割機能用 -->
+	<select id="count" resultType="long">
+		SELECT COUNT(*) FROM schedules WHERE delete_flg = 0
+	</select>
+	<select id="selectLimited" resultType="com.example.app.domain.Schedule">
+		SELECT * FROM schedules 
+		WHERE delete_flg = 0
+		ORDER BY event_at ASC
+		LIMIT #{offset}, #{num}
+	</select>
 </mapper>

@@ -270,29 +270,29 @@ public class AdminController {
 
 	@GetMapping("/scheduleEdit/{id}")
 	public String scheduleEditGet(@PathVariable Integer id, Model model) throws Exception {
-		Notification notification = notificationService.getNotificationById(id);
-		model.addAttribute("notification", notification);
-		return "admin/infoEdit";
+		Schedule schedule = scheduleService.getScheduleById(id);
+		model.addAttribute("schedule", schedule);
+		return "admin/scheduleEdit";
 	}
 
 	@PostMapping("/scheduleEdit/{id}")
 	public String scheduleEditPost(@PathVariable Integer id,
-			@Valid Notification notification,
+			@Valid Schedule schedule,
 			Errors errors, Model model) throws Exception {
 		if (errors.hasErrors()) {
-			return "admin/infoEdit";
+			return "admin/scheduleEdit";
 		}
-		notification.setId(id);
-		notificationService.editNotification(notification);
-		return "redirect:/admin/home?status=edit";
+		schedule.setId(id);
+		scheduleService.editSchedule(schedule);
+		return "redirect:/admin/home?tab=scheduleList&status=edit";
 	}
 
 	@GetMapping("/scheduleDelete/{id}")
 	public String scheduleDelete(@PathVariable Integer id, Model model) throws Exception {
-		Notification notification = notificationService.getNotificationById(id);
-		notification.setDeleteFlg(DELETE_FLG);
-		notificationService.deleteNotification(notification);
-		return "redirect:/admin/home?status=delete";
+		Schedule schedule = scheduleService.getScheduleById(id);
+		schedule.setDeleteFlg(DELETE_FLG);
+		scheduleService.deleteSchedule(schedule);
+		return "redirect:/admin/home?tab=scheduleList&status=delete";
 	}
 	
 	/**

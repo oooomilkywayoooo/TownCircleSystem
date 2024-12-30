@@ -1,61 +1,51 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <th:block th:fragment="html_chat">
-<div class="row">
-  <div class="col-3">
-    <h2 class="mb-3">チャット一覧</h2>
-  </div>
-</div>
-<table class="table table-light table-striped">
-  <thead>
-    <tr>
-      <th scope="col">ID</th>
-      <th scope="col">メッセージ内容</th>
-      <th scope="col">投稿者</th>
-      <th scope="col">投稿日</th>
-      <th scope="col"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>XX日のイベントは参加でお願いします。</td>
-      <td>サンプル一郎</td>
-      <td>2024/10/10 09時20分10秒</td>
-      <td class="t-btn"><button type="button" class="btn btn-outline-secondary">削除</button></td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>了解しました。</td>
-      <td>サンプル次郎</td>
-      <td>2024/10/11 09時30分10秒</td>
-      <td class="t-btn"><button type="button" class="btn btn-outline-secondary">削除</button></td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>よろしくお願いします。</td>
-      <td>サンプル一郎</td>
-      <td>2024/11/01 12時31分10秒</td>
-      <td class="t-btn"><button type="button" class="btn btn-outline-secondary">削除</button></td>
-    </tr>
-  </tbody>
-</table>
-<!-- ページネーション -->
-<nav aria-label="Page navigation example">
-  <ul class="pagination">
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
-  </ul>
-</nav>
+	<div class="row">
+		<div class="col-3">
+			<h2 class="mb-3">チャット一覧</h2>
+		</div>
+	</div>
+	<!-- メッセージを表示 -->
+	<div th:if="${statusMessage}" class="alert alert-success" role="alert">[[${statusMessage}]]</div>
+	<table class="table table-light table-striped">
+		<thead>
+			<tr>
+				<th scope="col">ID</th>
+				<th scope="col">メッセージ内容</th>
+				<th scope="col">投稿者</th>
+				<th scope="col">投稿日</th>
+				<th scope="col"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<th scope="row">1</th>
+				<td>XX日のイベントは参加でお願いします。</td>
+				<td>サンプル一郎</td>
+				<td>2024/10/10 09時20分10秒</td>
+				<td class="t-btn"><button type="button"
+						class="btn btn-outline-secondary">削除</button></td>
+			</tr>
+			<tr>
+				<th scope="row">2</th>
+				<td>了解しました。</td>
+				<td>サンプル次郎</td>
+				<td>2024/10/11 09時30分10秒</td>
+				<td class="t-btn"><button type="button"
+						class="btn btn-outline-secondary">削除</button></td>
+			</tr>
+			<tr>
+				<th scope="row">3</th>
+				<td>よろしくお願いします。</td>
+				<td>サンプル一郎</td>
+				<td>2024/11/01 12時31分10秒</td>
+				<td class="t-btn"><button type="button"
+						class="btn btn-outline-secondary">削除</button></td>
+			</tr>
+		</tbody>
+	</table>
+	<!-- ページネーション -->
+	<nav th:insert="~{/common/adminCommon :: common_pagenation}"
+		aria-label="Page navigation example"></nav>
 </th:block>

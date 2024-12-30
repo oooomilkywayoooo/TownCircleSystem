@@ -1,68 +1,58 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <th:block th:fragment="html_question">
-<div class="row">
-  <div class="col-3">
-    <h2 class="mb-3">アンケート一覧</h2>
-  </div>
-  <div class="col">
-    <a href="questionAdd.html" class="btn btn-success">新規追加</a>
-  </div>
-</div>
-<table class="table table-light table-striped">
-  <thead>
-    <tr>
-      <th scope="col">ID</th>
-      <th scope="col">アンケート名</th>
-      <th scope="col">アンケートURL</th>
-      <th scope="col">回答期限</th>
-      <th scope="col">登録日</th>
-      <th scope="col"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>XXに関するアンケート</td>
-      <td>https://........</td>
-      <td>2024/11/10</td>
-      <td>2024/10/10</td>
-      <td class="t-btn"><button type="button" class="btn btn-outline-secondary">削除</button></td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>OOに関するアンケート</td>
-      <td>https://........</td>
-      <td>2024/12/24</td>
-      <td>2024/11/10</td>
-      <td class="t-btn"><button type="button" class="btn btn-outline-secondary">削除</button></td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>イベントに関するアンケート</td>
-      <td>https://........</td>
-      <td>2024/11/10</td>
-      <td>2024/10/10</td>
-      <td class="t-btn"><button type="button" class="btn btn-outline-secondary">削除</button></td>
-    </tr>
-  </tbody>
-</table>
-<!-- ページネーション -->
-<nav aria-label="Page navigation example">
-  <ul class="pagination">
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
-  </ul>
-</nav>
+	<div class="row">
+		<div class="col-3">
+			<h2 class="mb-3">アンケート一覧</h2>
+		</div>
+		<div class="col">
+			<a href="questionAdd.html" class="btn btn-success">新規追加</a>
+		</div>
+	</div>
+	<!-- メッセージを表示 -->
+	<div th:if="${statusMessage}" class="alert alert-success" role="alert">[[${statusMessage}]]</div>
+	<table class="table table-light table-striped">
+		<thead>
+			<tr>
+				<th scope="col">ID</th>
+				<th scope="col">アンケート名</th>
+				<th scope="col">アンケートURL</th>
+				<th scope="col">回答期限</th>
+				<th scope="col">登録日</th>
+				<th scope="col"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<th scope="row">1</th>
+				<td>XXに関するアンケート</td>
+				<td>https://........</td>
+				<td>2024/11/10</td>
+				<td>2024/10/10</td>
+				<td class="t-btn"><button type="button"
+						class="btn btn-outline-secondary">削除</button></td>
+			</tr>
+			<tr>
+				<th scope="row">2</th>
+				<td>OOに関するアンケート</td>
+				<td>https://........</td>
+				<td>2024/12/24</td>
+				<td>2024/11/10</td>
+				<td class="t-btn"><button type="button"
+						class="btn btn-outline-secondary">削除</button></td>
+			</tr>
+			<tr>
+				<th scope="row">3</th>
+				<td>イベントに関するアンケート</td>
+				<td>https://........</td>
+				<td>2024/11/10</td>
+				<td>2024/10/10</td>
+				<td class="t-btn"><button type="button"
+						class="btn btn-outline-secondary">削除</button></td>
+			</tr>
+		</tbody>
+	</table>
+	<!-- ページネーション -->
+	<nav th:insert="~{/common/adminCommon :: common_pagenation}"
+		aria-label="Page navigation example"></nav>
 </th:block>
