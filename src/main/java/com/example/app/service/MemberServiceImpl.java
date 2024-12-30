@@ -43,7 +43,7 @@ public class MemberServiceImpl extends GenericService<Member> implements MemberS
 	}
 
 	@Override
-	public void updateMember(Member member) throws Exception {
+	public void editMember(Member member) throws Exception {
 		memberDao.update(member);
 	}
 

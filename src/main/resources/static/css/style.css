@@ -1,4 +1,4 @@
-@charset "UFT-8";
+@charset "utf-8";
 
 * {
   box-sizing: border-box;
@@ -464,6 +464,27 @@ form {
     margin-top: 50px;
   }
 
+}
+
+/* 電話とメールの切り替え */
+/* タブレットサイズ以上の場合 */
+@media (min-width: 768px) {
+	.bigScreen {
+		display: block;
+	}
+	.mobile {
+		display: none;
+	}
+}
+
+/* スマホサイズの場合 */
+@media (max-width: 767px) {
+	.bigScreen {
+		display: none;
+	}
+	.mobile {
+		display: block;
+	}
 }
 
 .signin-btn,

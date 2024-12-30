@@ -73,7 +73,7 @@
 	<update id="delete"
 		parameterType="com.example.app.domain.Member">
 		UPDATE members 
-		SET delete_flg = #{deleteFlg}
+		SET delete_flg = #{deleteFlg}, updated = NOW()
 		WHERE id = #{id}
 	</update>
 	<!-- ページ分割機能用 -->

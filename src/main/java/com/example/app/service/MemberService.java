@@ -9,7 +9,7 @@ public interface MemberService {
 	public Member getMemberById(Integer id) throws Exception;
 	public List<Member> getMemberByGroupId(Integer id) throws Exception;
 	public void addMember(Member member) throws Exception;
-	public void updateMember(Member member) throws Exception;
+	public void editMember(Member member) throws Exception;
 	public void deleteMember(Member member) throws Exception;
 	public int getTotalPages(int numPerPage) throws Exception;
 	public List<Member> getListByPage(int page, int numPerPage) throws Exception;

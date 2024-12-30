@@ -6,59 +6,30 @@
     <h2 class="mb-3">会員一覧</h2>
   </div>
 </div>
+<!-- メッセージを表示 -->
+<div th:if="${statusMessage}" class="alert alert-success" role="alert">[[${statusMessage}]]</div>
 <table class="table table-light table-striped">
   <thead>
     <tr>
       <th scope="col">ID</th>
       <th scope="col">氏名</th>
       <th scope="col">グループ</th>
-      <th scope="col">有効/無効</th>
       <th scope="col" colspan="2"></th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>サンプル一郎</td>
-      <td>1班</td>
-      <td>有効</td>
-      <td class="t-btn"><img src="../images/telIcon.png" width="30"></td>
-      <td class="t-btn"><a href="/admin/show/memberShow.html" class="btn btn-outline-info">詳細</a></td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>サンプル次郎</td>
-      <td>1班</td>
-      <td>有効</td>
-      <td class="t-btn"><img src="../images/telIcon.png" width="30"></td>
-      <td class="t-btn"><a href="/admin/show/memberShow.html" class="btn btn-outline-info">詳細</a></td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>サンプル三郎</td>
-      <td>2班</td>
-      <td>有効</td>
-      <td class="t-btn"><img src="../images/telIcon.png" width="30"></td>
-      <td class="t-btn"><a href="/admin/show/memberShow.html" class="btn btn-outline-info">詳細</a></td>
+    <tr th:each="member : ${memberList}">
+      <th scope="row">[[${member.id}]]</th>
+      <td>[[${member.name}]]</td>
+      <td>[[${member.group.name}]]</td>
+      <td class="t-btn">
+      <a th:href="@{tel:{telNo}(telNo=${member.tel})}" class="mobile"><img th:src="@{/images/telIcon.png}" width="30"></a>
+      <a th:href="@{mailto:{mailadd}(mailadd=${member.email})}" class="bigScreen"><img th:src="@{/images/mailIcon.png}" width="30"></a>
+      </td>
+      <td class="t-btn"><a th:href="@{/admin/memberShow/{id}(id=${member.id})}" class="btn btn-outline-info">詳細</a></td>
     </tr>
   </tbody>
 </table>
 <!-- ページネーション -->
-<nav aria-label="Page navigation example">
-  <ul class="pagination">
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
-  </ul>
-</nav>
+	<nav th:insert="~{/common/adminCommon :: common_pagenation}" aria-label="Page navigation example"></nav>
 </th:block>

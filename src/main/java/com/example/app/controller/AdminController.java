@@ -13,11 +13,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.app.domain.CircularBoard;
 import com.example.app.domain.Group;
+import com.example.app.domain.Member;
 import com.example.app.domain.Notification;
+import com.example.app.domain.Schedule;
 import com.example.app.service.CircularBoardService;
 import com.example.app.service.GroupService;
 import com.example.app.service.MemberService;
 import com.example.app.service.NotificationService;
+import com.example.app.service.ScheduleService;
 
 import jakarta.validation.Valid;
 
@@ -37,6 +40,8 @@ public class AdminController {
 	GroupService groupService;
 	@Autowired
 	MemberService memberService;
+	@Autowired
+	ScheduleService scheduleService;
 
 	/**
 	 * 　ホーム画面/一覧機能
@@ -54,6 +59,8 @@ public class AdminController {
 		model.addAttribute("infoList", notificationService.getListByPage(page, NUM_PER_PAGE));
 		model.addAttribute("boardList", circularBoardService.getListByPage(page, NUM_PER_PAGE));
 		model.addAttribute("groupList", groupService.getListByPage(page, NUM_PER_PAGE));
+		model.addAttribute("memberList", memberService.getListByPage(page, NUM_PER_PAGE));
+		model.addAttribute("scheduleList", scheduleService.getListByPage(page, NUM_PER_PAGE));
 		model.addAttribute("page", page);
 		// ページネーションの分岐
 		if (tab == null || tab.equals("infoList")) {
@@ -62,6 +69,10 @@ public class AdminController {
 			model.addAttribute("totalPages", circularBoardService.getTotalPages(NUM_PER_PAGE));
 		} else if (tab.equals("groupList")) {
 			model.addAttribute("totalPages", groupService.getTotalPages(NUM_PER_PAGE));
+		} else if (tab.equals("memberList")) {
+			model.addAttribute("totalPages", memberService.getTotalPages(NUM_PER_PAGE));
+		} else if (tab.equals("scheduleList")) {
+			model.addAttribute("totalPages", scheduleService.getTotalPages(NUM_PER_PAGE));
 		}
 
 		model.addAttribute("statusMessage", getStatusMessage(status));
@@ -201,8 +212,89 @@ public class AdminController {
 		groupService.flgChangeGroup(group);
 		return "redirect:/admin/home?tab=groupList&status=change";
 	}
+	
+	/////////////////
+	///会員管理機能////
+	/////////////////
+	@GetMapping("/memberShow/{id}")
+	public String memberShow(@PathVariable Integer id, Model model) throws Exception {
+		model.addAttribute("member", memberService.getMemberById(id));
+		return "admin/show/memberShow";
+	}
+	
+	@GetMapping("/memberDelete/{id}")
+	public String memberDelete(@PathVariable Integer id, Model model) throws Exception {
+		Member member = memberService.getMemberById(id);
+		member.setDeleteFlg(DELETE_FLG);
+		memberService.deleteMember(member);
+		return "redirect:/admin/home?tab=memberList&status=delete";
+	}
 
+	@GetMapping("/memberGroupEdit/{id}")
+	public String memberGroupEditGet(@PathVariable Integer id,  Model model) throws Exception {
+		Member member = memberService.getMemberById(id);
+		model.addAttribute("member", member);
+		model.addAttribute("groupList", groupService.getGroupList());
+		return "admin/memberGroupEdit";
+	}
+	
+	@PostMapping("/memberGroupEdit/{id}")
+	public String memberGroupEditPost(@PathVariable Integer id, @RequestParam Integer groupId, 
+					Model model) throws Exception {
+		Member member = memberService.getMemberById(id);
+		Group group = groupService.getGroupById(groupId);
+		member.setGroup(group);
+		memberService.editMember(member);
+		return "redirect:/admin/home?tab=memberList&status=edit";
+	}
+	
+	///////////////////////
+	///スケジュール管理機能///
+	//////////////////////
+	@GetMapping("/scheduleRegister")
+	public String scheduleAddGet(Model model) {
+		model.addAttribute("schedule", new Schedule());
+		return "admin/scheduleAdd";
+	}
 
+	@PostMapping("/scheduleRegister")
+	public String scheduleAddPost(@Valid Schedule schedule,
+			Errors errors, Model model) throws Exception {
+		if (errors.hasErrors()) {
+			return "admin/scheduleAdd";
+		}
+
+		scheduleService.addSchedule(schedule);
+		return "redirect:/admin/home?tab=scheduleList&status=add";
+	}
+
+	@GetMapping("/scheduleEdit/{id}")
+	public String scheduleEditGet(@PathVariable Integer id, Model model) throws Exception {
+		Notification notification = notificationService.getNotificationById(id);
+		model.addAttribute("notification", notification);
+		return "admin/infoEdit";
+	}
+
+	@PostMapping("/scheduleEdit/{id}")
+	public String scheduleEditPost(@PathVariable Integer id,
+			@Valid Notification notification,
+			Errors errors, Model model) throws Exception {
+		if (errors.hasErrors()) {
+			return "admin/infoEdit";
+		}
+		notification.setId(id);
+		notificationService.editNotification(notification);
+		return "redirect:/admin/home?status=edit";
+	}
+
+	@GetMapping("/scheduleDelete/{id}")
+	public String scheduleDelete(@PathVariable Integer id, Model model) throws Exception {
+		Notification notification = notificationService.getNotificationById(id);
+		notification.setDeleteFlg(DELETE_FLG);
+		notificationService.deleteNotification(notification);
+		return "redirect:/admin/home?status=delete";
+	}
+	
 	/**
 	 * ステータスメッセージ生成メソッド
 	 * @param status　登録・追加・削除ステータス
