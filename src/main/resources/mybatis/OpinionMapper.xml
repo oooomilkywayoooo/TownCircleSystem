@@ -1,6 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.app.dao.AdminDao">
-	
+<mapper namespace="com.example.app.dao.OpinionDao">
+	<resultMap id="joinedResult" type="com.example.app.domain.Opinion">
+		<id property="id" column="id" />
+		<result property="content" column="content"/>
+		<result property="created" column="created"/>
+		<association property="member" javaType="com.example.app.domain.Member">
+			<id property="id" column="member_id" />
+			<result property="name" column="memberName"/>
+		</association>
+	</resultMap>
+	<select id="selectAll"
+		resultMap="joinedResult">
+		SELECT
+		opinions.id, opinions.content, opinions.created,
+		members.name AS memberName
+		FROM opinions
+		JOIN members
+		ON opinions.member_id = members.id
+	</select>
+	<select id="selectById" parameterType="int"
+		resultMap="joinedResult">
+		SELECT
+		opinions.id, opinions.content, opinions.created,
+		members.name AS memberName
+		FROM opinions
+		JOIN members
+		ON opinions.member_id = members.id
+		WHERE opinions.id = #{id}
+	</select>
+	<insert id="insert"
+		parameterType="com.example.app.domain.Opinion">
+		INSERT INTO opinions (content, member_id, created)
+		VALUES (#{content}, #{member.id}, NOW())
+	</insert>
+	<!-- ページ分割機能用 -->
+	<select id="count" resultType="long">
+		SELECT COUNT(*) FROM opinions
+	</select>
+	<select id="selectLimited" resultMap="joinedResult">
+		SELECT
+		opinions.id, opinions.content, opinions.created,
+		members.name AS memberName
+		FROM opinions
+		JOIN members
+		ON opinions.member_id = members.id
+		ORDER BY created DESC
+		LIMIT #{offset}, #{num}
+	</select>
 </mapper>

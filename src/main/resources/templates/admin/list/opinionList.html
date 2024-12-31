@@ -18,17 +18,11 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<th scope="row">1</th>
-				<td>もっと子供達が参加できるイベントを増やしてほしい。</td>
-				<td>サンプル一郎</td>
-				<td>2024/12/12</td>
-			</tr>
-			<tr>
-				<th scope="row">2</th>
-				<td>支出の抑えられるところは抑えてほしい。</td>
-				<td>サンプル次郎</td>
-				<td>2024/12/26</td>
+			<tr th:each="opinion : ${opinionList}">
+				<th scope="row">[[${opinion.id}]]</th>
+				<td>[[${opinion.content}]]</td>
+				<td>[[${opinion.member.name}]]</td>
+				<td>[[${#dates.format(opinion.created, 'yyyy/MM/dd')}]]</td>
 			</tr>
 		</tbody>
 	</table>
