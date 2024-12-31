@@ -16,12 +16,14 @@ import com.example.app.domain.CircularBoard;
 import com.example.app.domain.Group;
 import com.example.app.domain.Member;
 import com.example.app.domain.Notification;
+import com.example.app.domain.Questionnaire;
 import com.example.app.domain.Schedule;
 import com.example.app.service.ChatMessageService;
 import com.example.app.service.CircularBoardService;
 import com.example.app.service.GroupService;
 import com.example.app.service.MemberService;
 import com.example.app.service.NotificationService;
+import com.example.app.service.QuestionnaireService;
 import com.example.app.service.ScheduleService;
 
 import jakarta.validation.Valid;
@@ -45,7 +47,9 @@ public class AdminController {
 	@Autowired
 	ScheduleService scheduleService;
 	@Autowired
-	ChatMessageService chatMessageService; 
+	ChatMessageService chatMessageService;
+	@Autowired
+	QuestionnaireService questionnaireService;
 
 	/**
 	 * 　ホーム画面/一覧機能
@@ -66,6 +70,7 @@ public class AdminController {
 		model.addAttribute("memberList", memberService.getListByPage(page, NUM_PER_PAGE));
 		model.addAttribute("scheduleList", scheduleService.getListByPage(page, NUM_PER_PAGE));
 		model.addAttribute("chatList", chatMessageService.getListByPage(page, NUM_PER_PAGE));
+		model.addAttribute("questionList", questionnaireService.getListByPage(page, NUM_PER_PAGE));
 		model.addAttribute("page", page);
 		// ページネーションの分岐
 		if (tab == null || tab.equals("infoList")) {
@@ -80,6 +85,8 @@ public class AdminController {
 			model.addAttribute("totalPages", scheduleService.getTotalPages(NUM_PER_PAGE));
 		} else if (tab.equals("chatList")) {
 			model.addAttribute("totalPages", chatMessageService.getTotalPages(NUM_PER_PAGE));
+		} else if (tab.equals("questionList")) {
+			model.addAttribute("totalPages", questionnaireService.getTotalPages(NUM_PER_PAGE));
 		}
 
 		model.addAttribute("statusMessage", getStatusMessage(status));
@@ -149,10 +156,10 @@ public class AdminController {
 			Errors errors, Model model) throws Exception {
 		// バリデーション
 		MultipartFile upfile = circularBoard.getUpfile();
-		if(upfile.isEmpty()) {
+		if (upfile.isEmpty()) {
 			// 画像が選択されていない場合、エラーメッセージを表示
 			errors.rejectValue("upfile", "error.file_isEnpty");
-		}else {
+		} else {
 			// 画像か否か判定する
 			String type = upfile.getContentType();
 			if (!type.startsWith("image/")) {
@@ -160,11 +167,11 @@ public class AdminController {
 				errors.rejectValue("upfile", "error.not_image_file");
 			}
 		}
-		
+
 		if (errors.hasErrors()) {
 			return "admin/boardAdd";
 		}
-		
+
 		circularBoardService.addCircularBoard(circularBoard);
 		return "redirect:/admin/home?tab=boardList&status=add";
 	}
@@ -206,20 +213,20 @@ public class AdminController {
 		return "admin/show/groupShow";
 
 	}
-	
+
 	@GetMapping("/groupFlgEdit/{id}")
 	public String groupFlgEdit(@PathVariable Integer id, Model model) throws Exception {
 		Group group = groupService.getGroupById(id);
 		// 削除フラグのオンオフを実行
-		if(group.getDeleteFlg() == 0) {
+		if (group.getDeleteFlg() == 0) {
 			group.setDeleteFlg(DELETE_FLG);
-		}else {
+		} else {
 			group.setDeleteFlg(0);
 		}
 		groupService.flgChangeGroup(group);
 		return "redirect:/admin/home?tab=groupList&status=change";
 	}
-	
+
 	/////////////////
 	///会員管理機能////
 	/////////////////
@@ -228,7 +235,7 @@ public class AdminController {
 		model.addAttribute("member", memberService.getMemberById(id));
 		return "admin/show/memberShow";
 	}
-	
+
 	@GetMapping("/memberDelete/{id}")
 	public String memberDelete(@PathVariable Integer id, Model model) throws Exception {
 		Member member = memberService.getMemberById(id);
@@ -238,23 +245,23 @@ public class AdminController {
 	}
 
 	@GetMapping("/memberGroupEdit/{id}")
-	public String memberGroupEditGet(@PathVariable Integer id,  Model model) throws Exception {
+	public String memberGroupEditGet(@PathVariable Integer id, Model model) throws Exception {
 		Member member = memberService.getMemberById(id);
 		model.addAttribute("member", member);
 		model.addAttribute("groupList", groupService.getGroupList());
 		return "admin/memberGroupEdit";
 	}
-	
+
 	@PostMapping("/memberGroupEdit/{id}")
-	public String memberGroupEditPost(@PathVariable Integer id, @RequestParam Integer groupId, 
-					Model model) throws Exception {
+	public String memberGroupEditPost(@PathVariable Integer id, @RequestParam Integer groupId,
+			Model model) throws Exception {
 		Member member = memberService.getMemberById(id);
 		Group group = groupService.getGroupById(groupId);
 		member.setGroup(group);
 		memberService.editMember(member);
 		return "redirect:/admin/home?tab=memberList&status=edit";
 	}
-	
+
 	///////////////////////
 	///スケジュール管理機能///
 	//////////////////////
@@ -301,7 +308,7 @@ public class AdminController {
 		scheduleService.deleteSchedule(schedule);
 		return "redirect:/admin/home?tab=scheduleList&status=delete";
 	}
-	
+
 	///////////////
 	///チャット機能//
 	///////////////
@@ -312,7 +319,35 @@ public class AdminController {
 		chatMessageService.deleteChatMessage(chat);
 		return "redirect:/admin/home?tab=chatList&status=delete";
 	}
+
+	//////////////////
+	///アンケート機能///
+	/////////////////
+	@GetMapping("/questionRegister")
+	public String questionAddGet(Model model) {
+		model.addAttribute("questionnaire", new Questionnaire());
+		return "admin/questionAdd";
+	}
+
+	@PostMapping("/questionRegister")
+	public String questionAddPost(@Valid Questionnaire questionnaire,
+			Errors errors, Model model) throws Exception {
+		if (errors.hasErrors()) {
+			return "admin/questionAdd";
+		}
+
+		questionnaireService.addQuestionnaire(questionnaire);
+		return "redirect:/admin/home?tab=questionList&status=add";
+	}
 	
+	@GetMapping("/questionDelete/{id}")
+	public String questionDelete(@PathVariable Integer id, Model model) throws Exception {
+		Questionnaire question = questionnaireService.getQuestionnaireById(id);
+		question.setDeleteFlg(DELETE_FLG);
+		questionnaireService.deleteQuestionnaire(question);
+		return "redirect:/admin/home?tab=questionList&status=delete";
+	}
+
 	/**
 	 * ステータスメッセージ生成メソッド
 	 * @param status　登録・追加・削除ステータス

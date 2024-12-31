@@ -645,3 +645,15 @@ form {
 .tab-switch label:has(:checked) + div {
   display: block; /* 選択されたタブに対応するコンテンツを表示 */
 }
+
+/* アンケートテーブルの表示 */
+.question td, .question th {
+	white-space: nowrap; /* テキストを折り返さない */
+  overflow: hidden; /* テキストがはみ出した場合に非表示にする */
+  text-overflow: ellipsis; /* はみ出したテキストを「...」で表示 */
+}
+
+.question td:nth-child(2), /* アンケート名の列 */
+.question td:nth-child(3) { /* アンケートURLの列 */
+  max-width: 150px; /* 列の最大幅を指定 */
+ }

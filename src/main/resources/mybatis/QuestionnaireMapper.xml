@@ -1,6 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.app.dao.AdminDao">
-	
+<mapper namespace="com.example.app.dao.QuestionnaireDao">
+	<select id="selectAll" resultType="com.example.app.domain.Questionnaire">
+		SELECT * FROM questions WHERE delete_flg = 0
+	</select>
+	<select id="selectById" parameterType="int" resultType="com.example.app.domain.Questionnaire">
+		SELECT * FROM questions WHERE delete_flg = 0 AND id = #{id}
+	</select>
+	<insert id="insert"
+		parameterType="com.example.app.domain.Questionnaire">
+		INSERT INTO questions (name, url, deadline, created)
+		VALUES (#{name}, #{url}, #{deadline}, NOW())
+	</insert>
+	<update id="delete"
+		parameterType="com.example.app.domain.Questionnaire">
+		UPDATE questions
+		SET delete_flg = #{deleteFlg}
+		WHERE id = #{id}
+	</update>
+	<!-- ページ分割機能用 -->
+	<select id="count" resultType="long">
+		SELECT COUNT(*) FROM questions WHERE delete_flg = 0
+	</select>
+	<select id="selectLimited" resultType="com.example.app.domain.Questionnaire">
+		SELECT * FROM questions 
+		WHERE delete_flg = 0
+		ORDER BY created DESC
+		LIMIT #{offset}, #{num}
+	</select>
 </mapper>
