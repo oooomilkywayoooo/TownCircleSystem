@@ -6,7 +6,7 @@
 			<h2 class="mb-3">資料一覧</h2>
 		</div>
 		<div class="col">
-			<a href="fileAdd.html" class="btn btn-success">新規追加</a>
+			<a th:href="@{/admin/fileRegister}" class="btn btn-success">新規追加</a>
 		</div>
 	</div>
 	<!-- メッセージを表示 -->
@@ -21,12 +21,12 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<th scope="row">1</th>
-				<td>令和6年支出報告書</td>
-				<td>2024/12/26</td>
-				<td class="t-btn"><button type="button"
-						class="btn btn-outline-secondary">削除</button></td>
+			<tr th:each="file : ${fileList}">
+				<th scope="row">[[${file.id}]]</th>
+				<td>[[${file.note}]]</td>
+				<td>[[${#dates.format(file.created, 'yyyy/MM/dd')}]]</td>
+				<td class="t-btn"><a th:href="@{/admin/fileDelete/{id}(id=${file.id})}" type="button"
+						class="btn btn-outline-secondary delete">削除</a></td>
 			</tr>
 		</tbody>
 	</table>

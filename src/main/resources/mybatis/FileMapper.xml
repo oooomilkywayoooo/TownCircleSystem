@@ -1,6 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.app.dao.AdminDao">
-	
+<mapper namespace="com.example.app.dao.ConnectionFileDao">
+	<select id="selectAll" resultType="com.example.app.domain.ConnectionFile">
+		SELECT * FROM files WHERE delete_flg = 0
+	</select>
+	<select id="selectById" parameterType="int" resultType="com.example.app.domain.ConnectionFile">
+		SELECT * FROM files WHERE delete_flg = 0 AND id = #{id}
+	</select>
+	<select id="selectByLatestData" resultType="com.example.app.domain.ConnectionFile">
+		SELECT name, created FROM files ORDER BY created DESC LIMIT 1
+	</select>
+	<insert id="insert"
+		parameterType="com.example.app.domain.ConnectionFile">
+		INSERT INTO files (name, note, file_path, created)
+		VALUES (#{name}, #{note}, #{filePath}, NOW())
+	</insert>
+	<update id="delete"
+		parameterType="com.example.app.domain.ConnectionFile">
+		UPDATE files
+		SET delete_flg = #{deleteFlg}
+		WHERE id = #{id}
+	</update>
+	<!-- ページ分割機能用 -->
+	<select id="count" resultType="long">
+		SELECT COUNT(*) FROM files WHERE delete_flg = 0
+	</select>
+	<select id="selectLimited" resultType="com.example.app.domain.ConnectionFile">
+		SELECT * FROM files 
+		WHERE delete_flg = 0
+		ORDER BY created DESC
+		LIMIT #{offset}, #{num}
+	</select>
 </mapper>

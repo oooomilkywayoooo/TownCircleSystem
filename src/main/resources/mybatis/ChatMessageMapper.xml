@@ -27,14 +27,14 @@
 		SELECT
 		chat_messages.id, chat_messages.message, chat_messages.created,
 		members.name AS memberName
-		FROM chat_Messages
+		FROM chat_messages
 		JOIN members
 		ON chat_messages.member_id = members.id
 		WHERE chat_messages.id = #{id}
 	</select>
 	<insert id="insert"
 		parameterType="com.example.app.domain.ChatMessage">
-		INSERT INTO members (message, member_id, created)
+		INSERT INTO chat_messages (message, member_id, created)
 		VALUES (#{message}, #{member.id}, NOW())
 	</insert>
 	<update id="delete"
@@ -51,7 +51,7 @@
 		SELECT
 		chat_messages.id, chat_messages.message, chat_messages.created,
 		members.name AS memberName
-		FROM chat_Messages
+		FROM chat_messages
 		JOIN members
 		ON chat_messages.member_id = members.id
 		WHERE chat_messages.delete_flg = 0

@@ -52,5 +52,6 @@ public class ApplicationConfig implements WebMvcConfigurer {
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/uploads/boards/**").addResourceLocations("file:/Users/user/Desktop/workspace/TownCircleSystem/uploads/boards/");
+		registry.addResourceHandler("/uploads/files/**").addResourceLocations("file:/Users/user/Desktop/workspace/TownCircleSystem/uploads/files/");
 	}
 }
