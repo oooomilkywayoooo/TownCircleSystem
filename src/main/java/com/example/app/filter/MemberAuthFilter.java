@@ -21,18 +21,20 @@ public class MemberAuthFilter implements Filter {
 		HttpSession session = req.getSession();
 		String path = req.getRequestURI();
 		
-		// 管理者・ログイン画面をスキップする
-		if (path.startsWith("/admin/")) {
+		// System.out.println(path);
+		// 管理者・ログイン画面・ログアウト画面をスキップする
+		if (path.startsWith("/admin/")|| path.endsWith(".html") || path.endsWith(".css") || path.endsWith(".js") || path.endsWith(".ico")
+				|| path.startsWith("/images/") || path.startsWith("/uploads/") || path.startsWith("/signinTemplate")) {
             chain.doFilter(request, response); // 何もせず次のフィルターに進む
             return;
         }
 		
-		if (path.equals("/login")) {
+		if (path.equals("/login") || path.equals("/logout")) {
             chain.doFilter(request, response); // 何もせず次のフィルターに進む
             return;
         }
 		
-		if(session.getAttribute("loginName") == null) {
+		if(session.getAttribute("memberId") == null) {
 			res.sendRedirect("/login");
 			return;
 		}

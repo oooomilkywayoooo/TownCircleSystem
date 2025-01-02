@@ -47,7 +47,7 @@
 
 						<div class="row">
 							<!-- 大画面フォーム -->
-							<div class="d-none d-lg-flex">
+							<div class="bigScreen d-lg-flex">
 								<div class="col-lg-2 offset-1 mt-5">
 									<label for="loginId" class="col-form-label">管理者ログインID</label>
 								</div>
@@ -56,7 +56,7 @@
 								</div>
 							</div>
 							<!-- タブレット・スマホフォーム -->
-							<div class="d-lg-none">
+							<div class="mobile">
 								<div class="col-8 offset-2 mt-5">
 									<input type="text" th:field="*{loginId}"
 										class="form-control tablet" placeholder="管理者ログインID">
@@ -65,7 +65,7 @@
 						</div>
 						<div class="row">
 							<!-- 大画面フォーム -->
-							<div class="d-none d-lg-flex">
+							<div class="bigScreen d-lg-flex">
 								<div class="col-lg-2 offset-1 mt-5">
 									<label for="loginPass" class="col-form-label">パスワード</label>
 								</div>
@@ -75,7 +75,7 @@
 								</div>
 							</div>
 							<!-- タブレット・スマホフォーム -->
-							<div class="d-lg-none">
+							<div class="mobile">
 								<div class="col-8 offset-2 mt-5">
 									<input type="password" th:field="*{loginPass}"
 										class="form-control tablet" placeholder="パスワード">

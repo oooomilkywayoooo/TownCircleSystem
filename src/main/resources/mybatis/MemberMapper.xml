@@ -19,6 +19,18 @@
 			<result property="name" column="groupName"/>
 		</association>
 	</resultMap>
+	<select id="selectByEmail"
+		resultMap="joinedResult">
+		SELECT
+		members.id, members.name, members.name_kana, members.address,
+		members.tel, members.email, members.family_number, members.password,
+		members.delete_flg, members.created, members.updated,
+		`groups`.name AS groupName
+		FROM members
+		JOIN `groups`
+		ON members.group_id = `groups`.id
+		WHERE members.email = #{email}
+	</select>
 	<select id="selectAll"
 		resultMap="joinedResult">
 		SELECT

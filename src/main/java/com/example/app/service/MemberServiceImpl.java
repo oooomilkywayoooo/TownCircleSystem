@@ -2,6 +2,7 @@ package com.example.app.service;
 
 import java.util.List;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,15 +14,16 @@ import com.example.app.domain.Member;
 public class MemberServiceImpl extends GenericService<Member> implements MemberService {
 	@Autowired
 	MemberDao memberDao;
-	
+
 	public MemberServiceImpl(MemberDao memberDao) {
 		this.memberDao = memberDao;
 	}
+
 	@Override
 	protected GenericDao<Member> getDao() {
 		return memberDao;
 	}
-	
+
 	@Override
 	public List<Member> getMemberList() throws Exception {
 		return memberDao.selectAll();
@@ -50,6 +52,30 @@ public class MemberServiceImpl extends GenericService<Member> implements MemberS
 	@Override
 	public void deleteMember(Member member) throws Exception {
 		memberDao.delete(member);
+	}
+	
+	// ログイン機能
+	@Override
+	public boolean isCorrectEmailAndPassword(String email, String password) throws Exception {
+		Member member = memberDao.selectByEmail(email);
+		
+		// ログインEmailが正しいかチェック
+		// ログインEmailが正しくなければ会員データは取得されない
+		if (member == null) {
+			return false;
+		}
+
+		// パスワードが正しいかチェック
+		if (!BCrypt.checkpw(password, member.getPassword())) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public Member getMemberByEmail(String email) throws Exception {
+		Member member = memberDao.selectByEmail(email);
+		return member;
 	}
 
 }

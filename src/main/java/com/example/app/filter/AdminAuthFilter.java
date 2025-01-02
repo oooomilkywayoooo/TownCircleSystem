@@ -23,7 +23,7 @@ public class AdminAuthFilter implements Filter {
 		
 		// System.out.println(path);
 		// 静的リソースや特定のパスをスキップ
-		if (path.equals("/admin/login") || path.endsWith(".html")) {
+		if (path.equals("/admin/login") || path.endsWith(".html") || path.endsWith(".css") || path.endsWith(".js")) {
 			chain.doFilter(request, response); // 何もせず次のフィルターに進む
 			return;
 		}

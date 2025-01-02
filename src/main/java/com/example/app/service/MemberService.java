@@ -13,4 +13,7 @@ public interface MemberService {
 	public void deleteMember(Member member) throws Exception;
 	public int getTotalPages(int numPerPage) throws Exception;
 	public List<Member> getListByPage(int page, int numPerPage) throws Exception;
+	// ログイン機能
+	public boolean isCorrectEmailAndPassword(String email, String password) throws Exception;
+	public Member getMemberByEmail(String email) throws Exception;
 }

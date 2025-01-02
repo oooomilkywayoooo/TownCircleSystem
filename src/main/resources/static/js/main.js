@@ -6,22 +6,24 @@ $(document).ready(function() {
 	$('.delete').click(function() {
 		if(confirm('削除してよろしいですか？') == false) return false;
 	});
+	
 	// ヘッダーインクルード
-	$.get('/common/afterLoginHeader.html', function(header) {
-		$('#header').prepend(header);
-	});
+	//$.get('/common/afterLoginHeader.html', function(header) {
+	//	$('#header').prepend(header);
+	//});
 
 	// ハンバーガーヘッダーインクルード
-	$.get('/common/hamburgerMenu.html', function(burgerHeader) {
-		$('#header').append(burgerHeader);
-	});
+	//$.get('/common/hamburgerMenu.html', function(burgerHeader) {
+	//	$('#header').append(burgerHeader);
+	//});
 
 	// サイドバーインクルード
-	$.get('/common/sideMenu.html', function(sideMenu) {
-		$('#sidemenu').prepend(sideMenu);
+	//$.get('/common/sideMenu.html', function(sideMenu) {
+	//	$('#sidemenu').prepend(sideMenu);
 
 		// サイドメニューのカレント表示
-		const url = 'http://127.0.0.1:5500';
+		// const url = 'http://127.0.0.1:5500';
+		const url = 'http://localhost:8080';
 		$('.sidebar').find('a').each(function(index, element) {
 			const href = $(this).attr('href');
 			const currentHref = url + href;
@@ -140,9 +142,10 @@ $(document).ready(function() {
 
 	// サインイン画面とサインアップ画面の切り替え(スライド版)
 	// 外部テンプレートを読み込み
-	$.get('signinTemplate.html', function(templates) {
+//	$.get('/signinTemplate', function(templates) {
+	//	console.log(templates);
 		// テンプレートを非表示でbodyに追加
-		$('body').append(templates);
+	//	$('body').append(templates);
 
 		// サインアップボタンがクリックされた場合
 		$(document).on('click', '#changeSignUp', function() {
@@ -182,7 +185,7 @@ $(document).ready(function() {
 					leftSlideIn.removeClass('slide-in');
 				});
 			});
-		});
+//		});
 
 		// サインインボタンがクリックされた場合
 		$(document).on('click', '#changeSignIn', function() {
@@ -225,4 +228,4 @@ $(document).ready(function() {
 			});
 		});
 	});
-});
+//});

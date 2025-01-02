@@ -1,339 +1,361 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <!-- サインイン画面のテンプレート -->
-<template id="signin-template">
-  <div class="container" id="signin-con" style="display: none;">
-    <div class="row">
-      <div class="col-lg signin-view">
-        <h1 class="text-center">SIGN IN</h1>
-        <!-- エラーがある場合、以下のメッセージを表示 -->
-        <div class="row">
-          <div class="alert alert-danger col-9 offset-1 d-flex align-items-center mb-0 error" role="alert">
-            <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:">
-              <use xlink:href="#exclamation-triangle-fill" />
-            </svg>
-            <div>
-              エラーメッセージを表示
-            </div>
-          </div>
-        </div>
-        <form action="" method="post">
-          <div class="row">
-            <!-- 大画面フォーム -->
-            <div class="d-none d-lg-flex">
-              <div class="col-lg-2 offset-1 mt-5">
-                <label for="email" class="col-form-label">Email</label>
-              </div>
-              <div class="col-lg-7 mt-5">
-                <input type="email" id="email" name="email" class="form-control">
-              </div>
-            </div>
-            <!-- タブレット・スマホフォーム -->
-            <div class="d-lg-none">
-              <div class="col-8 offset-2 mt-5">
-                <input type="email" id="email" name="email" class="form-control" placeholder="Email">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <!-- 大画面フォーム -->
-            <div class="d-none d-lg-flex">
-              <div class="col-lg-2 offset-1 mt-5">
-                <label for="password" class="col-form-label">Password</label>
-              </div>
-              <div class="col-lg-7 mt-5">
-                <input type="password" id="password" name="password" class="form-control">
-              </div>
-            </div>
-            <!-- タブレット・スマホフォーム -->
-            <div class="d-lg-none">
-              <div class="col-8 offset-2 mt-5">
-                <input type="password" id="password" name="password" class="form-control" placeholder="Password">
-              </div>
-            </div>
-          </div>
-          <div class="signin-btn mt-5">
-            <input type="submit" value="SIGN IN" class="btn btn-secondary px-5 py-2">
-          </div>
-        </form>
-      </div>
+<template th:fragment="signin-template" id="signin-template">
+	<div class="container" id="signin-con" style="display: none;">
+		<div class="row">
+			<div class="col-lg signin-view">
+				<h1 class="text-center">SIGN IN</h1>
+				<form action="" method="post" th:object="${memberForm}">
+					<!-- エラーがある場合、以下のメッセージを表示 -->
+					<div th:if="${#fields.hasAnyErrors()}" class="row">
+						<div th:each="error : ${#fields.allErrors()}"
+							class="alert alert-danger col-9 offset-1 d-flex align-items-center mb-0 error"
+							role="alert">
+							<svg class="bi flex-shrink-0 me-2" role="img"
+								aria-label="Danger:">
+    								<use xlink:href="#exclamation-triangle-fill" />
+ 								</svg>
+							<div>
+								<th:block th:text="${error}"></th:block>
+							</div>
+						</div>
+					</div>
 
-      <div class="col-lg signup-view">
-        <h1 class="text-center">WELCOME!</h1>
-        <div class="signin-btn mt-4">
-          <p class="text-center">新規登録はこちら</p>
-          <button id="changeSignUp" class="btn btn-light px-5 py-2">SIGN UP</button>
-        </div>
-      </div>
+					<div class="row">
+						<!-- 大画面フォーム -->
+						<div class="bigScreen d-lg-flex">
+							<div class="col-lg-2 offset-1 mt-5">
+								<label for="email" class="col-form-label">Email</label>
+							</div>
+							<div class="col-lg-7 mt-5">
+								<input type="email" th:field="*{email}" class="form-control large-screen">
+							</div>
+						</div>
+						<!-- タブレット・スマホフォーム -->
+						<div class="mobile">
+							<div class="col-8 offset-2 mt-5">
+								<input type="email" th:field="*{email}" class="form-control tablet"
+									placeholder="Email">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<!-- 大画面フォーム -->
+						<div class="bigScreen d-lg-flex">
+							<div class="col-lg-2 offset-1 mt-5">
+								<label for="password" class="col-form-label">Password</label>
+							</div>
+							<div class="col-lg-7 mt-5">
+								<input type="password" th:field="*{password}"
+									class="form-control large-screen">
+							</div>
+						</div>
+						<!-- タブレット・スマホフォーム -->
+						<div class="mobile">
+							<div class="col-8 offset-2 mt-5">
+								<input type="password" th:field="*{password}"
+									class="form-control tablet" placeholder="Password">
+							</div>
+						</div>
+					</div>
+					<div class="signin-btn mt-5">
+						<input type="submit" value="SIGN IN"
+							class="btn btn-secondary px-5 py-2">
+					</div>
+				</form>
+			</div>
 
-    </div>
-  </div>
+			<div class="col-lg signup-view">
+				<h1 class="text-center">WELCOME!</h1>
+				<div class="signin-btn mt-4">
+					<p class="text-center">新規登録はこちら</p>
+					<button id="changeSignUp" class="btn btn-light px-5 py-2">SIGN
+						UP</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
 </template>
 <!-- サインアップ画面のテンプレート -->
-<template id="signup-template">
-  <div class="container" id="signup-con" style="display: none;">
-    <div class="row">
-      <div class="col-lg sign_in mb-4">
-          <h1 class="text-center">WELCOME!</h1>
-          <div class="signin-btn mt-4">
-            <p class="text-center">サインインはこちら</p>
-            <button id="changeSignIn" class="btn btn-light px-5 py-2 mb-5">SIGN IN</button>
-          </div>
-      </div>
-      <div class="col-lg sign_up mb-4">
-        <h1 class="text-center">SIGN UP</h1>
-        <form action="" method="post">
-          <!-- 名前のエラーがある場合に表示 -->
-          <div class="row">
-            <div class="alert alert-danger col-lg-9 col-8 offset-2 error" role="alert">
-              エラーメッセージ
-            </div>
-          </div>
-          <!-- 名前（漢字） -->
-          <div class="row">
-            <!-- 大画面フォーム -->
-            <div class="d-none d-lg-flex">
-              <div class="col-lg-1 offset-1 mt-2">
-                <label for="lastName" class="col-form-label">姓</label>
-              </div>
-              <div class="col-lg-4 mt-2">
-                <input type="text" id="lastName" name="lastName" class="form-control">
-              </div>
-              <div class="col-lg-1 mt-2 text-center">
-                <label for="firstName" class="col-form-label">名</label>
-              </div>
-              <div class="col-lg-4 mt-2">
-                <input type="text" id="firstName" name="firstName" class="form-control">
-              </div>
-            </div>
-            <!-- タブレット・スマホフォーム -->
-            <div class="d-lg-none">
-              <div class="row">
-                <div class="col-4 offset-2 mt-2">
-                  <input type="text" id="lastName" name="lastName" class="form-control" placeholder="姓">
-                </div>
-                <div class="col-4 mt-2">
-                  <input type="text" id="firstName" name="firstName" class="form-control" placeholder="名">
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- 名前(カナ)のエラーがある場合に表示 -->
-          <div class="row d-flex align-items-center">
-            <div class="alert alert-danger col-lg-9 col-8 offset-2 error" role="alert">
-              エラーメッセージ
-            </div>
-          </div>
-          <!-- 名前（カタカナ）-->
-          <div class="row">
-            <!-- 大画面フォーム -->
-            <div class="d-none d-lg-flex">
-              <div class="col-lg-1 offset-1 mt-2">
-                <label for="lastNameKana" class="col-form-label two-char">セイ</label>
-              </div>
-              <div class="col-lg-4 mt-2">
-                <input type="text" id="lastNameKana" name="lastNameKana" class="form-control">
-              </div>
-              <div class="col-lg-1 mt-2 text-center">
-                <label for="firstNameKana" class="col-form-label two-char">メイ</label>
-              </div>
-              <div class="col-lg-4 mt-2">
-                <input type="text" id="firstNameKana" name="firstNameKana" class="form-control">
-              </div>
-            </div>
-            <!-- タブレット・スマホフォーム -->
-            <div class="d-lg-none">
-              <div class="row">
-                <div class="col-4 offset-2 mt-2">
-                  <input type="text" id="lastNameKana" name="lastNameKana" class="form-control" placeholder="セイ">
-                </div>
-                <div class="col-4 mt-2">
-                  <input type="text" id="firstNameKana" name="firstNameKana" class="form-control" placeholder="メイ">
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- 住所のエラーがある場合に表示 -->
-          <div class="row d-flex align-items-center">
-            <div class="alert alert-danger col-lg-9 col-8 offset-2 error" role="alert">
-              エラーメッセージ
-            </div>
-          </div>
-          <!-- 住所 -->
-          <div class="row">
-            <!-- 大画面フォーム -->
-            <div class="d-none d-lg-flex">
-              <div class="col-lg-1 offset-1 mt-2">
-                <label for="address" class="col-form-label two-char">住所</label>
-              </div>
-              <div class="col-lg-9 mt-2">
-                <input type="text" id="address" name="address" class="form-control">
-              </div>
-            </div>
-            <!-- タブレット・スマホフォーム -->
-            <div class="d-lg-none">
-              <div class="row">
-                <div class="col-8 offset-2 mt-2">
-                  <input type="text" id="address" name="address" class="form-control" placeholder="住所">
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- 電話番号のエラーがある場合に表示 -->
-          <div class="row d-flex align-items-center">
-            <div class="alert alert-danger col-lg-9 col-8 offset-2 error" role="alert">
-              エラーメッセージ
-            </div>
-          </div>
-          <!-- 電話番号 -->
-          <div class="row">
-            <!-- 大画面フォーム -->
-            <div class="d-none d-lg-flex">
-              <div class="col-lg-1 offset-1 mt-2">
-                <label for="tel" class="col-form-label two-char">電話</label>
-              </div>
-              <div class="col-lg-9 mt-2">
-                <input type="text" id="tel" name="tel" class="form-control">
-              </div>
-            </div>
-            <!-- タブレット・スマホフォーム -->
-            <div class="d-lg-none">
-              <div class="row">
-                <div class="col-8 offset-2 mt-2">
-                  <input type="text" id="tel" name="tel" class="form-control" placeholder="電話">
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- メールのエラーがある場合に表示 -->
-          <div class="row d-flex align-items-center">
-            <div class="alert alert-danger col-lg-9 col-8 offset-2 error" role="alert">
-              エラーメッセージ
-            </div>
-          </div>
-          <!-- Email -->
-          <div class="row">
-            <!-- 大画面フォーム -->
-            <div class="d-none d-lg-flex">
-              <div class="col-lg-1 offset-1 mt-2">
-                <label for="email" class="col-form-label two-char">Email</label>
-              </div>
-              <div class="col-lg-9 mt-2">
-                <input type="email" id="email" name="email" class="form-control">
-              </div>
-            </div>
-            <!-- タブレット・スマホフォーム -->
-            <div class="d-lg-none">
-              <div class="row">
-                <div class="col-8 offset-2 mt-2">
-                  <input type="email" id="email" name="email" class="form-control" placeholder="Email">
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- グループ選択 -->
-          <div class="row">
-            <!-- 大画面フォーム -->
-            <div class="d-none d-lg-flex">
-              <div class="col-lg-4 offset-2 mt-2">
-                <select name="group" id="group" class="form-select">
-                  <option selected>所属グループ選択</option>
-                  <option value="1">1班</option>
-                  <option value="2">2班</option>
-                  <option value="3">3班</option>
-                </select>
-              </div>
-            </div>
-            <!-- タブレット・スマホフォーム -->
-            <div class="d-lg-none">
-              <div class="row">
-                <div class="col-4 offset-2 mt-2">
-                  <select name="group" id="group" class="form-select">
-                    <option selected>所属グループ選択</option>
-                    <option value="1">1班</option>
-                    <option value="2">2班</option>
-                    <option value="3">3班</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- 家族人数 -->
-          <div class="row">
-            <!-- 大画面フォーム -->
-            <div class="d-none d-lg-flex">
-              <div class="col-lg-2 mt-2 text-center pe-0">
-                <label for="number" class="col-form-label two-char">家族人数</label>
-              </div>
-              <div class="col-lg-2 mt-2">
-                <input type="number" id="number" name="number" class="form-control">
-              </div>
-              <div class="col mt-2 pt-2 ps-1">
-                <span>人　※本人含む</span>
-              </div>
-            </div>
-            <!-- タブレット・スマホフォーム -->
-            <div class="d-lg-none">
-              <div class="row">
-                <div class="col-4 offset-2 mt-2">
-                  <input type="number" id="number" name="number" class="form-control d-block" placeholder="家族人数">
-                </div>
-                <div class="col mt-2 pt-2 ps-0">
-                  <span>人　※本人含む</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- パスワードのエラーがある場合に表示 -->
-          <div class="row d-flex align-items-center">
-            <div class="alert alert-danger col-lg-9 col-8 offset-2 error" role="alert">
-              エラーメッセージ
-            </div>
-          </div>
-          <!-- パスワード -->
-          <div class="row">
-            <!-- 大画面フォーム -->
-            <div class="d-none d-lg-flex">
-              <div class="col-lg-2 mt-2 text-center pe-0">
-                <label for="password" class="col-form-label two-char">パスワード</label>
-              </div>
-              <div class="col-lg-9 mt-2">
-                <input type="password" id="password" name="password" class="form-control">
-              </div>
-            </div>
-            <!-- タブレット・スマホフォーム -->
-            <div class="d-lg-none">
-              <div class="row">
-                <div class="col-8 offset-2 mt-2">
-                  <input type="password" id="password" name="password" class="form-control" placeholder="パスワード">
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- パスワード(確認用) -->
-          <div class="row">
-            <!-- 大画面フォーム -->
-            <div class="d-none d-lg-flex">
-              <div class="col-lg-2 mt-2 text-center pe-0">
-                <label for="password" class="col-form-label two-char">パスワード<br>(確認用)</label>
-              </div>
-              <div class="col-lg-9 mt-2">
-                <input type="password" id="password" name="password" class="form-control">
-              </div>
-            </div>
-            <!-- タブレット・スマホフォーム -->
-            <div class="d-lg-none">
-              <div class="row">
-                <div class="col-8 offset-2 mt-2">
-                  <input type="password" id="password" name="password" class="form-control" placeholder="パスワード(確認用)">
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- submitボタン -->
-          <div class="signup-btn my-3">
-            <input type="submit" value="SIGN UP" class="btn btn-secondary px-5 py-2">
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
+<template th:fragment="signup-template" id="signup-template">
+	<div class="container" id="signup-con" style="display: none;">
+		<div class="row">
+			<div class="col-lg sign_in mb-4">
+				<h1 class="text-center">WELCOME!</h1>
+				<div class="signin-btn mt-4">
+					<p class="text-center">サインインはこちら</p>
+					<button id="changeSignIn" class="btn btn-light px-5 py-2 mb-5">SIGN
+						IN</button>
+				</div>
+			</div>
+			<div class="col-lg sign_up mb-4">
+				<h1 class="text-center">SIGN UP</h1>
+				<form action="" method="post" th:object="${memberForm}">
+					<!-- 名前のエラーがある場合に表示 -->
+					<div class="row">
+						<div class="alert alert-danger col-lg-9 col-8 offset-2 error"
+							role="alert">エラーメッセージ</div>
+					</div>
+					<!-- 名前（漢字） -->
+					<div class="row">
+						<!-- 大画面フォーム -->
+						<div class="bigScreen d-lg-flex">
+							<div class="col-lg-1 offset-1 mt-2">
+								<label for="lastName" class="col-form-label">姓</label>
+							</div>
+							<div class="col-lg-4 mt-2">
+								<input type="text" th:field="*{lastName}"
+									class="form-control large-screen">
+							</div>
+							<div class="col-lg-1 mt-2 text-center">
+								<label for="firstName" class="col-form-label">名</label>
+							</div>
+							<div class="col-lg-4 mt-2">
+								<input type="text" th:field="*{firstName}"
+									class="form-control large-screen">
+							</div>
+						</div>
+						<!-- タブレット・スマホフォーム -->
+						<div class="mobile">
+							<div class="row">
+								<div class="col-4 offset-2 mt-2">
+									<input type="text" th:field="*{lastName}"
+										class="form-control tablet" placeholder="姓">
+								</div>
+								<div class="col-4 mt-2">
+									<input type="text" th:field="*{firstName}"
+										class="form-control tablet" placeholder="名">
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- 名前(カナ)のエラーがある場合に表示 -->
+					<div class="row d-flex align-items-center">
+						<div class="alert alert-danger col-lg-9 col-8 offset-2 error"
+							role="alert">エラーメッセージ</div>
+					</div>
+					<!-- 名前（カタカナ）-->
+					<div class="row">
+						<!-- 大画面フォーム -->
+						<div class="bigScreen d-lg-flex">
+							<div class="col-lg-1 offset-1 mt-2">
+								<label for="lastNameKana" class="col-form-label two-char">セイ</label>
+							</div>
+							<div class="col-lg-4 mt-2">
+								<input type="text" th:field="*{lastNameKana}"
+									class="form-control large-screen">
+							</div>
+							<div class="col-lg-1 mt-2 text-center">
+								<label for="firstNameKana" class="col-form-label two-char">メイ</label>
+							</div>
+							<div class="col-lg-4 mt-2">
+								<input type="text" th:field="*{firstNameKana}"
+									class="form-control large-screen">
+							</div>
+						</div>
+						<!-- タブレット・スマホフォーム -->
+						<div class="mobile">
+							<div class="row">
+								<div class="col-4 offset-2 mt-2">
+									<input type="text" th:field="*{lastNameKana}"
+										class="form-control tablet" placeholder="セイ">
+								</div>
+								<div class="col-4 mt-2">
+									<input type="text" th:field="*{firstNameKana}"
+										class="form-control tablet" placeholder="メイ">
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- 住所のエラーがある場合に表示 -->
+					<div class="row d-flex align-items-center">
+						<div class="alert alert-danger col-lg-9 col-8 offset-2 error"
+							role="alert">エラーメッセージ</div>
+					</div>
+					<!-- 住所 -->
+					<div class="row">
+						<!-- 大画面フォーム -->
+						<div class="bigScreen d-lg-flex">
+							<div class="col-lg-1 offset-1 mt-2">
+								<label for="address" class="col-form-label two-char">住所</label>
+							</div>
+							<div class="col-lg-9 mt-2">
+								<input type="text" th:field="*{address}"
+									class="form-control large-screen">
+							</div>
+						</div>
+						<!-- タブレット・スマホフォーム -->
+						<div class="mobile">
+							<div class="row">
+								<div class="col-8 offset-2 mt-2">
+									<input type="text" th:field="*{address}"
+										class="form-control tablet" placeholder="住所">
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- 電話番号のエラーがある場合に表示 -->
+					<div class="row d-flex align-items-center">
+						<div class="alert alert-danger col-lg-9 col-8 offset-2 error"
+							role="alert">エラーメッセージ</div>
+					</div>
+					<!-- 電話番号 -->
+					<div class="row">
+						<!-- 大画面フォーム -->
+						<div class="bigScreen d-lg-flex">
+							<div class="col-lg-1 offset-1 mt-2">
+								<label for="tel" class="col-form-label two-char">電話</label>
+							</div>
+							<div class="col-lg-9 mt-2">
+								<input type="text" th:field="*{tel}" class="form-control large-screen">
+							</div>
+						</div>
+						<!-- タブレット・スマホフォーム -->
+						<div class="mobile">
+							<div class="row">
+								<div class="col-8 offset-2 mt-2">
+									<input type="text" th:field="*{tel}" class="form-control tablet"
+										placeholder="電話">
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- メールのエラーがある場合に表示 -->
+					<div class="row d-flex align-items-center">
+						<div class="alert alert-danger col-lg-9 col-8 offset-2 error"
+							role="alert">エラーメッセージ</div>
+					</div>
+					<!-- Email -->
+					<div class="row">
+						<!-- 大画面フォーム -->
+						<div class="bigScreen d-lg-flex">
+							<div class="col-lg-1 offset-1 mt-2">
+								<label for="email" class="col-form-label two-char">Email</label>
+							</div>
+							<div class="col-lg-9 mt-2">
+								<input type="email" th:field="*{email}" class="form-control large-screen">
+							</div>
+						</div>
+						<!-- タブレット・スマホフォーム -->
+						<div class="mobile">
+							<div class="row">
+								<div class="col-8 offset-2 mt-2">
+									<input type="email" th:field="*{email}"
+										class="form-control tablet" placeholder="Email">
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- グループ選択 -->
+					<div class="row">
+						<!-- 大画面フォーム -->
+						<div class="bigScreen d-lg-flex">
+							<div class="col-lg-4 offset-2 mt-2">
+								<select th:field="*{groupId}" class="form-select">
+									<option value="" selected>所属グループ選択</option>
+									<option th:each="g : ${groupList}" value="${g.id}" th:text="${g.name}"></option>
+								</select>
+							</div>
+						</div>
+						<!-- タブレット・スマホフォーム -->
+						<div class="mobile">
+							<div class="row">
+								<div class="col-4 offset-2 mt-2">
+									<select th:field="*{groupId}" class="form-select">
+										<option value="" selected>所属グループ選択</option>
+										<option th:each="g : ${groupList}" value="${g.id}" th:text="${g.name}"></option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- 家族人数 -->
+					<div class="row">
+						<!-- 大画面フォーム -->
+						<div class="bigScreen d-lg-flex">
+							<div class="col-lg-2 mt-2 text-center pe-0">
+								<label for="familyNumber" class="col-form-label two-char">家族人数</label>
+							</div>
+							<div class="col-lg-2 mt-2">
+								<input type="number" th:field="*{familyNumber}"
+									class="form-control large-screen">
+							</div>
+							<div class="col mt-2 pt-2 ps-1">
+								<span>人 ※本人含む</span>
+							</div>
+						</div>
+						<!-- タブレット・スマホフォーム -->
+						<div class="mobile">
+							<div class="row">
+								<div class="col-4 offset-2 mt-2">
+									<input type="number" th:field="*{familyNumber}"
+										class="form-control d-block tablet" placeholder="家族人数">
+								</div>
+								<div class="col mt-2 pt-2 ps-0">
+									<span>人 ※本人含む</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- パスワードのエラーがある場合に表示 -->
+					<div class="row d-flex align-items-center">
+						<div class="alert alert-danger col-lg-9 col-8 offset-2 error"
+							role="alert">エラーメッセージ</div>
+					</div>
+					<!-- パスワード -->
+					<div class="row">
+						<!-- 大画面フォーム -->
+						<div class="bigScreen d-lg-flex">
+							<div class="col-lg-2 mt-2 text-center pe-0">
+								<label for="password" class="col-form-label two-char">パスワード</label>
+							</div>
+							<div class="col-lg-9 mt-2">
+								<input type="password" th:field="*{password}"
+									class="form-control large-screen">
+							</div>
+						</div>
+						<!-- タブレット・スマホフォーム -->
+						<div class="mobile">
+							<div class="row">
+								<div class="col-8 offset-2 mt-2">
+									<input type="password" th:field="*{password}"
+										class="form-control tablet" placeholder="パスワード">
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- パスワード(確認用) -->
+					<div class="row">
+						<!-- 大画面フォーム -->
+						<div class="bigScreen d-lg-flex">
+							<div class="col-lg-2 mt-2 text-center pe-0">
+								<label for="passwordConf" class="col-form-label two-char">パスワード<br>(確認用)
+								</label>
+							</div>
+							<div class="col-lg-9 mt-2">
+								<input type="password" th:field="*{passwordConf}"
+									class="form-control large-screen">
+							</div>
+						</div>
+						<!-- タブレット・スマホフォーム -->
+						<div class="mobile">
+							<div class="row">
+								<div class="col-8 offset-2 mt-2">
+									<input type="password" th:field="*{passwordConf}"
+										class="form-control tablet" placeholder="パスワード(確認用)">
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- submitボタン -->
+					<div class="signup-btn my-3">
+						<input type="submit" value="SIGN UP"
+							class="btn btn-secondary px-5 py-2">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 </template>

@@ -8,6 +8,7 @@ import com.example.app.domain.Member;
 
 @Mapper
 public interface MemberDao extends GenericDao<Member> {
+	public Member selectByEmail(String email) throws Exception;
 	public List<Member> selectAll() throws Exception;
 	public Member selectById(Integer id) throws Exception;
 	public List<Member> selectByGroupId(Integer id) throws Exception;

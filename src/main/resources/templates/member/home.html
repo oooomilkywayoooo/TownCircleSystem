@@ -1,110 +1,96 @@
 <!DOCTYPE html>
-<html lang="ja">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bxslider@4.2.17/dist/jquery.bxslider.min.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru&family=Pacifico&family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
-  <script src="js/jquery-3.7.1.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bxslider@4.2.17/dist/jquery.bxslider.min.js"></script>
-  <script src="js/bootstrap.bundle.min.js"></script>
-  <script src="js/main.js"></script>
-  <title>町内会システム | HOME</title>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{/common/metaCommon :: common_head}">
+<title>町内会システム | HOME</title>
 </head>
 
 <body>
-  <!-- ヘッダー -->
-  <header id="header">
-    <!-- 通常ヘッダーのインクルード -->
-    <!-- ハンバーガーヘッダーをインクルード -->
-  </header>
+	<!-- ヘッダー -->
+	<header id="header">
+		<!-- 通常ヘッダー-->
+		<th:block th:insert="~{/common/afterLoginHeader :: member_header}"></th:block>
+		<!-- ハンバーガーヘッダー-->
+		<th:block th:insert="~{/common/hamburgerMenu :: member_hamburgerHeader}"></th:block>
+	</header>
 
-  <!-- メイン画面 -->
-  <main>
-    <div class="container-fluid">
-      <div class="row" id="sidemenu">
-        <!-- サイドメニューをインクルード -->
-        <!-- メイン画面 -->
-        <div class="col-lg-9 main-view">
-          <h2>ホーム</h2>
-          <div class="row home-main">
-            <div class="col-lg-6 info">
-              <table class="table table-bordered">
-                <thead class="text-center">
-                  <tr>
-                    <th>
-                      <img class="icon" src="images/infomation.png" alt="お知らせ">お知らせ
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <!-- データベース内のお知らせの数だけ表示 -->
-                  <tr>
-                    <td>お知らせ内容</td>
-                  </tr>
-                  <!-- ここまで -->
-                </tbody>
-              </table>
-            </div>
-            <div class="col-lg-6 home-main">
-              <div class="row">
-                <div class="col-lg-12 event">
-                  <table class="table table-bordered">
-                    <thead class="text-center">
-                      <tr>
-                        <th>
-                          <img class="icon" src="images/event.png" alt="イベント">今月の行事
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <!-- データベース内の今月の行事の数だけ表示 -->
-                      <tr>
-                        <td>今月の行事内容</td>
-                      </tr>
-                      <!-- ここまで -->
-                    </tbody>
-                  </table>
-                </div>
-                <div class="col-lg-12 update-info">
-                  <table class="table table-bordered">
-                    <thead class="text-center">
-                      <tr>
-                        <th>
-                          <img class="icon" src="images/update.png" alt="更新">更新情報
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <!-- データベース内の今月の行事の数だけ表示 -->
-                      <tr>
-                        <td>更新内容</td>
-                      </tr>
-                      <!-- ここまで -->
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- メイン画面終了 -->
-      </div>
-    </div>
-  </main>
+	<!-- メイン画面 -->
+	<main>
+		<div class="container-fluid">
+			<div class="row" id="sidemenu">
+				<!-- サイドメニュー-->
+				<th:block th:insert="~{/common/sideMenu :: common_sidemenu}"></th:block>
+				<!-- メイン画面 -->
+				<div class="col-lg-9 main-view">
+					<h2>ホーム</h2>
+					<div class="row home-main">
+						<div class="col-lg-6 info">
+							<table class="table table-bordered">
+								<thead class="text-center">
+									<tr>
+										<th><img class="icon" src="images/infomation.png"
+											alt="お知らせ">お知らせ</th>
+									</tr>
+								</thead>
+								<tbody>
+									<!-- データベース内のお知らせの数だけ表示 -->
+									<tr>
+										<td>お知らせ内容</td>
+									</tr>
+									<!-- ここまで -->
+								</tbody>
+							</table>
+						</div>
+						<div class="col-lg-6 home-main">
+							<div class="row">
+								<div class="col-lg-12 event">
+									<table class="table table-bordered">
+										<thead class="text-center">
+											<tr>
+												<th><img class="icon" src="images/event.png" alt="イベント">今月の行事
+												</th>
+											</tr>
+										</thead>
+										<tbody>
+											<!-- データベース内の今月の行事の数だけ表示 -->
+											<tr>
+												<td>今月の行事内容</td>
+											</tr>
+											<!-- ここまで -->
+										</tbody>
+									</table>
+								</div>
+								<div class="col-lg-12 update-info">
+									<table class="table table-bordered">
+										<thead class="text-center">
+											<tr>
+												<th><img class="icon" src="images/update.png" alt="更新">更新情報
+												</th>
+											</tr>
+										</thead>
+										<tbody>
+											<!-- データベース内の今月の行事の数だけ表示 -->
+											<tr>
+												<td>更新内容</td>
+											</tr>
+											<!-- ここまで -->
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- メイン画面終了 -->
+			</div>
+		</div>
+	</main>
 
-  <!-- フッター -->
-  <footer>
-    <div class="container-fluid">
-      <p>&copy; Town Circle 2024</p>
-    </div>
-  </footer>
+	<!-- フッター -->
+	<footer>
+		<div class="container-fluid">
+			<p>&copy; Town Circle 2024</p>
+		</div>
+	</footer>
 </body>
 
 </html>

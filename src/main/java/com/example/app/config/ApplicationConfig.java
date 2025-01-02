@@ -44,7 +44,7 @@ public class ApplicationConfig implements WebMvcConfigurer {
 	public FilterRegistrationBean<MemberAuthFilter> studentAuthFilter() {
 		var bean = new FilterRegistrationBean<MemberAuthFilter>(new MemberAuthFilter());
 		//TODO フィルターをつけるURLを設定
-		bean.addUrlPatterns("/member/*");
+		bean.addUrlPatterns("/*");
 		return bean;
 	}
 
