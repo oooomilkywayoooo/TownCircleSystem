@@ -3,44 +3,44 @@
 <!-- サイドメニュー -->
 <th:block th:fragment="common_sidemenu">
 <div class="col-lg-3 sidebar d-none d-lg-block">
-  <a href="/home.html">
+  <a th:href="@{/home}">
     <button type="button" class="btn btn-light">
-      <img class="icon" src="/images/homeIcon.png" alt="ホーム">ホーム
+      <img class="icon" th:src="@{/images/homeIcon.png}" alt="ホーム">ホーム
     </button>
   </a>
-  <a href="/bord.html">
+  <a th:href="@{/bord}">
     <button type="button" class="btn btn-light">
-      <img class="icon" src="/images/boardIcon.png" alt="回覧板">回覧板
+      <img class="icon" th:src="@{/images/boardIcon.png}" alt="回覧板">回覧板
     </button>
   </a>
-  <a href="/schedule.html">
+  <a th:href="@{/schedule}">
     <button type="button" class="btn btn-light">
-      <img class="icon" src="/images/scheduleIcon.png" alt="スケジュール">スケジュール
+      <img class="icon" th:src="@{/images/scheduleIcon.png}" alt="スケジュール">スケジュール
     </button>
   </a>
-  <a href="/chat.html">
+  <a th:href="@{/chat}">
     <button type="button" class="btn btn-light">
-      <img class="icon" src="/images/chatIcon.png" alt="チャット">チャット
+      <img class="icon" th:src="@{/images/chatIcon.png}" alt="チャット">チャット
     </button>
   </a>
-  <a href="/file.html">
+  <a th:href="@{/file}">
     <button type="button" class="btn btn-light">
-      <img class="icon" src="/images/fileIcon.png" alt="関連資料">関連資料
+      <img class="icon" th:src="@{/images/fileIcon.png}" alt="関連資料">関連資料
     </button>
   </a>
-  <a href="/question.html">
+  <a th:href="@{/question}">
     <button type="button" class="btn btn-light">
-      <img class="icon" src="/images/questionIcon.png" alt="アンケート">アンケート
+      <img class="icon" th:src="@{/images/questionIcon.png}" alt="アンケート">アンケート
     </button>
   </a>
-  <a href="/opinionbox.html">
+  <a th:href="@{/opinionbox}">
     <button type="button" class="btn btn-light">
-      <img class="icon" src="/images/mailBoxIcon.png" alt="ご意見箱">ご意見箱
+      <img class="icon" th:src="@{/images/mailBoxIcon.png}" alt="ご意見箱">ご意見箱
     </button>
   </a>
-  <a href="/contact.html">
+  <a th:href="@{/contact}">
     <button type="button" class="btn btn-light">
-      <img class="icon" src="/images/telIcon.png" alt="緊急連絡">緊急連絡
+      <img class="icon" th:src="@{/images/telIcon.png}" alt="緊急連絡">緊急連絡
     </button>
   </a>
 </div>

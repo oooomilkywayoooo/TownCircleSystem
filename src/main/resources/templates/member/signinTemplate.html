@@ -6,7 +6,7 @@
 		<div class="row">
 			<div class="col-lg signin-view">
 				<h1 class="text-center">SIGN IN</h1>
-				<form action="" method="post" th:object="${memberForm}">
+				<form th:action="@{/login}" method="post" th:object="${memberForm}">
 					<!-- エラーがある場合、以下のメッセージを表示 -->
 					<div th:if="${#fields.hasAnyErrors()}" class="row">
 						<div th:each="error : ${#fields.allErrors()}"
@@ -92,7 +92,7 @@
 			</div>
 			<div class="col-lg sign_up mb-4">
 				<h1 class="text-center">SIGN UP</h1>
-				<form action="" method="post" th:object="${memberForm}">
+				<form th:action="@{/register}" method="post" th:object="${memberForm}">
 					<!-- 名前のエラーがある場合に表示 -->
 					<div class="row">
 						<div class="alert alert-danger col-lg-9 col-8 offset-2 error"
