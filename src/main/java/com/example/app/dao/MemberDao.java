@@ -14,5 +14,7 @@ public interface MemberDao extends GenericDao<Member> {
 	public List<Member> selectByGroupId(Integer id) throws Exception;
 	public void insert(Member member) throws Exception;
 	public void update(Member member) throws Exception;
+	public void updatePass(Member member) throws Exception;
+	public void updateEmail(Member member) throws Exception;
 	public void delete(Member member) throws Exception;
 }

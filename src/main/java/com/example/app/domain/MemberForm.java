@@ -29,7 +29,7 @@ public class MemberForm {
     private String email;
     @NotNull(groups = {RegisterMember.class})
     private Integer groupId;
-    @NotBlank(groups = {RegisterMember.class})
+    @NotNull(groups = {RegisterMember.class})
     private Integer familyNumber;
     @NotBlank(groups = {RegisterMember.class, LoginMember.class})
     private String password;

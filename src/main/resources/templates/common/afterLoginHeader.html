@@ -16,9 +16,9 @@
 					[[${currentName}]] </a>
 				<ul class="dropdown-menu">
 					<li class="ms-0"><a class="dropdown-item"
-						th:href="@{/memberEdit}">会員情報編集</a></li>
+						th:href="@{/edit/{id}(id=${currentId})}">会員情報編集</a></li>
 					<li class="ms-0"><a class="dropdown-item"
-						th:href="@{/passEdit}">パスワード変更</a></li>
+						th:href="@{/passEdit/{id}(id=${currentId})}">パスワード変更</a></li>
 					<li class="ms-0"><a class="dropdown-item" th:href="@{/logout}">ログアウト</a></li>
 				</ul></li>
 		</ul>

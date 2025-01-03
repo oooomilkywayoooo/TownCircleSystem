@@ -29,7 +29,7 @@ public class MemberAuthFilter implements Filter {
             return;
         }
 		
-		if (path.equals("/login") || path.equals("/logout")) {
+		if (path.equals("/login") || path.equals("/logout") || path.equals("/register")) {
             chain.doFilter(request, response); // 何もせず次のフィルターに進む
             return;
         }

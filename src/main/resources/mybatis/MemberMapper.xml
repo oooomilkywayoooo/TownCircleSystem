@@ -79,7 +79,19 @@
 		UPDATE members 
 		SET name = #{name}, name_kana = #{nameKana}, address = #{address},
 			tel = #{tel}, group_id = #{group.id}, family_number = #{familyNumber},
-			password = #{password}, updated = NOW()
+			updated = NOW()
+		WHERE id = #{id}
+	</update>
+	<update id="updatePass"
+		parameterType="com.example.app.domain.Member">
+		UPDATE members 
+		SET password = #{password}, updated = NOW()
+		WHERE id = #{id}
+	</update>
+	<update id="updateEmail"
+		parameterType="com.example.app.domain.Member">
+		UPDATE members 
+		SET email = #{email}, updated = NOW()
 		WHERE id = #{id}
 	</update>
 	<update id="delete"

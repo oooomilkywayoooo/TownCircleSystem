@@ -2,27 +2,30 @@ package com.example.app.domain;
 
 import java.util.Date;
 
+import com.example.app.validation.EditMember;
+import com.example.app.validation.EditPassword;
+
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
 public class Member {
 	private Integer id;
-	@NotBlank
+	@NotBlank(groups = {EditMember.class})
 	private String name;
-	@NotBlank
+	@NotBlank(groups = {EditMember.class})
 	private String nameKana;
-	@NotBlank
+	@NotBlank(groups = {EditMember.class})
 	private String address;
-	@NotBlank
+	@NotBlank(groups = {EditMember.class})
 	@Size(max=11)
 	private String tel;
-	@NotBlank
 	private String email;
-	@NotBlank
+	@NotNull(groups = {EditMember.class})
 	private Integer familyNumber;
-	@NotBlank
+	@NotBlank(groups = {EditPassword.class})
 	private String password;
 	private Integer deleteFlg;
 	private Date created;

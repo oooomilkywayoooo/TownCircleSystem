@@ -21,6 +21,8 @@
 				<th:block th:insert="~{/common/sideMenu :: common_sidemenu}"></th:block>
 				<!-- メイン画面 -->
 				<div class="col-lg-9 main-view">
+				<!-- メッセージを表示 -->
+					<div th:if="${statusMessage}" class="col-3 alert alert-success mt-3" role="alert">[[${statusMessage}]]</div>
 					<h2>ホーム</h2>
 					<div class="row home-main">
 						<div class="col-lg-6 info">

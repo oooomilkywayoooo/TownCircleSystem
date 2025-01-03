@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{/common/metaCommon :: common_head}">
+<title>町内会システム | SIGN UP</title>
+</head>
+
+<body>
+	<!-- エラーメッセージ用画像 -->
+	<th:block th:insert="~{/common/metaCommon :: common_alert_image}"></th:block>
+
+	<!-- ヘッダー -->
+	<header id="login_header">
+		<div class="container-fluid">
+			<h1 class="my-auto">
+				<a th:href="@{/home}"><img
+					th:src="@{/images/townSystem-logo.png}" alt="町内会システム"></a>
+			</h1>
+		</div>
+		<a th:href="@{/admin/login}">
+			<button id="admin_login_btn" class="btn btn-secondary px-2 py-2">管理者ログイン</button>
+		</a>
+	</header>
+
+	<!-- メイン画面 -->
+	<main>
+		<div class="login-main">
+			<div class="container" id="signup-con">
+				<div class="row">
+					<div class="col-lg sign_in mb-4">
+						<h1 class="text-center">WELCOME!</h1>
+						<div class="signin-btn mt-4">
+							<p class="text-center">サインインはこちら</p>
+							<button id="changeSignIn" class="btn btn-light px-5 py-2 mb-5">SIGN
+								IN</button>
+						</div>
+					</div>
+					<div class="col-lg sign_up mb-4">
+						<h1 class="text-center">SIGN UP</h1>
+						<form th:action="@{/register}" method="post" th:object="${memberForm}">
+							<!-- 名前のエラーがある場合に表示 -->
+							<div
+								th:if="${#fields.hasErrors('lastName') || #fields.hasErrors('firstName')}"
+								class="row error-messages">
+								<div class="alert alert-danger col-lg-9 col-8 offset-2 error"
+									role="alert">
+									<p th:errors="*{lastName}"></p>
+									<p th:errors="*{firstName}"></p>
+								</div>
+							</div>
+							<!-- 名前（漢字） -->
+							<div class="row">
+								<!-- 大画面フォーム -->
+								<div class="bigScreen d-lg-flex">
+									<div class="col-lg-1 offset-1 mt-2">
+										<label for="lastName" class="col-form-label">姓</label>
+									</div>
+									<div class="col-lg-4 mt-2">
+										<input type="text" th:field="*{lastName}"
+											class="form-control large-screen">
+									</div>
+									<div class="col-lg-1 mt-2 text-center">
+										<label for="firstName" class="col-form-label">名</label>
+									</div>
+									<div class="col-lg-4 mt-2">
+										<input type="text" th:field="*{firstName}"
+											class="form-control large-screen">
+									</div>
+								</div>
+								<!-- タブレット・スマホフォーム -->
+								<div class="mobile">
+									<div class="row">
+										<div class="col-4 offset-2 mt-2">
+											<input type="text" th:field="*{lastName}"
+												class="form-control tablet" placeholder="姓">
+										</div>
+										<div class="col-4 mt-2">
+											<input type="text" th:field="*{firstName}"
+												class="form-control tablet" placeholder="名">
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- 名前(カナ)のエラーがある場合に表示 -->
+							<div
+								th:if="${#fields.hasErrors('lastNameKana') || #fields.hasErrors('firstNameKana')}"
+								class="row d-flex align-items-center error-messages">
+								<div class="alert alert-danger col-lg-9 col-8 offset-2 error"
+									role="alert">
+									<p th:errors="*{lastNameKana}"></p>
+									<p th:errors="*{firstNameKana}"></p>
+								</div>
+							</div>
+							<!-- 名前（カタカナ）-->
+							<div class="row">
+								<!-- 大画面フォーム -->
+								<div class="bigScreen d-lg-flex">
+									<div class="col-lg-1 offset-1 mt-2">
+										<label for="lastNameKana" class="col-form-label two-char">セイ</label>
+									</div>
+									<div class="col-lg-4 mt-2">
+										<input type="text" th:field="*{lastNameKana}"
+											class="form-control large-screen">
+									</div>
+									<div class="col-lg-1 mt-2 text-center">
+										<label for="firstNameKana" class="col-form-label two-char">メイ</label>
+									</div>
+									<div class="col-lg-4 mt-2">
+										<input type="text" th:field="*{firstNameKana}"
+											class="form-control large-screen">
+									</div>
+								</div>
+								<!-- タブレット・スマホフォーム -->
+								<div class="mobile">
+									<div class="row">
+										<div class="col-4 offset-2 mt-2">
+											<input type="text" th:field="*{lastNameKana}"
+												class="form-control tablet" placeholder="セイ">
+										</div>
+										<div class="col-4 mt-2">
+											<input type="text" th:field="*{firstNameKana}"
+												class="form-control tablet" placeholder="メイ">
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- 住所のエラーがある場合に表示 -->
+							<div th:if="${#fields.hasErrors('address')}"
+								class="row d-flex align-items-center error-messages">
+								<div class="alert alert-danger col-lg-9 col-8 offset-2 error"
+									role="alert">
+									<p th:errors="*{address}"></p>
+								</div>
+							</div>
+							<!-- 住所 -->
+							<div class="row">
+								<!-- 大画面フォーム -->
+								<div class="bigScreen d-lg-flex">
+									<div class="col-lg-1 offset-1 mt-2">
+										<label for="address" class="col-form-label two-char">住所</label>
+									</div>
+									<div class="col-lg-9 mt-2">
+										<input type="text" th:field="*{address}"
+											class="form-control large-screen">
+									</div>
+								</div>
+								<!-- タブレット・スマホフォーム -->
+								<div class="mobile">
+									<div class="row">
+										<div class="col-8 offset-2 mt-2">
+											<input type="text" th:field="*{address}"
+												class="form-control tablet" placeholder="住所">
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- 電話番号のエラーがある場合に表示 -->
+							<div th:if="${#fields.hasErrors('tel')}"
+								class="row d-flex align-items-center error-messages">
+								<div class="alert alert-danger col-lg-9 col-8 offset-2 error"
+									role="alert">
+									<p th:errors="*{tel}"></p>
+								</div>
+							</div>
+							<!-- 電話番号 -->
+							<div class="row">
+								<!-- 大画面フォーム -->
+								<div class="bigScreen d-lg-flex">
+									<div class="col-lg-1 offset-1 mt-2">
+										<label for="tel" class="col-form-label two-char">電話</label>
+									</div>
+									<div class="col-lg-9 mt-2">
+										<input type="text" th:field="*{tel}"
+											class="form-control large-screen">
+									</div>
+								</div>
+								<!-- タブレット・スマホフォーム -->
+								<div class="mobile">
+									<div class="row">
+										<div class="col-8 offset-2 mt-2">
+											<input type="text" th:field="*{tel}"
+												class="form-control tablet" placeholder="電話">
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- メールのエラーがある場合に表示 -->
+							<div th:if="${#fields.hasErrors('email')}"
+								class="row d-flex align-items-center error-messages">
+								<div class="alert alert-danger col-lg-9 col-8 offset-2 error"
+									role="alert">
+									<p th:errors="*{email}"></p>
+								</div>
+							</div>
+							<!-- Email -->
+							<div class="row">
+								<!-- 大画面フォーム -->
+								<div class="bigScreen d-lg-flex">
+									<div class="col-lg-1 offset-1 mt-2">
+										<label for="email" class="col-form-label two-char">Email</label>
+									</div>
+									<div class="col-lg-9 mt-2">
+										<input type="email" th:field="*{email}"
+											class="form-control large-screen">
+									</div>
+								</div>
+								<!-- タブレット・スマホフォーム -->
+								<div class="mobile">
+									<div class="row">
+										<div class="col-8 offset-2 mt-2">
+											<input type="email" th:field="*{email}"
+												class="form-control tablet" placeholder="Email">
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- グループのエラーがある場合に表示 -->
+							<div th:if="${#fields.hasErrors('groupId')}"
+								class="row d-flex align-items-center error-messages">
+								<div class="alert alert-danger col-lg-9 col-8 offset-2 error"
+									role="alert">
+									<p th:errors="*{groupId}"></p>
+								</div>
+							</div>
+							<!-- グループ選択 -->
+							<div class="row">
+								<!-- 大画面フォーム -->
+								<div class="bigScreen d-lg-flex">
+									<div class="col-lg-4 offset-2 mt-2">
+										<select th:field="*{groupId}" class="form-select">
+											<option value="" selected>所属グループ選択</option>
+											<option th:each="g : ${groupList}" th:value="${g.id}"
+												th:text="${g.name}"></option>
+										</select>
+									</div>
+								</div>
+								<!-- タブレット・スマホフォーム -->
+								<div class="mobile">
+									<div class="row">
+										<div class="col-4 offset-2 mt-2">
+											<select th:field="*{groupId}" class="form-select">
+												<option value="" selected>所属グループ選択</option>
+												<option th:each="g : ${groupList}" th:value="${g.id}"
+													th:text="${g.name}"></option>
+											</select>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- 家族人数のエラーがある場合に表示 -->
+							<div th:if="${#fields.hasErrors('familyNumber')}"
+								class="row d-flex align-items-center error-messages">
+								<div class="alert alert-danger col-lg-9 col-8 offset-2 error"
+									role="alert">
+									<p th:errors="*{familyNumber}"></p>
+								</div>
+							</div>
+							<!-- 家族人数 -->
+							<div class="row">
+								<!-- 大画面フォーム -->
+								<div class="bigScreen d-lg-flex">
+									<div class="col-lg-2 mt-2 text-center pe-0">
+										<label for="familyNumber" class="col-form-label two-char">家族人数</label>
+									</div>
+									<div class="col-lg-2 mt-2">
+										<input type="number" th:field="*{familyNumber}"
+											class="form-control large-screen">
+									</div>
+									<div class="col mt-2 pt-2 ps-1">
+										<span>人 ※本人含む</span>
+									</div>
+								</div>
+								<!-- タブレット・スマホフォーム -->
+								<div class="mobile">
+									<div class="row">
+										<div class="col-4 offset-2 mt-2">
+											<input type="number" th:field="*{familyNumber}"
+												class="form-control d-block tablet" placeholder="家族人数">
+										</div>
+										<div class="col mt-2 pt-2 ps-0">
+											<span>人 ※本人含む</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- パスワードのエラーがある場合に表示 -->
+							<div th:if="${#fields.hasErrors('password')}"
+								class="row d-flex align-items-center error-messages">
+								<div class="alert alert-danger col-lg-9 col-8 offset-2 error"
+									role="alert">
+									<p th:errors="*{password}"></p>
+								</div>
+							</div>
+							<!-- パスワード -->
+							<div class="row">
+								<!-- 大画面フォーム -->
+								<div class="bigScreen d-lg-flex">
+									<div class="col-lg-2 mt-2 text-center pe-0">
+										<label for="password" class="col-form-label two-char">パスワード</label>
+									</div>
+									<div class="col-lg-9 mt-2">
+										<input type="password" th:field="*{password}"
+											class="form-control large-screen">
+									</div>
+								</div>
+								<!-- タブレット・スマホフォーム -->
+								<div class="mobile">
+									<div class="row">
+										<div class="col-8 offset-2 mt-2">
+											<input type="password" th:field="*{password}"
+												class="form-control tablet" placeholder="パスワード">
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- 確認用パスワードのエラーがある場合に表示 -->
+							<div th:if="${#fields.hasErrors('passwordConf')}"
+								class="row d-flex align-items-center error-messages">
+								<div class="alert alert-danger col-lg-9 col-8 offset-2 error"
+									role="alert">
+									<p th:errors="*{passwordConf}"></p>
+								</div>
+							</div>
+							<!-- パスワード(確認用) -->
+							<div class="row">
+								<!-- 大画面フォーム -->
+								<div class="bigScreen d-lg-flex">
+									<div class="col-lg-2 mt-2 text-center pe-0">
+										<label for="passwordConf" class="col-form-label two-char">パスワード<br>(確認用)
+										</label>
+									</div>
+									<div class="col-lg-9 mt-2">
+										<input type="password" th:field="*{passwordConf}"
+											class="form-control large-screen">
+									</div>
+								</div>
+								<!-- タブレット・スマホフォーム -->
+								<div class="mobile">
+									<div class="row">
+										<div class="col-8 offset-2 mt-2">
+											<input type="password" th:field="*{passwordConf}"
+												class="form-control tablet" placeholder="パスワード(確認用)">
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- submitボタン -->
+							<div class="signup-btn my-3">
+								<input type="submit" value="SIGN UP"
+									class="btn btn-secondary px-5 py-2">
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+	<!-- フッター -->
+	<footer>
+		<div class="container-fluid">
+			<p>&copy; Town Circle 2024</p>
+		</div>
+	</footer>
+	<th:block th:insert="~{/member/signinTemplate :: signup-template}"></th:block>
+	<th:block th:insert="~{/member/signinTemplate :: signin-template}"></th:block>
+	<script>
+	// DOMが読み込まれた時に実行
+	document.addEventListener("DOMContentLoaded", toggleInputState);
+	// SIGNUP画面からSIGNINボタン押下時に実行
+	document.addEventListener('click', function (event) {
+		if (event.target && event.target.id === 'changeSignIn' ||
+				event.target && event.target.id === 'changeSignUp') {
+			setTimeout(toggleInputState, 2000);
+		}
+	});
+
+	function toggleInputState() {
+		// .tabletクラスを持つすべての要素を取得
+		const mobileInputs = document.querySelectorAll('.tablet');
+	 	// .large-screenクラスを持つすべての要素を取得
+		const largeInputs = document.querySelectorAll('.large-screen');
+		// 大画面の場合、各要素を無効化
+		if (window.innerWidth >= 992) {
+			mobileInputs.forEach(input => {
+				input.disabled = true; // 無効化
+			});
+		}else {
+			largeInputs.forEach(input => {
+				input.disabled = true; // 無効化
+			});
+	 	}
+	}
+</script>
+</body>
+
+</html>
