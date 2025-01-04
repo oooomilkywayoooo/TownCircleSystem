@@ -5,6 +5,9 @@
 </head>
 
 <body>
+	<!-- エラーメッセージ用画像 -->
+	<th:block th:insert="~{/common/metaCommon :: common_alert_image}"></th:block>
+	
 	<!-- ヘッダー -->
 	<header id="header">
 		<!-- 通常ヘッダー-->
@@ -22,23 +25,29 @@
 				<!-- メイン画面 -->
 				<div class="col-lg-9 main-view">
 				<!-- メッセージを表示 -->
-					<div th:if="${statusMessage}" class="col-3 alert alert-success mt-3" role="alert">[[${statusMessage}]]</div>
+					<div th:if="${statusMessage}" class="col-4 alert alert-success mt-3" role="alert">
+					<svg class="bi flex-shrink-0 me-2" role="img" aria-label="Success:" width="16" height="16"><use xlink:href="#check-circle-fill"/></svg>
+						[[${statusMessage}]]
+					</div>
 					<h2>ホーム</h2>
 					<div class="row home-main">
 						<div class="col-lg-6 info">
 							<table class="table table-bordered">
 								<thead class="text-center">
 									<tr>
-										<th><img class="icon" src="images/infomation.png"
+										<th colspan="2"><img class="icon" src="images/infomation.png"
 											alt="お知らせ">お知らせ</th>
 									</tr>
 								</thead>
 								<tbody>
-									<!-- データベース内のお知らせの数だけ表示 -->
 									<tr>
-										<td>お知らせ内容</td>
+										<th>登録日</th>
+										<th>内容</th>
 									</tr>
-									<!-- ここまで -->
+									<tr th:each="info : ${infoList}">
+										<td>[[${#dates.format(info.created, 'yyyy/MM/dd')}]]</td>
+										<td>[[${info.content}]]</td>
+									</tr>
 								</tbody>
 							</table>
 						</div>
@@ -48,31 +57,18 @@
 									<table class="table table-bordered">
 										<thead class="text-center">
 											<tr>
-												<th><img class="icon" src="images/event.png" alt="イベント">今月の行事
+												<th colspan="2"><img class="icon" src="images/event.png" alt="イベント">今月の行事
 												</th>
 											</tr>
 										</thead>
 										<tbody>
-											<!-- データベース内の今月の行事の数だけ表示 -->
 											<tr>
-												<td>今月の行事内容</td>
+												<th>開催日</th>
+												<th>イベント</th>
 											</tr>
-											<!-- ここまで -->
-										</tbody>
-									</table>
-								</div>
-								<div class="col-lg-12 update-info">
-									<table class="table table-bordered">
-										<thead class="text-center">
-											<tr>
-												<th><img class="icon" src="images/update.png" alt="更新">更新情報
-												</th>
-											</tr>
-										</thead>
-										<tbody>
-											<!-- データベース内の今月の行事の数だけ表示 -->
-											<tr>
-												<td>更新内容</td>
+											<tr th:each="event : ${scheduleList}">
+												<td>[[${#dates.format(event.eventAt, 'yyyy/MM/dd(E)')}]]</td>
+												<td>[[${event.content}]]</td>
 											</tr>
 											<!-- ここまで -->
 										</tbody>

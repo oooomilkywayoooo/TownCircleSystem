@@ -1,4 +1,22 @@
-
+// フォーム画面　画面の大きさによって入力の可・不可切り替え
+// DOMが読み込まれた時に実行
+	document.addEventListener("DOMContentLoaded", toggleInputState);
+	function toggleInputState() {
+		// .tabletクラスを持つすべての要素を取得
+		const mobileInputs = document.querySelectorAll('.tablet');
+	 	// .large-screenクラスを持つすべての要素を取得
+		const largeInputs = document.querySelectorAll('.large-screen');
+		// 大画面の場合、各要素を無効化
+		if (window.innerWidth >= 992) {
+			mobileInputs.forEach(input => {
+				input.disabled = true; // 無効化
+			});
+		}else {
+			largeInputs.forEach(input => {
+				input.disabled = true; // 無効化
+			});
+	 	}
+	}
 // jQuery
 $(document).ready(function() {
 

@@ -6,6 +6,7 @@ import com.example.app.domain.Notification;
 
 public interface NotificationService {
 	public List<Notification>getNotificationList() throws Exception;
+	public List<Notification>getLimitedList() throws Exception;
 	public Notification getNotificationById(Integer id) throws Exception;
 	public void addNotification(Notification notification) throws Exception;
 	public void editNotification(Notification notification) throws Exception;

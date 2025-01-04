@@ -5,6 +5,12 @@
 	<select id="selectAll" resultType="com.example.app.domain.Notification">
 		SELECT * FROM notifications WHERE delete_flg = 0
 	</select>
+	<select id="selectLimitedList" resultType="com.example.app.domain.Notification">
+		SELECT content, created FROM notifications 
+		WHERE delete_flg = 0
+		ORDER BY created DESC
+		LIMIT 5
+	</select>
 	<select id="selectById" parameterType="int" resultType="com.example.app.domain.Notification">
 		SELECT * FROM notifications WHERE delete_flg = 0 AND id = #{id}
 	</select>

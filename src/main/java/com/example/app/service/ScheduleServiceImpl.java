@@ -28,6 +28,11 @@ public class ScheduleServiceImpl extends GenericService<Schedule> implements Sch
 	public List<Schedule> getScheduleList() throws Exception {
 		return scheduleDao.selectAll();
 	}
+	
+	@Override
+	public List<Schedule> getCurrentMonthList() throws Exception {
+		return scheduleDao.selectCurrentMonthList();
+	}
 
 	@Override
 	public Schedule getScheduleById(Integer id) throws Exception {

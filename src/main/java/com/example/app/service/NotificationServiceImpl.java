@@ -27,6 +27,11 @@ public class NotificationServiceImpl extends GenericService<Notification> implem
 	public List<Notification> getNotificationList() throws Exception {
 		return notificationDao.selectAll();
 	}
+	
+	@Override
+	public List<Notification> getLimitedList() throws Exception {
+		return notificationDao.selectLimitedList();
+	}
 
 	@Override
 	public Notification getNotificationById(Integer id) throws Exception {
@@ -50,4 +55,5 @@ public class NotificationServiceImpl extends GenericService<Notification> implem
 		notificationDao.delete(notification);
 		
 	}
+	
 }
