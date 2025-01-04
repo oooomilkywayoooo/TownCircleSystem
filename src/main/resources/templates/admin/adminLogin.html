@@ -27,8 +27,10 @@
 				<div class="col admin_login_view">
 					<h2 class="text-center mt-3">管理者ログイン</h2>
 					<!-- ログアウト時のメッセージを表示 -->
-					<div th:if="${statusMessage}" class="alert alert-success"
-						role="alert">[[${statusMessage}]]</div>
+					<div th:if="${statusMessage}" class="alert alert-success col-9 offset-1 d-flex align-items-center mb-0 error"
+						role="alert"><svg class="bi flex-shrink-0 me-2" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+							[[${statusMessage}]]
+						</div>
 					<form action="" method="post" th:object="${admin}">
 						<!-- エラーがある場合、以下のメッセージを表示 -->
 						<div th:if="${#fields.hasAnyErrors()}" class="row">
@@ -99,22 +101,4 @@
 		</div>
 	</footer>
 </body>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    // .tabletクラスを持つすべての要素を取得
-    const mobileInputs = document.querySelectorAll('.tablet');
- 	// .large-screenクラスを持つすべての要素を取得
-    const largeInputs = document.querySelectorAll('.large-screen');
-    // 大画面の場合、各要素を無効化
-    if (window.innerWidth >= 992) {
-        mobileInputs.forEach(input => {
-            input.disabled = true; // 無効化
-        });
-    }else {
-    	largeInputs.forEach(input => {
-            input.disabled = true; // 無効化
-        });
-    }
-});
-</script>
 </html>
