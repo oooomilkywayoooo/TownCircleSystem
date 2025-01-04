@@ -362,34 +362,6 @@
 	</footer>
 	<th:block th:insert="~{/member/signinTemplate :: signup-template}"></th:block>
 	<th:block th:insert="~{/member/signinTemplate :: signin-template}"></th:block>
-	<script>
-	// DOMが読み込まれた時に実行
-	document.addEventListener("DOMContentLoaded", toggleInputState);
-	// SIGNUP画面からSIGNINボタン押下時に実行
-	document.addEventListener('click', function (event) {
-		if (event.target && event.target.id === 'changeSignIn' ||
-				event.target && event.target.id === 'changeSignUp') {
-			setTimeout(toggleInputState, 2000);
-		}
-	});
-
-	function toggleInputState() {
-		// .tabletクラスを持つすべての要素を取得
-		const mobileInputs = document.querySelectorAll('.tablet');
-	 	// .large-screenクラスを持つすべての要素を取得
-		const largeInputs = document.querySelectorAll('.large-screen');
-		// 大画面の場合、各要素を無効化
-		if (window.innerWidth >= 992) {
-			mobileInputs.forEach(input => {
-				input.disabled = true; // 無効化
-			});
-		}else {
-			largeInputs.forEach(input => {
-				input.disabled = true; // 無効化
-			});
-	 	}
-	}
-</script>
 </body>
 
 </html>

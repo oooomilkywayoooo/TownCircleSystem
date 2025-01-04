@@ -1,13 +1,11 @@
 package com.example.app.controller;
 
-import java.util.List;
-
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,10 +15,11 @@ import com.example.app.domain.Member;
 import com.example.app.domain.MemberForm;
 import com.example.app.service.GroupService;
 import com.example.app.service.MemberService;
+import com.example.app.validation.EditMember;
+import com.example.app.validation.EditPassword;
 import com.example.app.validation.RegisterMember;
 
 import jakarta.servlet.http.HttpSession;
-import jakarta.validation.Valid;
 
 @Controller
 public class RegisterController {
@@ -51,11 +50,6 @@ public class RegisterController {
 		}
 		// 入力に不備
 		if (errors.hasErrors()) {
-			// エラー内容の確認
-			List<ObjectError> objList = errors.getAllErrors();
-			for (ObjectError obj : objList) {
-				System.out.println(obj.toString());
-			}
 			model.addAttribute("groupList", groupService.getGroupList());
 			return "member/signup";
 		}
@@ -90,11 +84,10 @@ public class RegisterController {
 	}
 
 	@PostMapping("/edit/{id}")
-	public String editPost(@PathVariable Integer id, @Valid Member member,
+	public String editPost(@PathVariable Integer id, @Validated(EditMember.class) Member member,
 			Errors errors, Model model, HttpSession session) throws Exception {
-		
+
 		if (errors.hasErrors()) {
-			System.out.println("エラー出てるよ");
 			model.addAttribute("groupList", groupService.getGroupList());
 			return "member/memberEdit";
 		}
@@ -111,6 +104,37 @@ public class RegisterController {
 			model.addAttribute("groupList", groupService.getGroupList());
 			return "member/memberEdit";
 		}
+	}
+
+	/////////////////////
+	///パスワード編集機能///
+	/////////////////////
+	@GetMapping("/passEdit/{id}")
+	public String passEditGet(@PathVariable Integer id, Model model,
+			HttpSession session) throws Exception {
+		Member member = memberService.getMemberById(id);
+		model.addAttribute("member", member);
+		// ヘッダー用ログインメンバーの会員idと会員名
+		model.addAttribute("currentId", session.getAttribute("memberId"));
+		model.addAttribute("currentName", session.getAttribute("memberName"));
+		return "member/passEdit";
+	}
+
+	@PostMapping("/passEdit/{id}")
+	public String passEditPost(@PathVariable Integer id, @Validated(EditPassword.class) Member member,
+			Errors errors, Model model, HttpSession session) throws Exception {
+		// パスワードと確認用パスワードが一致しない場合
+		if (!member.getPassword().equals(member.getPasswordConf())) {
+			errors.rejectValue("password", NOT_SAME_PASS);
+		}
+		// 入力に不備
+		if (errors.hasErrors()) {
+			return "member/passEdit";
+		}
+		member.setId(id);	
+		member.setPassword(BCrypt.hashpw(member.getPassword(), BCrypt.gensalt()));
+		memberService.editPass(member);	
+		return "redirect:/home?status=passEdit";
 	}
 
 }

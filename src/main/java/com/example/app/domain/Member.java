@@ -27,6 +27,8 @@ public class Member {
 	private Integer familyNumber;
 	@NotBlank(groups = {EditPassword.class})
 	private String password;
+	@NotBlank(groups = {EditPassword.class})
+	private String passwordConf;
 	private Integer deleteFlg;
 	private Date created;
 	private Date updated;

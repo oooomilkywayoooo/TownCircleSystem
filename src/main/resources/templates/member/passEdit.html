@@ -1,30 +1,18 @@
 <!DOCTYPE html>
-<html lang="ja">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bxslider@4.2.17/dist/jquery.bxslider.min.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Kiwi+Maru&family=Pacifico&family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
-    rel="stylesheet">
-  <script src="js/jquery-3.7.1.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bxslider@4.2.17/dist/jquery.bxslider.min.js"></script>
-  <script src="js/bootstrap.bundle.min.js"></script>
-  <script src="js/main.js"></script>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{/common/metaCommon :: common_head}">
   <title>町内会システム | Pass Edit</title>
 </head>
 
 <body>
-  <!-- ヘッダー -->
-  <header id="header">
-    <!-- ヘッダーをインクルード -->
-  </header>
+	<!-- ヘッダー -->
+	<header id="header">
+		<!-- 通常ヘッダー-->
+		<th:block th:insert="~{/common/afterLoginHeader :: member_header}"></th:block>
+		<!-- ハンバーガーヘッダー-->
+		<th:block
+			th:insert="~{/common/hamburgerMenu :: member_hamburgerHeader}"></th:block>
+	</header>
 
   <!-- メイン画面 -->
   <main>
@@ -32,40 +20,49 @@
       <div class="row">
         <div class="col-lg-8 offset-lg-2 my-lg-4">
           <h1 class="text-center pass-head">パスワード変更</h1>
-          <form action="" method="post">
+          <form action="" method="post" th:object="${member}">
+          <!-- パスワードのエラーがある場合に表示 -->
+						<div th:if="${#fields.hasAnyErrors()}"
+							class="row error-messages">
+							<div class="alert alert-danger col-lg-9 col-8 offset-2 error"
+								role="alert">
+								<p th:errors="*{password}"></p>
+								<p th:errors="*{passwordConf}"></p>
+							</div>
+						</div>
             <!-- パスワード -->
             <div class="row mt-5">
               <!-- 大画面フォーム -->
-              <div class="d-none d-lg-flex">
+              <div class="bigScreen d-lg-flex">
                 <div class="col-lg-2 mt-2 text-start pe-0">
                   <label for="password" class="col-form-label two-char">新しいパスワード</label>
                 </div>
                 <div class="col-lg-9 mt-2">
-                  <input type="password" id="password" name="password" class="form-control">
+                  <input type="password" th:field="*{password}" class="form-control large-screen">
                 </div>
               </div>
               <!-- タブレット・スマホフォーム -->
-              <div class="d-lg-none">
+              <div class="mobile">
                 <div class="col-8 offset-2 mt-2">
-                  <input type="password" id="password" name="password" class="form-control" placeholder="新しいパスワード">
+                  <input type="password" th:field="*{password}" class="form-control tablet" placeholder="新しいパスワード">
                 </div>
               </div>
             </div>
             <!-- パスワード(確認用) -->
             <div class="row mt-3">
               <!-- 大画面フォーム -->
-              <div class="d-none d-lg-flex">
+              <div class="bigScreen d-lg-flex">
                 <div class="col-lg-2 mt-2 text-start pe-0">
-                  <label for="password" class="col-form-label two-char">新しいパスワード<br>(確認用)</label>
+                  <label for="passwordConf" class="col-form-label two-char">新しいパスワード<br>(確認用)</label>
                 </div>
                 <div class="col-lg-9 mt-2">
-                  <input type="password" id="password" name="password" class="form-control">
+                  <input type="password" th:field="*{passwordConf}" class="form-control large-screen">
                 </div>
               </div>
               <!-- タブレット・スマホフォーム -->
-              <div class="d-lg-none">
+              <div class="mobile">
                 <div class="col-8 offset-2 mt-2">
-                  <input type="password" id="password" name="password" class="form-control" placeholder="新しいパスワード(確認用)">
+                  <input type="password" th:field="*{passwordConf}" class="form-control tablet" placeholder="新しいパスワード(確認用)">
                 </div>
               </div>
             </div>
