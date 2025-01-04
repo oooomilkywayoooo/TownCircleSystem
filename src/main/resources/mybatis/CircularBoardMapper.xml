@@ -11,6 +11,10 @@
 	<select id="selectByLatestData" resultType="com.example.app.domain.CircularBoard">
 		SELECT name, created FROM circular_boards ORDER BY created DESC LIMIT 1
 	</select>
+	<select id="selectLatestList" parameterType="string" resultType="com.example.app.domain.CircularBoard">
+		SELECT * FROM circular_boards
+		WHERE created LIKE CONCAT(#{latestDate}, '%')
+	</select>
 	<insert id="insert"
 		parameterType="com.example.app.domain.CircularBoard">
 		INSERT INTO circular_boards (name, file_path, created)

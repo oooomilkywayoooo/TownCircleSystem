@@ -12,7 +12,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.app.dao.CircularBoardDao;
 import com.example.app.dao.GenericDao;
+import com.example.app.dao.ReadStatusDao;
 import com.example.app.domain.CircularBoard;
+import com.example.app.domain.ReadStatus;
 
 @Service
 public class CircularBoardServiceImpl extends GenericService<CircularBoard> implements CircularBoardService {
@@ -24,6 +26,8 @@ public class CircularBoardServiceImpl extends GenericService<CircularBoard> impl
 	private String commonImgName = "b-" + now;
 	@Autowired
 	CircularBoardDao circularBoardDao;
+	@Autowired
+	ReadStatusDao readStatusDao;
 
 	public CircularBoardServiceImpl(CircularBoardDao circularBoardDao) {
 		this.circularBoardDao = circularBoardDao;
@@ -47,6 +51,11 @@ public class CircularBoardServiceImpl extends GenericService<CircularBoard> impl
 	@Override
 	public CircularBoard getLatestData() throws Exception {
 		return circularBoardDao.selectByLatestData();
+	}
+	
+	@Override
+	public List<CircularBoard> getLatestList(String latestDate) throws Exception {
+		return circularBoardDao.selectLatestList(latestDate);
 	}
 
 	@Override
@@ -94,6 +103,18 @@ public class CircularBoardServiceImpl extends GenericService<CircularBoard> impl
 	@Override
 	public void deleteCircularBoard(CircularBoard circularBoard) throws Exception {
 		circularBoardDao.delete(circularBoard);
+	}
+	
+	// 既読ステータス
+	@Override
+	public List<ReadStatus> getStatusByMemberId(Integer id) throws Exception {
+		return readStatusDao.selectByMemberId(id);
+	}
+
+	@Override
+	public void addReadStatus(ReadStatus readStatus) throws Exception {
+		readStatusDao.insert(readStatus);
+		
 	}
 
 }
