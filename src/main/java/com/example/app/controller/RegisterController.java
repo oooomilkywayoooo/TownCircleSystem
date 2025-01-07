@@ -89,6 +89,9 @@ public class RegisterController {
 
 		if (errors.hasErrors()) {
 			model.addAttribute("groupList", groupService.getGroupList());
+			// ヘッダー用ログインメンバーの会員idと会員名
+			model.addAttribute("currentId", session.getAttribute("memberId"));
+			model.addAttribute("currentName", session.getAttribute("memberName"));
 			return "member/memberEdit";
 		}
 
@@ -102,6 +105,9 @@ public class RegisterController {
 				errors.rejectValue("email", ALREADY_REGIST);
 			}
 			model.addAttribute("groupList", groupService.getGroupList());
+			// ヘッダー用ログインメンバーの会員idと会員名
+			model.addAttribute("currentId", session.getAttribute("memberId"));
+			model.addAttribute("currentName", session.getAttribute("memberName"));
 			return "member/memberEdit";
 		}
 	}
@@ -129,6 +135,9 @@ public class RegisterController {
 		}
 		// 入力に不備
 		if (errors.hasErrors()) {
+			// ヘッダー用ログインメンバーの会員idと会員名
+			model.addAttribute("currentId", session.getAttribute("memberId"));
+			model.addAttribute("currentName", session.getAttribute("memberName"));
 			return "member/passEdit";
 		}
 		member.setId(id);	

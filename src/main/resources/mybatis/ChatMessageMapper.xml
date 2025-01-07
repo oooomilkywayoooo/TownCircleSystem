@@ -21,6 +21,7 @@
 		JOIN members
 		ON chat_messages.member_id = members.id
 		WHERE chat_messages.delete_flg = 0
+		ORDER BY created DESC
 	</select>
 	<select id="selectById" parameterType="int"
 		resultMap="joinedResult">

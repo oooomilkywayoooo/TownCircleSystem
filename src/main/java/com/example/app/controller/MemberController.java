@@ -174,6 +174,11 @@ public class MemberController {
 	public String chatPost(@Valid ChatMessage chatMessage, 
 					Errors errors, HttpSession session, Model model) throws Exception {
 		if(errors.hasErrors()) {
+			// ヘッダー用ログインメンバーの会員idと会員名
+			model.addAttribute("currentId", session.getAttribute("memberId"));
+			model.addAttribute("currentName", session.getAttribute("memberName"));
+			// DBから全てのチャットメッセージを取得、表示
+			model.addAttribute("chatList", chatService.getChatMessageList());
 			return "member/chat";
 		}
 		// 送信者IDを取得
