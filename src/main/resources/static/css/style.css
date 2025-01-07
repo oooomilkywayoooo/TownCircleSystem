@@ -94,7 +94,7 @@ main .container-fluid {
   padding-right: 10px;
 }
 
-.bordicon {
+.boardicon {
   width: 45px;
   height: 30px;
   padding-right: 10px;
@@ -133,28 +133,28 @@ main .container-fluid {
   margin-left: 20px;
 }
 
-.bord-main {
+.board-main {
   margin: 0 auto;
 }
 
-.bord {
+.board {
   width: 32%;
   border: 1px solid #000;
   border-radius: 10px;
   margin: 2px 2px;
 }
 
-.bord .already {
+.board .already {
   color: red;
 }
 
-.bordimg {
+.boardimg {
   margin-top: 20px;
   width: 100%;
   height: 250px;
 }
 
-#prevbord {
+#prevboard {
   width: 200px;
   height: 50px;
   margin-top: 30px;
@@ -452,7 +452,7 @@ form {
     width: 90%;
   }
 
-  #prevbord {
+  #prevboard {
     margin-bottom: 30px;
   }
 
@@ -574,6 +574,10 @@ form {
 }
 .nav_menu_li > a {
   color: #F9F6EA;
+}
+
+.admin-contact a {
+	margin: 0 auto;
 }
 
 /* 管理者ページデザイン */

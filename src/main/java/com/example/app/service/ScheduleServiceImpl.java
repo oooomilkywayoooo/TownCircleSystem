@@ -54,4 +54,9 @@ public class ScheduleServiceImpl extends GenericService<Schedule> implements Sch
 		scheduleDao.delete(schedule);
 	}
 
+	@Override
+	public List<Schedule> getByEventList(String dateStr) throws Exception {
+		return scheduleDao.selectByEventList(dateStr);
+	}
+
 }

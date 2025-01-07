@@ -54,8 +54,13 @@ public class CircularBoardServiceImpl extends GenericService<CircularBoard> impl
 	}
 	
 	@Override
-	public List<CircularBoard> getLatestList(String latestDate) throws Exception {
-		return circularBoardDao.selectLatestList(latestDate);
+	public List<CircularBoard> getCreatedList(String dateStr) throws Exception {
+		return circularBoardDao.selectByCreatedList(dateStr);
+	}
+	
+	@Override
+	public List<CircularBoard> getMonthList() throws Exception {
+		return circularBoardDao.selectByMonthList();
 	}
 
 	@Override

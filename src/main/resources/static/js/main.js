@@ -17,6 +17,7 @@
 			});
 	 	}
 	}
+	
 // jQuery
 $(document).ready(function() {
 
@@ -24,20 +25,51 @@ $(document).ready(function() {
 	$('.delete').click(function() {
 		if (confirm('削除してよろしいですか？') == false) return false;
 	});
-
-	// ヘッダーインクルード
-	//$.get('/common/afterLoginHeader.html', function(header) {
-	//	$('#header').prepend(header);
-	//});
-
+	
+	// 会員サイドバーのスケジュールにhrefを設定
+	let d = new Date();
+	let ym = d.getFullYear() + "-" + d.getMonth()+1; 
+	let scheduleHref = '/schedule/' + ym;
+	$('.home-schedule').attr('href', scheduleHref);
+	
+	// 過去回覧板の選択年月取得
+	$('#prev-board-ym').change(function(){
+		var selectMonth = $('#prev-board-ym').val();
+		let scheduleHref = '/prevboard/' + selectMonth;
+		window.location.href = scheduleHref;
+	})
+	
+	// スケジュールの選択月取得
+	$('#event_ym').change(function(){
+		var selectMonth = $('#event_ym').val();
+		let scheduleHref = '/schedule/' + selectMonth;
+		window.location.href = scheduleHref;
+	});
+	
+	// ページ遷移後の初期化処理
+    window.onload = function() {
+        // 現在のURLを取得
+        const url = window.location.href;
+        // URLから選択された年月部分を取得（例: /schedule/2025-01）
+        const match = url.match(/\/schedule\/(\d{4}-\d{2})/);
+        // URLから選択された年月部分を取得（例: /prevboard/2025-01）
+        const prevMatch = url.match(/\/prevboard\/(\d{4}-\d{2})/);
+        if (match) {
+            const selectedValue = match[1]; // yyyy-MM形式の年月を取得
+            // const selectElement = document.getElementById('event_ym');
+            // 値を設置
+           $('#event_ym').val(selectedValue);
+        } else if (prevMatch) {
+            const selectedValue = prevMatch[1]; // yyyy-MM形式の年月を取得
+            const selectElement = $('#prev-board-ym');
+            selectElement.val(selectedValue);
+         }
+    };
+		
 	// ハンバーガーヘッダーインクルード
 	//$.get('/common/hamburgerMenu.html', function(burgerHeader) {
 	//	$('#header').append(burgerHeader);
 	//});
-
-	// サイドバーインクルード
-	//$.get('/common/sideMenu.html', function(sideMenu) {
-	//	$('#sidemenu').prepend(sideMenu);
 
 	// サイドメニューのカレント表示
 	// const url = 'http://127.0.0.1:5500';
@@ -52,24 +84,23 @@ $(document).ready(function() {
 	});
 
 	// 過去回覧板ページで回覧板ボタンをカレント
-	const prevbord = 'http://127.0.0.1:5500/prevbord.html';
-	if (prevbord === location.href) {
+	const prevboard = 'prevboard';
+	if (location.href.indexOf(prevboard) != -1) {
 		$('.sidebar > a > button').eq(1).addClass('current');
 	}
-});
+	
+	// スケジュールページでスケジュールボタンをカレント
+	const scheduleLink = 'schedule';
+	if (location.href.indexOf(scheduleLink) != -1) {
+		$('.sidebar > a > button').eq(2).addClass('current');
+	}
+
 
 // ハンバーガーメニュー
 $(document).on('click', '.nav_toggle', function() {
 	console.log('クリック！');
 	$('.nav_toggle, .nav').toggleClass('show');
 });
-
-// 回覧板を見たら「未読」->「既読」に変更
-// jQueryで実装する？検討！！
-$('.bord > a').click(function() {
-	$(this).next().text('既読');
-	$(this).next().addClass('already');
-})
 
 // 過去回覧板の表示スライダー
 $('.bxslider').bxSlider({
@@ -207,3 +238,4 @@ $(document).on('click', '#changeSignUp', function() {
     setTimeout(function(){window.location.href = '/login';},1500);
 		});
 	});
+});

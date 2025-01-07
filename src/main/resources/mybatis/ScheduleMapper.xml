@@ -11,6 +11,11 @@
 			AND EXTRACT(MONTH FROM event_at) = EXTRACT(MONTH FROM CURRENT_DATE)
 			AND delete_flg = 0
 	</select>
+	<select id="selectByEventList" parameterType="string" resultType="com.example.app.domain.Schedule">
+		SELECT * FROM schedules
+		WHERE event_at LIKE CONCAT(#{dateStr}, '%')
+	</select>
+
 	<select id="selectById" parameterType="int" resultType="com.example.app.domain.Schedule">
 		SELECT * FROM schedules WHERE delete_flg = 0 AND id = #{id}
 	</select>

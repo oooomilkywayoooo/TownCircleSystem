@@ -15,4 +15,6 @@ public class CircularBoard {
 	private Date created;
 	// 画像のアップロード
 	private MultipartFile upfile;
+	// 作成日
+	private Date createDate;
 }

@@ -1,78 +1,63 @@
 <!DOCTYPE html>
-<html lang="ja">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bxslider@4.2.17/dist/jquery.bxslider.min.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru&family=Pacifico&family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
-  <script src="js/jquery-3.7.1.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bxslider@4.2.17/dist/jquery.bxslider.min.js"></script>
-  <script src="js/bootstrap.bundle.min.js"></script>
-  <script src="js/main.js"></script>
-  <title>町内会システム | PREVBOARD</title>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{/common/metaCommon :: common_head}">
+<title>町内会システム | PREVBOARD</title>
 </head>
 
 <body>
-  <!-- ヘッダー -->
-  <header id="header">
-    <!-- ヘッダーをインクルード -->
-  </header>
+	<!-- ヘッダー -->
+	<header id="header">
+		<!-- 通常ヘッダー-->
+		<th:block th:insert="~{/common/afterLoginHeader :: member_header}"></th:block>
+		<!-- ハンバーガーヘッダー-->
+		<th:block
+			th:insert="~{/common/hamburgerMenu :: member_hamburgerHeader}"></th:block>
+	</header>
 
-  <!-- メイン画面 -->
-  <main>
-    <div class="container-fluid">
-      <div class="row" id="sidemenu">
-        <!-- サイドメニューをインクルード -->
-        <!-- メイン画面 -->
-        <div class="col-lg-9 main-view">
-          <h2>回覧板(過去)</h2>
-          <div class="row prevbord-main">
-            <!-- DBの過去の回覧板登録年月を取得 -->
-            <div class="col-lg-2 col-6 ms-3">
-              <select name="prev-bord-ym" id="prev-bord-ym" class="form-select" aria-label="Default select example">
-                <option value="202401">2024/01</option>
-                <option value="202402">2024/02</option>
-                <option value="202403">2024/03</option>
-              </select>
-            </div>
-            <div class="col-lg-12" id="slide_space">
-              <!-- 選択された年月に保存されている画像をDBから取得->表示 -->
-              <ul class="bxslider">
-                <li><a href="images/sample01.webp"><img alt="" src="images/sample01.webp" /></a></li>
-                <li><a href="images/sample02.jpg"><img alt="" src="images/sample02.jpg" /></a></li>
-                <li><a href="images/sample03.jpg"><img alt="" src="images/sample03.jpg" /></a></li>
-                <li><a href="images/sample04.jpg"><img alt="" src="images/sample04.jpg" /></a></li>
-                <li><a href="images/sample01.webp"><img alt="" src="images/sample01.webp" /></a></li>
-                <li><a href="images/sample02.jpg"><img alt="" src="images/sample02.jpg" /></a></li>
-                <li><a href="images/sample03.jpg"><img alt="" src="images/sample03.jpg" /></a></li>
-                <li><a href="images/sample04.jpg"><img alt="" src="images/sample04.jpg" /></a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="row">
-            <a class="d-grid gap-2 d-md-flex justify-content-end" href="bord.html">
-              <button id="prevbord" type="button" class="btn btn-outline-secondary me-md-4" type="button">
-                戻る
-              </button>
-            </a>
-          </div>
-        </div>
-        <!-- メイン画面終了 -->
-      </div>
-    </div>
-  </main>
+	<!-- メイン画面 -->
+	<main>
+		<div class="container-fluid">
+			<div class="row" id="sidemenu">
+				<!-- サイドメニュー-->
+				<th:block th:insert="~{/common/sideMenu :: common_sidemenu}"></th:block>
+				<!-- メイン画面 -->
+				<div class="col-lg-9 main-view">
+					<h2>回覧板(過去)</h2>
+					<div class="row prevboard-main">
+						<!-- DBの過去の回覧板登録年月を取得 -->
+						<div class="col-lg-3 col-6 ms-3">
+							<select name="prev-board-ym" id="prev-board-ym"
+								class="form-select" aria-label="Default select example"
+								onchange="changeYearAndMonth()">
+								<option th:each="ym : ${yearMonth}"
+									th:value="${#dates.format(ym.createDate, 'yyyy-MM')}">[[${#dates.format(ym.createDate,
+									'yyyy / MM')}]]</option>
+							</select>
+						</div>
+						<div class="col-lg-12" id="slide_space">
+							<!-- 選択された年月に保存されている画像をDBから取得->表示 -->
+							<ul class="bxslider">
+								<li th:each="prev : ${prevList}"><a
+									th:href="@{/{img}(img=${prev.filePath})}"><img alt=""
+										th:src="@{/{img}(img=${prev.filePath})}" width="200" /></a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="row d-grid gap-2 d-md-flex justify-content-end">
+						<a th:href="@{/board}" id="prevboard" type="button"
+							class="btn btn-outline-secondary me-md-4"> 戻る</a>
+					</div>
+				</div>
+				<!-- メイン画面終了 -->
+			</div>
+		</div>
+	</main>
 
-  <!-- フッター -->
-  <footer>
-    <div class="container-fluid">
-      <p>&copy; Town Circle 2024</p>
-    </div>
-  </footer>
+	<!-- フッター -->
+	<footer>
+		<div class="container-fluid">
+			<p>&copy; Town Circle 2024</p>
+		</div>
+	</footer>
 </body>
 </html>

@@ -1,79 +1,77 @@
 <!DOCTYPE html>
-<html lang="ja">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bxslider@4.2.17/dist/jquery.bxslider.min.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Kiwi+Maru&family=Pacifico&family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
-    rel="stylesheet">
-  <script src="js/jquery-3.7.1.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bxslider@4.2.17/dist/jquery.bxslider.min.js"></script>
-  <script src="js/bootstrap.bundle.min.js"></script>
-  <script src="js/main.js"></script>
-  <title>町内会システム | CHAT</title>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{/common/metaCommon :: common_head}">
+<title>町内会システム | CHAT</title>
 </head>
 
 <body>
-  <!-- ヘッダー -->
-  <header id="header">
-    <!-- ヘッダーをインクルード -->
-  </header>
+	<!-- ヘッダー -->
+	<header id="header">
+		<!-- 通常ヘッダー-->
+		<th:block th:insert="~{/common/afterLoginHeader :: member_header}"></th:block>
+		<!-- ハンバーガーヘッダー-->
+		<th:block
+			th:insert="~{/common/hamburgerMenu :: member_hamburgerHeader}"></th:block>
+	</header>
 
-  <!-- メイン画面 -->
-  <main>
-    <div class="container-fluid">
-      <div class="row" id="sidemenu">
-        <!-- サイドメニューをインクルード -->
-        <!-- メイン画面 -->
-        <div class="col-lg-9 main-view">
-          <h2>チャット</h2>
-          <div class="row">
-            <div class="col-lg-12 scroll">
-              <!-- DBにあるメッセージの数だけチャットメッセージを表示 -->
-              <div class="card my-3 chat-msg" style="width: 100%;">
-                <div class="card-header">
-                  <!-- DBに登録されたメッセージを送った人の名前 -->
-                  <span class="h5"><strong>会員氏名</strong></span>
-                  <!-- DBに登録されたメッセージを送った日時 -->
-                  <span class="ms-5">20XX/MM/dd</span>
-                </div>
-                <div class="card-body">
-                  <!-- DBに登録されたメッセージ -->
-                  <p>メッセージ本文です。<br>
-                    2段目の本文です。</p>
-                </div>
-              </div>
-              <!-- ここまで -->
-            </div>
-            <form class="row mt-auto" id="chat-textarea" action="" method="post">
-              <!-- HTMLには表示せずに名前の情報を送信 -->
-              <!-- HTMLには表示せずにsubmitをクリックした時間を送信 -->
-              <div class="col-11">
-                <textarea class="form-control bg-secondary-subtle" placeholder="ここにメッセージを入力"
-                  id="exampleFormControlTextarea1" rows="3"></textarea>
-              </div>
-              <div class="col-1 mt-auto mx-auto">
-                <input type="image" name="submit" width="40" height="40" src="/images/send.png">
-              </div>
-            </form>
-            <!-- メイン画面終了 -->
-          </div>
-        </div>
-  </main>
+	<!-- メイン画面 -->
+	<main>
+		<div class="container-fluid">
+			<div class="row" id="sidemenu">
+				<!-- サイドメニュー-->
+				<th:block th:insert="~{/common/sideMenu :: common_sidemenu}"></th:block>
+				<!-- メイン画面 -->
+				<div class="col-lg-9 main-view">
+					<h2>チャット</h2>
+					<div class="row">
+						<div class="col-lg-12 scroll">
+							<!-- DBにあるメッセージの数だけチャットメッセージを表示 -->
+							<div th:each="chat : ${chatList}" class="card my-3 chat-msg" style="width: 100%;">
+								<div class="card-header">
+									<!-- DBに登録されたメッセージを送った人の名前 -->
+									<span class="h5"><strong>[[${chat.member.name}]]</strong></span>
+									<!-- DBに登録されたメッセージを送った日時 -->
+									<span class="ms-5">[[${#dates.format(chat.created, 'yyyy/MM/dd(E) HH:mm:ss')}]]</span>
+								</div>
+								<div class="card-body">
+									<!-- DBに登録されたメッセージ -->
+									<p style="white-space: pre-wrap;">[[${chat.message}]]</p>
+								</div>
+							</div>
+							<!-- ここまで -->
+						</div>
+						<form class="row mt-auto" id="chat-textarea" action="" method="post" th:object="${chatMessage}">
+							<!-- 本文のエラーがある場合に表示 -->
+							<div th:if="${#fields.hasErrors('message')}"
+								class="row d-flex align-items-center error-messages">
+								<div class="alert alert-danger col-lg-9 col-8 offset-2 error"
+									role="alert">
+									<small><span th:errors="*{message}"></span></small>
+								</div>
+							</div>
+							<div class="col-11">
+								<textarea class="form-control bg-secondary-subtle"
+									placeholder="ここにメッセージを入力" th:field="*{message}"
+									rows="3"></textarea>
+							</div>
+							<div class="col-1 mt-auto mx-auto">
+								<input type="image" name="submit" width="40" height="40"
+									th:src="@{/images/send.png}">
+							</div>
+						</form>
+						<!-- メイン画面終了 -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
 
-  <!-- フッター -->
-  <footer>
-    <div class="container-fluid">
-      <p>&copy; Town Circle 2024</p>
-    </div>
-  </footer>
+	<!-- フッター -->
+	<footer>
+		<div class="container-fluid">
+			<p>&copy; Town Circle 2024</p>
+		</div>
+	</footer>
 </body>
 
 </html>

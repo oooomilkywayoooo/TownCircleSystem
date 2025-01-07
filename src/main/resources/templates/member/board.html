@@ -25,14 +25,14 @@
 					<h2>回覧板</h2>
 					<!-- DBの最新の回覧板更新日を取得 -->
 					<h3>
-						<img class="bordicon" th:src="@{/images/newIcon.png}" alt="NEW">
+						<img class="boardicon" th:src="@{/images/newIcon.png}" alt="NEW">
 						[[${#dates.format(latestDate, 'yyyy/MM/dd')}]]
 					</h3>
-					<div class="row bord-main justify-content-around">
+					<div class="row board-main justify-content-around">
 						<!-- DBの最新の回覧板画像を取得 繰り返し表示 -->
-						<div th:each="board : ${boardList}" class="col-lg-4 bord">
+						<div th:each="board : ${boardList}" class="col-lg-4 board">
 							<a th:href="@{/{img}(img=${board.filePath})}" target="_blank"> <img
-								class="bordimg" th:src="@{/{img}(img=${board.filePath})}" th:alt="${board.name}">
+								class="boardimg" th:src="@{/{img}(img=${board.filePath})}" th:alt="${board.name}">
 							</a>
 							<div class="d-flex justify-content-between align-items-center">
 							<span class="badge text-bg-success" th:if="${readList == null or readList.contains(board.id)}">既読</span>
@@ -46,13 +46,10 @@
 							<!-- ここまで -->
 						</div>
 					</div>
-					<div class="row">
-						<a class="d-grid gap-2 d-md-flex justify-content-end"
-							th:href="@{/prevbord}">
-							<button id="prevbord" type="button"
+					<div class="row d-grid gap-2 d-md-flex justify-content-end">
+							<a th:href="@{/prevboard/{selectMonth}(selectMonth=${currentYearMonth})}" id="prevboard" type="button"
 								class="btn btn-outline-secondary me-lg-4">
-								過去の回覧板一覧</button>
-						</a>
+								過去の回覧板一覧</a>
 					</div>
 				</div>
 				<!-- メイン画面終了 -->

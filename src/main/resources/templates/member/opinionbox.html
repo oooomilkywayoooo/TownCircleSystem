@@ -1,66 +1,66 @@
 <!DOCTYPE html>
-<html lang="ja">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bxslider@4.2.17/dist/jquery.bxslider.min.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru&family=Pacifico&family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
-  <script src="js/jquery-3.7.1.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bxslider@4.2.17/dist/jquery.bxslider.min.js"></script>
-  <script src="js/bootstrap.bundle.min.js"></script>
-  <script src="js/main.js"></script>
-  <title>町内会システム | OPINION-BOX</title>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{/common/metaCommon :: common_head}">
+<title>町内会システム | OPINION-BOX</title>
 </head>
 
 <body>
-  <!-- ヘッダー -->
-  <header id="header">
-    <!-- ヘッダーをインクルード -->
-  </header>
+	<!-- ヘッダー -->
+	<header id="header">
+		<!-- 通常ヘッダー-->
+		<th:block th:insert="~{/common/afterLoginHeader :: member_header}"></th:block>
+		<!-- ハンバーガーヘッダー-->
+		<th:block
+			th:insert="~{/common/hamburgerMenu :: member_hamburgerHeader}"></th:block>
+	</header>
 
-  <!-- メイン画面 -->
-  <main>
-    <div class="container-fluid">
-      <div class="row" id="sidemenu">
-        <!-- サイドメニューをインクルード -->
-        <!-- メイン画面 -->
-        <div class="col-lg-9 main-view">
-          <h2>ご意見箱</h2>
-          <div class="row">
-            <div class="col-lg-8 offset-lg-2 col-10 offset-1 mt-lg-4">
-              <!-- 送信ボタンクリックで指定のメールアドレスに送信できる機能を実装 -->
-            <form action="" method="post">
-              <label for="exampleFormControlTextarea1" class="form-label">入力フォーム</label>
-              <textarea class="form-control" id="exampleFormControlTextarea1" rows="10"></textarea>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="anonymous">
-                <label class="form-check-label" for="anonymous">
-                  匿名で送信する
-                </label>
-              </div>
-              <div class="text-center">
-                <button type="submit" class="btn btn-outline-primary mt-5">送信する</button>
-              </div>
-            </form>
-            </div>
-          </div>
-        </div>
-        <!-- メイン画面終了 -->
-      </div>
-    </div>
-  </main>
+	<!-- メイン画面 -->
+	<main>
+		<div class="container-fluid">
+			<div class="row" id="sidemenu">
+				<!-- サイドメニュー-->
+				<th:block th:insert="~{/common/sideMenu :: common_sidemenu}"></th:block>
+				<!-- メイン画面 -->
+				<div class="col-lg-9 main-view">
+					<h2>ご意見箱</h2>
+					<div class="row">
+						<div class="col-lg-8 offset-lg-2 col-10 offset-1 mt-lg-4">
+							<!-- 送信ボタンクリックで指定のメールアドレスに送信できる機能を実装 -->
+							<form action="" method="post" th:object="${opinion}">
+							<!-- エラーがある場合に表示 -->
+							<div
+								th:if="${#fields.hasErrors('content')}"
+								class="row error-messages">
+								<div class="alert alert-danger col-lg-9 col-8 error"
+									role="alert">
+									<span th:errors="*{content}"></span>
+								</div>
+							</div>
+								<label for="content" class="form-label">入力フォーム</label>
+								<textarea class="form-control" th:field="*{content}"
+									rows="10"></textarea>
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" id="anonymous" name="anonymous">
+									<label class="form-check-label" for="anonymous">
+										匿名で送信する </label>
+								</div>
+								<div class="text-center">
+									<button type="submit" class="btn btn-outline-primary mt-5">送信する</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<!-- メイン画面終了 -->
+			</div>
+		</div>
+	</main>
 
-  <!-- フッター -->
-  <footer>
-    <div class="container-fluid">
-      <p>&copy; Town Circle 2024</p>
-    </div>
-  </footer>
+	<!-- フッター -->
+	<footer>
+		<div class="container-fluid">
+			<p>&copy; Town Circle 2024</p>
+		</div>
+	</footer>
 </body>
 </html>

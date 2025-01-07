@@ -145,7 +145,7 @@
 						<div class="row">
 							<!-- 大画面フォーム -->
 							<div class="bigScreen d-lg-flex">
-								<div class="col-lg-4 offset-2 mt-2">
+								<div class="col-lg-2 offset-2 mt-2">
 									<select th:field="*{group.id}" class="form-select">
 										<option th:each="g : ${groupList}" th:value="${g.id}"
 											th:text="${g.name}"></option>
@@ -155,7 +155,7 @@
 							<!-- タブレット・スマホフォーム -->
 							<div class="mobile">
 								<div class="row">
-									<div class="col-4 mt-2">
+									<div class="col-4 offset-2 mt-2">
 										<select th:field="*{group.id}" class="form-select">
 											<option th:each="g : ${groupList}" th:value="${g.id}"
 												th:text="${g.name}"></option>
