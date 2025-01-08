@@ -44,7 +44,7 @@
 		opinions.id, opinions.content, opinions.created,
 		members.name AS memberName
 		FROM opinions
-		JOIN members
+		LEFT JOIN members
 		ON opinions.member_id = members.id
 		ORDER BY created DESC
 		LIMIT #{offset}, #{num}

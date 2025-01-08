@@ -21,7 +21,8 @@
 			<tr th:each="opinion : ${opinionList}">
 				<th scope="row">[[${opinion.id}]]</th>
 				<td>[[${opinion.content}]]</td>
-				<td>[[${opinion.member.name}]]</td>
+				<td th:if="${opinion.member == null}">匿名</td>
+				<td th:unless="${opinion.member == null}">[[${opinion.member.name}]]</td>
 				<td>[[${#dates.format(opinion.created, 'yyyy/MM/dd')}]]</td>
 			</tr>
 		</tbody>

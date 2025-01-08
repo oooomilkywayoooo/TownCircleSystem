@@ -236,7 +236,7 @@ public class MemberController {
 			return "member/opinionbox";
 		}
 
-		if (anonymous) {
+		if (!anonymous) {
 			Integer memberId = (Integer) session.getAttribute("memberId");
 			Member member = memberService.getMemberById(memberId);
 			opinion.setMember(member);
