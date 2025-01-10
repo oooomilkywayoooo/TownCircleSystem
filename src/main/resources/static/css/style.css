@@ -88,6 +88,10 @@ main .container-fluid {
   background-color: #fff;
 }
 
+#home-only {
+	padding-top: 10px;
+}
+
 .icon {
   width: 25px;
   height: 20px;

@@ -41,14 +41,14 @@
 							<!-- ここまで -->
 						</div>
 						<form class="row mt-auto" id="chat-textarea" action="" method="post" th:object="${chatMessage}">
-							<!-- 本文のエラーがある場合に表示 -->
-							<div th:if="${#fields.hasErrors('message')}"
+							<!-- 本文のエラーがある場合は何もせずにチャット画面再表示 -->
+							<!-- <div th:if="${#fields.hasErrors('message')}"
 								class="row d-flex align-items-center error-messages">
 								<div class="alert alert-danger col-lg-9 col-8 offset-2 error"
 									role="alert">
 									<small><span th:errors="*{message}"></span></small>
 								</div>
-							</div>
+							</div> -->
 							<div class="col-11">
 								<textarea class="form-control bg-secondary-subtle"
 									placeholder="ここにメッセージを入力" th:field="*{message}"

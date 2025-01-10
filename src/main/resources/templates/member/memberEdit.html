@@ -5,6 +5,8 @@
 </head>
 
 <body>
+	<!-- エラーメッセージ用画像 -->
+	<th:block th:insert="~{/common/metaCommon :: common_alert_image}"></th:block>
 	<!-- ヘッダー -->
 	<header id="header">
 		<!-- 通常ヘッダー-->
@@ -26,7 +28,11 @@
 							class="row error-messages">
 							<div class="alert alert-danger col-lg-9 col-8 offset-2 error"
 								role="alert">
-								<p th:errors="*{name}"></p>
+								<svg class="bi flex-shrink-0 me-2" role="img"
+									aria-label="Danger:">
+    								<use xlink:href="#exclamation-triangle-fill" />
+ 								</svg>
+								<span th:errors="*{name}"></span>
 							</div>
 						</div>
 						<!-- 名前（漢字） -->
@@ -56,7 +62,11 @@
 							class="row error-messages">
 							<div class="alert alert-danger col-lg-9 col-8 offset-2 error"
 								role="alert">
-								<p th:errors="*{nameKana}"></p>
+								<svg class="bi flex-shrink-0 me-2" role="img"
+									aria-label="Danger:">
+    								<use xlink:href="#exclamation-triangle-fill" />
+ 								</svg>
+								<span th:errors="*{nameKana}"></span>
 							</div>
 						</div>
 						<!-- 名前（カタカナ） -->
@@ -86,7 +96,11 @@
 							class="row error-messages">
 							<div class="alert alert-danger col-lg-9 col-8 offset-2 error"
 								role="alert">
-								<p th:errors="*{address}"></p>
+								<svg class="bi flex-shrink-0 me-2" role="img"
+									aria-label="Danger:">
+    								<use xlink:href="#exclamation-triangle-fill" />
+ 								</svg>
+								<span th:errors="*{address}"></span>
 							</div>
 						</div>
 						<!-- 住所 -->
@@ -116,7 +130,11 @@
 							class="row error-messages">
 							<div class="alert alert-danger col-lg-9 col-8 offset-2 error"
 								role="alert">
-								<p th:errors="*{tel}"></p>
+								<svg class="bi flex-shrink-0 me-2" role="img"
+									aria-label="Danger:">
+    								<use xlink:href="#exclamation-triangle-fill" />
+ 								</svg>
+								<span th:errors="*{tel}"></span>
 							</div>
 						</div>
 						<!-- 電話番号 -->
@@ -169,7 +187,11 @@
 							class="row error-messages">
 							<div class="alert alert-danger col-lg-9 col-8 offset-2 error"
 								role="alert">
-								<p th:errors="*{familyNumber}"></p>
+								<svg class="bi flex-shrink-0 me-2" role="img"
+									aria-label="Danger:">
+    								<use xlink:href="#exclamation-triangle-fill" />
+ 								</svg>
+								<span th:errors="*{familyNumber}"></span>
 							</div>
 						</div>
 						<!-- 家族人数 -->

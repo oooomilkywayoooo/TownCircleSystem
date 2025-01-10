@@ -5,6 +5,8 @@
 </head>
 
 <body>
+	<!-- エラーメッセージ用画像 -->
+	<th:block th:insert="~{/common/metaCommon :: common_alert_image}"></th:block>
 	<!-- ヘッダー -->
 	<header id="header">
 		<!-- 通常ヘッダー-->
@@ -33,6 +35,10 @@
 								class="row error-messages">
 								<div class="alert alert-danger col-lg-9 col-8 error"
 									role="alert">
+									<svg class="bi flex-shrink-0 me-2" role="img"
+										aria-label="Danger:">
+    								<use xlink:href="#exclamation-triangle-fill" />
+ 									</svg>
 									<span th:errors="*{content}"></span>
 								</div>
 							</div>

@@ -7,13 +7,14 @@
 <body>
 	<!-- エラーメッセージ用画像 -->
 	<th:block th:insert="~{/common/metaCommon :: common_alert_image}"></th:block>
-	
+
 	<!-- ヘッダー -->
 	<header id="header">
 		<!-- 通常ヘッダー-->
 		<th:block th:insert="~{/common/afterLoginHeader :: member_header}"></th:block>
 		<!-- ハンバーガーヘッダー-->
-		<th:block th:insert="~{/common/hamburgerMenu :: member_hamburgerHeader}"></th:block>
+		<th:block
+			th:insert="~{/common/hamburgerMenu :: member_hamburgerHeader}"></th:block>
 	</header>
 
 	<!-- メイン画面 -->
@@ -23,20 +24,25 @@
 				<!-- サイドメニュー-->
 				<th:block th:insert="~{/common/sideMenu :: common_sidemenu}"></th:block>
 				<!-- メイン画面 -->
-				<div class="col-lg-9 main-view">
-				<!-- メッセージを表示 -->
-					<div th:if="${statusMessage}" class="col-4 alert alert-success mt-3" role="alert">
-					<svg class="bi flex-shrink-0 me-2" role="img" aria-label="Success:" width="16" height="16"><use xlink:href="#check-circle-fill"/></svg>
-						[[${statusMessage}]]
+				<div class="col-lg-9 main-view mt-3">
+					<div class="d-flex align-items-center">
+						<h2 id="home-only">ホーム</h2>
+						<!-- メッセージを表示 -->
+						<div th:if="${statusMessage}"
+							class="col-lg-4 alert alert-success mt-3 py-2" role="alert">
+							<svg class="bi flex-shrink-0 me-2" role="img"
+								aria-label="Success:" width="16" height="16">
+								<use xlink:href="#check-circle-fill" /></svg>
+							[[${statusMessage}]]
+						</div>
 					</div>
-					<h2>ホーム</h2>
 					<div class="row home-main">
 						<div class="col-lg-6 info">
 							<table class="table table-bordered">
 								<thead class="text-center">
 									<tr>
-										<th colspan="2"><img class="icon" src="images/infomation.png"
-											alt="お知らせ">お知らせ</th>
+										<th colspan="2"><img class="icon"
+											src="images/infomation.png" alt="お知らせ">お知らせ</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -57,8 +63,8 @@
 									<table class="table table-bordered">
 										<thead class="text-center">
 											<tr>
-												<th colspan="2"><img class="icon" src="images/event.png" alt="イベント">今月の行事
-												</th>
+												<th colspan="2"><img class="icon"
+													src="images/event.png" alt="イベント">今月の行事</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -67,7 +73,8 @@
 												<th>イベント</th>
 											</tr>
 											<tr th:each="event : ${scheduleList}">
-												<td>[[${#dates.format(event.eventAt, 'yyyy/MM/dd(E)')}]]</td>
+												<td>[[${#dates.format(event.eventAt,
+													'yyyy/MM/dd(E)')}]]</td>
 												<td>[[${event.content}]]</td>
 											</tr>
 											<!-- ここまで -->
