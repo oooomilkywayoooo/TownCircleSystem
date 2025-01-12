@@ -15,7 +15,7 @@
 		<thead>
 			<tr>
 				<th scope="col">ID</th>
-				<th scope="col">イベント内容</th>
+				<th scope="col">イベントタイトル</th>
 				<th scope="col">開催日</th>
 				<th scope="col" colspan="2"></th>
 			</tr>
@@ -23,7 +23,7 @@
 		<tbody>
 			<tr th:each="schedule : ${scheduleList}">
 				<th scope="row">[[${schedule.id}]]</th>
-				<td>[[${schedule.content}]]</td>
+				<td>[[${schedule.title}]]</td>
 				<td>[[${#dates.format(schedule.eventAt, 'yyyy/MM/dd(E)
 					HH:mm')}]]~</td>
 				<td class="t-btn"><a th:href="@{/admin/scheduleEdit/{id}(id=${schedule.id})}"

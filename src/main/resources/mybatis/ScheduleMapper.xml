@@ -6,7 +6,7 @@
 		SELECT * FROM schedules WHERE delete_flg = 0
 	</select>
 	<select id="selectCurrentMonthList" resultType="com.example.app.domain.Schedule">
-		SELECT content, event_at FROM schedules
+		SELECT title, event_at FROM schedules
 		WHERE EXTRACT(YEAR FROM event_at) = EXTRACT(YEAR FROM CURRENT_DATE)
 			AND EXTRACT(MONTH FROM event_at) = EXTRACT(MONTH FROM CURRENT_DATE)
 			AND delete_flg = 0
@@ -21,13 +21,13 @@
 	</select>
 	<insert id="insert"
 		parameterType="com.example.app.domain.Schedule">
-		INSERT INTO schedules (content, event_at, created, updated)
-		VALUES (#{content}, #{eventAt}, NOW(), NOW())
+		INSERT INTO schedules (title, content, event_at, created, updated)
+		VALUES (#{title}, #{content}, #{eventAt}, NOW(), NOW())
 	</insert>
 	<update id="update"
 		parameterType="com.example.app.domain.Schedule">
 		UPDATE schedules
-		SET content = #{content}, event_at = #{eventAt}, updated = NOW()
+		SET title = #{title}, content = #{content}, event_at = #{eventAt}, updated = NOW()
 		WHERE id = #{id}
 	</update>
 	<update id="delete" parameterType="com.example.app.domain.Schedule">

@@ -31,11 +31,13 @@
 							</div>
 						</div>
 					</div>
-
-					<label for="content" class="form-label py-3">イベント内容</label> <input
-						type="text" th:field="*{content}" class="form-control"> <label
-						for="eventAt" class="form-label py-3">イベント開催日</label> <input
-						type="datetime-local" th:field="*{eventAt}" class="form-control">
+					
+					<label for="title" class="form-label py-3">イベントタイトル</label> 
+					<input type="text" th:field="*{title}" class="form-control"> 
+					<label for="content" class="form-label py-3">イベント内容</label> 
+					<textarea class="form-control" th:field="*{content}" rows="5" ></textarea>
+					<label for="eventAt" class="form-label py-3">イベント開催日</label> 
+					<input type="datetime-local" th:field="*{eventAt}" class="form-control">
 					<div class="text-center">
 						<button type="submit" class="btn btn-outline-primary mt-5">編集</button>
 					</div>
