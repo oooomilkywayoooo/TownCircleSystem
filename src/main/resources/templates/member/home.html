@@ -75,7 +75,7 @@
 											<tr th:each="event : ${scheduleList}">
 												<td>[[${#dates.format(event.eventAt,
 													'yyyy/MM/dd(E)')}]]</td>
-												<td>[[${event.content}]]</td>
+												<td>[[${event.title}]]</td>
 											</tr>
 											<!-- ここまで -->
 										</tbody>

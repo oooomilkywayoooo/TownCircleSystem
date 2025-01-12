@@ -12,6 +12,8 @@ import lombok.Data;
 public class Schedule {
 	private Integer id;
 	@NotBlank
+	private String title;
+	@NotBlank
 	private String content;
 	@NotNull
 	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")

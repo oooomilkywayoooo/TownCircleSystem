@@ -20,6 +20,7 @@ import com.example.app.domain.CircularBoard;
 import com.example.app.domain.Member;
 import com.example.app.domain.Opinion;
 import com.example.app.domain.ReadStatus;
+import com.example.app.domain.Schedule;
 import com.example.app.service.AdminService;
 import com.example.app.service.ChatMessageService;
 import com.example.app.service.CircularBoardService;
@@ -153,6 +154,13 @@ public class MemberController {
 		// 選択月のスケジュール取得
 		model.addAttribute("scheduleList", scheduleService.getByEventList(selectMonth));
 		return "member/schedule";
+	}
+	
+	@GetMapping("/scheduleShow/{id}")
+	public String showSchedule(@PathVariable("id") Integer id, Model model) throws Exception {
+	    Schedule event = scheduleService.getScheduleById(id);
+	    model.addAttribute("event", event);
+	    return "member/scheduleShow";
 	}
 
 	/////////////////
