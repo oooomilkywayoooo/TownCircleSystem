@@ -57,6 +57,10 @@ header li {
   margin-left: 40px;
 }
 
+header img {
+	height: 80px;
+}
+
 #user-btn {
   background-color: #F9F6EA;
   color: #98C2B1;

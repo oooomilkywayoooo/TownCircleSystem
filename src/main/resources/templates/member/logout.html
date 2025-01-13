@@ -8,7 +8,12 @@
   <!-- ヘッダー -->
   <header>
     <div class="container-fluid">
-      <h1 class="my-auto"><a th:href="@{/home}"><img th:src="@{/images/townSystem-logo.png}" alt="町内会システム"></a></h1>
+      <h1 class="my-auto">
+	      <a th:href="@{/home}">
+	      	<img class="bigScreen" th:src="@{/images/desktop_logo.png}" alt="町内会システム">
+					<img class="mobile" th:src="@{/images/mobile_logo.png}" alt="町内会システム">
+	      </a>
+      </h1>
     </div>
   </header>
 
